@@ -4,7 +4,8 @@
         <Form class="mt-10">
             <base-input name="phoneNumber" number label="شماره تلفن" placeholder="093511100156" />
             <base-input-password name="password" placeholder="**************" class="mt-4 mb-2" label="رمز عبور" />
-            <nuxt-link to="/" class="text-blue ">کلمه عبور خود را فراموش کرده اید؟</nuxt-link>
+            <button type="button" @click="authStore.changeStep('forgotPassword')" class="text-blue ">کلمه عبور خود را فراموش کرده
+                اید؟</button>
         </Form>
         <base-button class="w-full mt-9" size="lg">ورود</base-button>
         <base-line-text class="text-xl my-8">

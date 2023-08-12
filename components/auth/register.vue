@@ -6,7 +6,6 @@
             <base-input name="phoneNumber" number class="mt-4 mb-2" label="شماره تلفن" placeholder="093511100156" />
             <base-input-password name="password" placeholder="**************" class="mt-4 mb-2" label="رمز عبور" />
             <base-input-password name="password" placeholder="**************" class="mt-4 mb-2" label="تکرار رمز عبور" />
-            <nuxt-link to="/" class="text-blue ">کلمه عبور خود را فراموش کرده اید؟</nuxt-link>
         </Form>
         <base-button class="w-full mt-9" size="lg">ثبت نام</base-button>
         <base-line-text class="text-xl my-8">

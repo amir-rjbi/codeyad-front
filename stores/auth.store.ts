@@ -4,8 +4,24 @@ export const useAuthStore = defineStore("auth", () => {
   const isOpenModal = ref(false);
   const currentStep = ref("login");
 
-  const changeStep = (step: "login" | "register") => {
+  const changeStep = (
+    step: "login" | "register" | "forgotPassword" | "activate"
+  ) => {
     currentStep.value = step;
   };
-  return { isOpenModal, changeStep, currentStep };
+  const openRegisterModal = () => {
+    currentStep.value = "register";
+    isOpenModal.value = true;
+  };
+  const openLoginModal = () => {
+    currentStep.value = "login";
+    isOpenModal.value = true;
+  };
+  return {
+    isOpenModal,
+    changeStep,
+    currentStep,
+    openLoginModal,
+    openRegisterModal,
+  };
 });

@@ -1,11 +1,18 @@
 <template>
     <header>
+        <Transition name="page">
+            <div class="sidebar-back" v-if="isOpenSidebar" @click="isOpenSidebar = false"></div>
+        </Transition>
+        <Transition enter-active-class="animate__animated animate__slideInRight animate__faster"
+            leave-active-class="animate__animated animate__slideOutRight animate__faster">
+            <TheMobileSideBar v-if="isOpenSidebar" @closeSideBar="() => isOpenSidebar = false" />
+        </Transition>
         <div class="text-banner">
             <p>"کدنویسی، هنری برای خلق دنیای بهتر"</p>
         </div>
         <div class="container">
             <section class="middel gap-3">
-                <IconsHamburger class="hidden sm:block" />
+                <IconsHamburger class="hidden sm:block" @click="isOpenSidebar = true" />
                 <div class="flex items-center gap-9 w-fit lg:justify-center">
                     <img src="/logo.png" alt="logo" />
                     <div class="search lg:!hidden">
@@ -41,7 +48,7 @@
                         </li>
                     </ul>
                 </nav>
-                <BaseButton @click="authStore.isOpenModal=true" size="sm " class="sm:hidden">ورود/ثبت نام</BaseButton>
+                <BaseButton @click="authStore.isOpenModal = true" size="sm " class="sm:hidden">ورود/ثبت نام</BaseButton>
                 <IconsSearch hash-color="var(--color-black)" class="hidden sm:block" />
             </section>
 
@@ -53,8 +60,18 @@
 import { useAuthStore } from '~~/stores/auth.store';
 
 const authStore = useAuthStore();
+const isOpenSidebar = ref(false);
 </script>
 <style scoped lang="scss">
+.sidebar-back {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    right: 0;
+    background: rgba(0, 0, 0, 0.473);
+    z-index: 100;
+}
+
 header {
     position: relative;
 
