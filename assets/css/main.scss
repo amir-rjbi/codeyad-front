@@ -24,14 +24,6 @@ html {
 .v-popper__popper {
     font-size: 12px
 }
-
-@media screen and (max-width:1536px) {
-    body {
-        font-size: var(--h8-font-size);
-
-    }
-}
-
 @layer components {
     .card {
         @apply bg-white rounded shadow-md pt-2 pb-2 pr-4 pl-4;
@@ -176,6 +168,16 @@ p {
         font-size: var(--h6-font-size);
         color: rgba(8, 8, 8, 0.25);
     }
+}
+@media screen and (max-width:1536px) {
+    body {
+        font-size: var(--h8-font-size);
 
+    }
+}
 
+@media screen and (max-width:768px) {
+    .btn{
+       padding: .60rem 3rem;
+    }
 }
