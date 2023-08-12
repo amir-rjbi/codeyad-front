@@ -7,7 +7,7 @@
             <section class="middel gap-3">
                 <IconsHamburger class="hidden sm:block" />
                 <div class="flex items-center gap-9 w-fit lg:justify-center">
-                    <base-img src="static/logo.png" alt="logo" />
+                    <img src="/logo.png" alt="logo" />
                     <div class="search lg:!hidden">
                         <input type="text" placeholder="هرچی میخوای جست و جو کن" />
                         <button>
