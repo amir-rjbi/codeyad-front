@@ -286,18 +286,22 @@ function formatTime(timeInSeconds: number) {
 @media screen and (max-width:768px) {
     .progress {
         position: absolute !important;
-        top: 89%;
+        bottom: -1rem;
         right: 0;
     }
 
     .codeyad-video-player {
         height: fit-content !important;
     }
+
+    .controls {
+        position: relative;
+    }
 }
 
 .codeyad-video-player {
     width: 100%;
-    height: 31rem;
+    min-height: 31rem;
     position: relative;
 
     .in-load {
@@ -343,7 +347,7 @@ function formatTime(timeInSeconds: number) {
             &::after {
                 width: 10px;
                 height: 10px;
-            @apply bg-blue-400 ;
+                @apply bg-blue-400;
                 content: "";
                 bottom: -3px;
                 border-radius: 50%;
@@ -365,7 +369,7 @@ function formatTime(timeInSeconds: number) {
     .video {
         position: relative;
         cursor: pointer;
-        height: 100%;
+
         &:hover {
             button {
                 display: block !important;
