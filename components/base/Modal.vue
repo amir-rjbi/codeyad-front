@@ -100,12 +100,12 @@ watch(
     () => props.modelValue,
     (val) => {
         if (val) {
-            // document.body.style.overflow = "hidden";
+            document.body.style.overflow = "hidden";
             setTimeout(() => {
                 showModal.value = true;
             }, 150);
         } else {
-            // document.body.style.overflow = "auto";
+            document.body.style.overflow = "auto";
             showModal.value = false;
         }
     }

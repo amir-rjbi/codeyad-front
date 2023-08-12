@@ -10,13 +10,13 @@
         </Form>
         <base-button class="w-full mt-9" size="lg">ثبت نام</base-button>
         <base-line-text class="text-xl my-8">
-            ثبت نام
+            یا
         </base-line-text>
         <base-button class="w-full mt-9 font-bold" transparent>
             <template #icon>
                 <IconsGoogle width="40" height="40" />
             </template>
-            ورود با گوگل
+            ثبت نام از طریق گوگل
         </base-button>
 
         <div class="flex gap-4 items-center justify-center mt-6">
