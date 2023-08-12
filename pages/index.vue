@@ -11,4 +11,7 @@
 <script setup lang="ts">
 import { Form } from "vee-validate";
 const isOpenModal = ref(false);
+definePageMeta({
+    colorMode: 'light'
+})
 </script>

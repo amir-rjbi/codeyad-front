@@ -40,9 +40,10 @@
         <h2>سلام 2</h2>
         <p>سلام</p>
     </base-card>
-    
 </template>
 <script setup lang="ts">
 const colorMode = useColorMode()
-
+definePageMeta({
+    colorMode: 'light'
+})
 </script>
