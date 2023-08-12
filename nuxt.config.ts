@@ -18,6 +18,7 @@ export default defineNuxtConfig({
   css: ["@/assets/css/main.scss", "@/assets/css/dark.scss"],
   colorMode: {
     classSuffix: "",
+    dataValue:'light'
   },
   app: {
     pageTransition: {
