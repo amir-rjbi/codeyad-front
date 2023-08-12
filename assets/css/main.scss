@@ -1,0 +1,179 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+
+
+body {
+    background: linear-gradient(0deg, rgba(40, 107, 184, 0.08) 0%, rgba(40, 107, 184, 0.08) 100%), #FFF;
+    font-family: var(--h2-font-family);
+    direction: rtl;
+    text-align: right;
+    font-size: var(--h7-font-size);
+    overflow-x: hidden;
+    color: var(--body-text-color);
+    min-height: 100vh;
+}
+
+html {
+    overflow-x: hidden
+}
+
+.v-popper__popper {
+    font-size: 12px
+}
+
+@media screen and (max-width:1536px) {
+    body {
+        font-size: var(--h8-font-size);
+
+    }
+}
+
+@layer components {
+    .card {
+        @apply bg-white rounded shadow-md pt-2 pb-2 pr-4 pl-4;
+    }
+
+    .btn {
+        @apply relative w-fit items-center justify-center flex py-3 px-12 rounded-sm transition-all ease-in delay-50;
+        border-width: 2px;
+        border-color: transparent;
+        height: fit-content
+    }
+
+    .btn.btn-white {
+        @apply text-blue border-none bg-white;
+    }
+
+    .btn.btn-white:hover {
+        @apply bg-slate-100
+    }
+
+    .input-group {
+        position: relative;
+
+
+    }
+
+    .input-label {
+        color: var(--color-blue-gray-700);
+        font-weight: 600;
+        font-size: var(--h8-font-size);
+        margin-bottom: 0.29rem;
+        display: block;
+    }
+
+    .form-control {
+        background: var(--color-blue-gray-050);
+        border-radius: 18.505px;
+        color: var(--color-black);
+        width: 100%;
+        padding: 1.16rem;
+
+        &::placeholder {
+            color: var(--color-blue-gray-400);
+        }
+    }
+}
+
+:root {
+    --h1-font-family: "iransans-bold";
+    --h2-font-family: "iransans";
+    --h1-font-size: 50px;
+    --h2-font-size: 40px;
+    --h3-font-size: 30px;
+    --h4-font-size: 25px;
+    --h5-font-size: 20px;
+    --h6-font-size: 18px;
+    --h7-font-size: 16px;
+    --h8-font-size: 14px;
+    --primary-color: #286BB8;
+    --color-muted: #656565;
+    --color-black: #080808;
+    --color-white: white;
+    --color-blue-gray-400: #829AB1;
+    --color-blue-gray-200: #BCCCDC;
+    --color-blue-gray-050: #F0F4F8;
+    --color-blue-gray-600: #486581;
+    --color-blue-gray-700: #334E68;
+    --color-gray-300: #C1C1C1;
+    --color-gray-200: #f7f7f7;
+    --color-gray-400: #464646;
+    --body-text-color: "rgba(20, 20, 20, 0.80)"
+}
+
+h1 {
+    font-size: 50px;
+    font-weight: 700;
+    font-family: var(--h1-font-family);
+}
+
+h2 {
+    font-size: 40px;
+    font-weight: 700;
+}
+
+h3 {
+    font-size: 30px;
+    font-weight: 400;
+}
+
+h4 {
+    font-size: 25px;
+    font-weight: 400;
+}
+
+h5 {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+p {
+    font-size: var(--h7-font-size);
+    font-weight: 400;
+}
+
+@layer base {
+    @font-face {
+        font-family: "iransans";
+        src: local('iransans'), url(../fonts/IRANSans/woff2/IRANSansWeb_Light.woff2);
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: "iransans-bold";
+        src: local('iransan-bold'), url(../fonts/IRANSans/woff2/IRANSansWeb_Bold.woff2);
+        font-display: swap;
+    }
+
+    a:hover {
+        @apply text-blue transition-all delay-50
+    }
+
+    * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+    }
+
+    input {
+        outline: none !important;
+        padding: .5rem 1rem;
+        color: black;
+        background: white;
+        font-size: var(--h6-font-size);
+        font-weight: 400;
+    }
+
+    input::placeholder {
+        font-size: var(--h6-font-size);
+        color: rgba(8, 8, 8, 0.25);
+    }
+
+    .router-link-exact-active {
+        @apply text-blue
+    }
+}
