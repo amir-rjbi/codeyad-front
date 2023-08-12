@@ -55,7 +55,7 @@ const login = () => {
 <style scoped lang="scss">
 aside {
     width: 80%;
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     height: 100%;
