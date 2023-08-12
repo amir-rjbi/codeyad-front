@@ -7,7 +7,6 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  ssr: false,
   modules: [
     "@nuxtjs/color-mode",
     "@nuxt/image",

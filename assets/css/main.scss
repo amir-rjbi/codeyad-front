@@ -111,6 +111,10 @@ h1 {
     font-family: var(--h1-font-family);
 }
 
+.router-link-exact-active {
+    @apply text-blue
+}
+
 h2 {
     font-size: 40px;
     font-weight: 700;
@@ -173,7 +177,5 @@ p {
         color: rgba(8, 8, 8, 0.25);
     }
 
-    .router-link-exact-active {
-        @apply text-blue
-    }
+
 }
