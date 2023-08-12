@@ -1,11 +1,11 @@
 <template>
+    <Transition enter-active-class="animate__animated animate__slideInRight animate__faster"
+        leave-active-class="animate__animated animate__slideOutRight animate__faster">
+        <TheMobileSideBar v-if="isOpenSidebar" @closeSideBar="() => isOpenSidebar = false" />
+    </Transition>
     <header>
         <Transition name="page">
             <div class="sidebar-back" v-if="isOpenSidebar" @click="isOpenSidebar = false"></div>
-        </Transition>
-        <Transition enter-active-class="animate__animated animate__slideInRight animate__faster"
-            leave-active-class="animate__animated animate__slideOutRight animate__faster">
-            <TheMobileSideBar v-if="isOpenSidebar" @closeSideBar="() => isOpenSidebar = false" />
         </Transition>
         <div class="text-banner">
             <p>"کدنویسی، هنری برای خلق دنیای بهتر"</p>

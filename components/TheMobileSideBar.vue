@@ -58,7 +58,7 @@ aside {
     position: absolute;
     top: 0;
     right: 0;
-    height: 100vh;
+    height: 100%;
     z-index: 101;
     background: var(--color-white);
 
