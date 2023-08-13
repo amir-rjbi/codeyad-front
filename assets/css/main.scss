@@ -12,7 +12,6 @@ body {
     direction: rtl;
     text-align: right;
     font-size: var(--h7-font-size);
-    overflow-x: hidden;
     color: var(--body-text-color);
     min-height: 100vh;
 }
@@ -94,7 +93,7 @@ html {
     --color-gray-300: #C1C1C1;
     --color-gray-200: #f7f7f7;
     --color-gray-400: #464646;
-    --body-text-color: "rgba(20, 20, 20, 0.80)"
+    --body-text-color: rgba(20, 20, 20, 0.80)
 }
 
 h1 {

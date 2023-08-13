@@ -1,10 +1,10 @@
 <template>
     <div class="py-5">
         <div class="flex gap-3 mb-3">
-            <base-button to="/test" :render-button-tag="false">test</base-button>
+            <base-button to="/account" :render-button-tag="false">test</base-button>
             <base-button @click="authStore.isOpenModal = true">ورود</base-button>
         </div>
-        <div class="my-5 max-h-0 xl:w-2/3 mx-auto sm:!w-full " >
+        <div class="my-5  xl:w-2/3 mx-auto sm:!w-full " >
             <base-video-player src="https://dl.codeyad.com/videos/Courses/Demo/ef814b49-8642-4843-bad0-4430fa37836d.mp4" />
 
         </div>

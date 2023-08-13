@@ -292,6 +292,7 @@ function formatTime(timeInSeconds: number) {
 
     .codeyad-video-player {
         height: fit-content !important;
+        min-height: unset !important;
     }
 
     .controls {

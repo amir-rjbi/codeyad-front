@@ -84,6 +84,9 @@ module.exports = {
           "2xl": "6rem",
         },
       },
+      gap: {
+        19: "19px",
+      },
       screens: {
         xl: { max: "1536px" },
         lg: { max: "1280px" },
