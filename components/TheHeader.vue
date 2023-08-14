@@ -78,8 +78,7 @@ header {
     .text-banner {
         background: linear-gradient(270deg, #286BB8 0%, #5FA4F0 23.78%, #286BB6 49.83%, #62A6F3 72.74%, #286BB8 100%);
         width: 100%;
-        font-size: var(--t4-font-size);
-        font-family: var(--t4-font-family);
+        font-size: var(--h4-font-size);
         text-align: center;
         padding: 0.75rem;
         color: white;
@@ -124,8 +123,11 @@ header {
         .categories {
             ul {
                 @apply flex gap-10;
+                font-size: var(--h5-font-size);
 
-                li {}
+                li {
+                    a {}
+                }
             }
         }
     }

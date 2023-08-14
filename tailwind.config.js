@@ -81,7 +81,7 @@ module.exports = {
           DEFAULT: "1rem",
           lg: "2rem",
           xl: "4rem",
-          "2xl": "6rem",
+          "2xl": "3rem",
         },
       },
       gap: {
