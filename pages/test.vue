@@ -43,7 +43,4 @@
 </template>
 <script setup lang="ts">
 const colorMode = useColorMode()
-definePageMeta({
-    colorMode: 'light'
-})
 </script>

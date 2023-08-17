@@ -1,9 +1,9 @@
 <template>
     <div >
         <TheHeader />
-        <div class="flex relative">
+        <div class="flex relative sm:flex-col">
             <AccountThetSideBar />
-            <div class="container pt-4 pb-4">
+            <div class="container pt-4 pb-4 sm:!pt-1">
                 <slot />
             </div>
         </div>

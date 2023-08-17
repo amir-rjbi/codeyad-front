@@ -2,11 +2,12 @@
     <div>
         <label class="input-label" v-if="label">{{ label }}</label>
         <div :class="['input-group',]">
-            <input :type="type" :class="[
+            <input :type="type" :disabled="disabled" :class="[
                 'form-control ',
                 { 'bg-transparent': transparent },
                 { 'invalid-data': !!errorMessage },
                 { 'has-icon': $slots.icon },
+                { 'outline': outLine }
             ]" :placeholder="placeholder" :value="inputValue" :autofocus="autofocus" @input="modelValueChanged"
                 :name="name" autocomplete="off" :inputmode="number ? 'numeric' : 'text'" />
             <div class="input__icon " v-if="$slots.icon && !errorMessage">
@@ -68,6 +69,14 @@ const props = defineProps({
     label: {
         type: String,
         default: ""
+    },
+    outLine: {
+        type: Boolean,
+        default: false
+    },
+    disabled: {
+        type: Boolean,
+        default: false
     }
 });
 
@@ -143,5 +152,30 @@ const hasSlot = () => {
 
 .input {
     position: relative;
+}
+
+.form-control.outline {
+    border: 1px solid var(--color-dark-light);
+    background: transparent;
+    padding: 0.75rem 12px;
+    border-radius: 6px;
+    font-size: var(--h7-font-size);
+
+    &::placeholder {
+        font-size: var(--h7-font-size);
+        color: var(--color-dark-light);
+    }
+
+    &.invalid-data {
+        border-color: var(--color-error) !important;
+    }
+
+    &:focus {
+        border-color: var(--primary-color);
+    }
+
+    &:disabled {
+        background: #F2F2F2;
+    }
 }
 </style>

@@ -1,0 +1,61 @@
+@media screen and (max-width:768px) {
+    .header-categories {
+
+        div.swiper-button-prev,
+        div.swiper-button-next {
+            padding: 0.0 !important;
+            display: flex;
+            height: fit-content;
+            top: 2.3rem !important;
+            border-radius: 0.49rem !important;
+            content:
+                url('data:image/svg+xml,<svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.5927 18.723C14.8683 18.723 15.1133 18.6311 15.297 18.4473C15.6952 18.0798 15.6952 17.4367 15.297 17.0692L11.1014 12.843L15.297 8.64734C15.6952 8.27984 15.6952 7.63671 15.297 7.26921C14.9295 6.87109 14.2864 6.87109 13.9189 7.26921L9.01891 12.1692C8.62078 12.5367 8.62078 13.1798 9.01891 13.5473L13.9189 18.4473C14.1027 18.6311 14.3477 18.723 14.5927 18.723Z" fill="%23080808"/></svg>') !important;
+
+            background: linear-gradient(270deg, #FFF 34.38%, rgba(255, 255, 255, 0.00) 100%);
+        }
+
+        div.swiper-button-next {
+            left: -0.90rem !important;
+        }
+
+        div.swiper-button-prev {
+            right: -0.90rem !important;
+        }
+
+    }
+}
+
+.header-categories {
+    position: relative;
+
+    .swiper {
+        position: unset !important;
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        padding: 2rem;
+        border-radius: 0.75rem;
+        position: absolute;
+        top: 1rem !important;
+        background: linear-gradient(270deg, #FFF 34.38%, rgba(255, 255, 255, 0.00) 100%) !important;
+
+        &::after {
+            content:
+                url('data:image/svg+xml,<svg width="53" height="53" viewBox="0 0 53 53" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M29.5 35.5C29.9219 35.5 30.2969 35.3594 30.5781 35.0781C31.1875 34.5156 31.1875 33.5312 30.5781 32.9688L24.1562 26.5L30.5781 20.0781C31.1875 19.5156 31.1875 18.5312 30.5781 17.9688C30.0156 17.3594 29.0312 17.3594 28.4688 17.9688L20.9688 25.4688C20.3594 26.0312 20.3594 27.0156 20.9688 27.5781L28.4688 35.0781C28.75 35.3594 29.125 35.5 29.5 35.5Z" fill="%23080808"/></svg>') !important
+        }
+    }
+
+    .swiper-button-prev {
+        z-index: 100 !important;
+        right: 0 !important;
+        transform: rotate(180deg);
+    }
+
+    .swiper-button-next {
+        z-index: 100 !important;
+        left: 0rem !important;
+        right: unset !important;
+    }
+
+}

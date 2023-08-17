@@ -51,7 +51,8 @@ module.exports = {
           DEFAULT: "var(--color-black)",
         },
         red: {
-          DEFAULT: "#D40138",
+          // DEFAULT: "#D40138",
+          Default: "var(--color-error)",
           250: "#fef2f2",
           950: "#991b1b",
         },
@@ -66,6 +67,12 @@ module.exports = {
         },
         black: "#080808",
       },
+      container: (theme) => {
+        return {
+          center: true,
+          padding: "1rem",
+        };
+      },
       borderRadius: {
         DEFAULT: "0.75rem",
         sm: "0.75rem",
@@ -75,23 +82,14 @@ module.exports = {
       boxShadow: {
         md: "17px 37px 42px 0px rgba(160, 160, 160, 0.12)",
       },
-      container: {
-        center: true,
-        padding: {
-          DEFAULT: "1rem",
-          lg: "2rem",
-          xl: "4rem",
-          "2xl": "3rem",
-        },
-      },
-      gap: {
-        19: "19px",
-      },
       screens: {
         xl: { max: "1536px" },
         lg: { max: "1280px" },
         md: { max: "1024px" },
         sm: { max: "768px" },
+      },
+      gap: {
+        19: "19px",
       },
       fontFamily: {
         IranSans: "iransans",

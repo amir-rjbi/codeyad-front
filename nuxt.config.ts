@@ -14,7 +14,7 @@ export default defineNuxtConfig({
     "nuxt-swiper",
     "floating-vue/nuxt",
   ],
-  css: ["@/assets/css/main.scss", "@/assets/css/dark.scss","@/assets/css/custom.scss"],
+  css: ["@/assets/css/main.scss", "@/assets/css/dark.scss","@/assets/css/custom.scss","@/assets/css/carousel.scss"],
   colorMode: {
     classSuffix: "",
     dataValue:'light'

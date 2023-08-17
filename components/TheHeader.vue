@@ -7,15 +7,15 @@
         <Transition name="page">
             <div class="sidebar-back" v-if="isOpenSidebar" @click="isOpenSidebar = false"></div>
         </Transition>
-        <div class="text-banner">
-            <p>"کدنویسی، هنری برای خلق دنیای بهتر"</p>
+        <div class="text-banner ">
+            <p class="sm:text-lg">"کدنویسی، هنری برای خلق دنیای بهتر"</p>
         </div>
         <div class="container">
             <section class="middel gap-3">
                 <IconsHamburger class="hidden sm:block" @click="isOpenSidebar = true" />
-                <div class="flex items-center gap-9 w-fit lg:justify-center">
+                <div class="flex items-center gap-9 w-fit justify-center">
                     <img src="/logo.png" alt="logo" />
-                    <div class="search lg:!hidden">
+                    <div class="search flex lg:!hidden ">
                         <input type="text" placeholder="هرچی میخوای جست و جو کن" />
                         <button>
                             <IconsSearch hash-color="var(--color-white)" />
@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <nav class="categories sm:hidden ">
-                    <ul class="lg:!gap-6">
+                    <ul class="gap-6">
                         <li>
                             <NuxtLink to="/">دوره ها</NuxtLink>
 
@@ -32,7 +32,7 @@
                             <NuxtLink to="/blog">بلاگ</NuxtLink>
 
                         </li>
-                        <li>
+                        <li class=" md:hidden">
                             <NuxtLink to="/about">درباره ما</NuxtLink>
 
                         </li>
@@ -40,7 +40,7 @@
                             <NuxtLink to="/masters">مدرسین</NuxtLink>
 
                         </li>
-                        <li class="lg:hidden">
+                        <li class=" lg:hidden">
                             <NuxtLink to="/bootcamps">بوتکمپ ها</NuxtLink>
                         </li>
                         <li>
@@ -51,7 +51,21 @@
                 <BaseButton @click="authStore.isOpenModal = true" size="sm " class="sm:hidden">ورود/ثبت نام</BaseButton>
                 <IconsSearch hash-color="var(--color-black)" class="hidden sm:block" />
             </section>
+            <section class="bottom-header  header-categories">
+                <BaseCarousel class="w-[90%]" :modules="[SwiperNavigation]" :navigation="{
+                    enabled: true,
+                    disabledClass: '!hidden'
+                }" :items="['c#', 'python', 'python', 'c#', 'python', 'python', 'react', 'unity', 'asp', 'vue']"
+                    :breakpoints="breakpoints" :space-between="8" slide-class="!w-fit mb-4 mt-2 mr-1">
+                    <template #item="{ index, item }">
+                        <nuxt-link :to="`/${item}`" class="category-item btn flex-grow bg-white dark:bg-slate-800 rounded">
+                            {{ item }}
+                        </nuxt-link>
+                    </template>
+                </BaseCarousel>
 
+
+            </section>
         </div>
 
     </header>
@@ -61,8 +75,40 @@ import { useAuthStore } from '~~/stores/auth.store';
 
 const authStore = useAuthStore();
 const isOpenSidebar = ref(false);
+const breakpoints = ref({
+    1200: {
+        slidesPerView: 8,
+    },
+    1090: {
+        slidesPerView: 6,
+    },
+    768: {
+        slidesPerView: 4,
+    },
+    576: {
+        slidesPerView: 3,
+    },
+    480: {
+        slidesPerView: 3,
+    },
+    0: {
+        slidesPerView: 2,
+    },
+});
 </script>
 <style scoped lang="scss">
+@media screen and (max-width:768px) {
+    .middel {
+        &::after {
+            content: unset !important;
+        }
+    }
+
+    .category-item {
+        box-shadow: 0px 2.613333225250244px 13.719999313354492px 0px rgba(0, 0, 0, 0.11) !important;
+    }
+}
+
 .sidebar-back {
     position: fixed;
     width: 100%;
@@ -75,15 +121,21 @@ const isOpenSidebar = ref(false);
 header {
     position: relative;
 
+    .category-item {
+        box-shadow: 0px 2.6993932723999023px 14.171814918518066px 0px rgba(0, 0, 0, 0.11);
+    }
+
     .text-banner {
         background: linear-gradient(270deg, #286BB8 0%, #5FA4F0 23.78%, #286BB6 49.83%, #62A6F3 72.74%, #286BB8 100%);
         width: 100%;
-        font-size: var(--h4-font-size);
+        font-size: var(--h5-font-size);
         text-align: center;
         padding: 0.75rem;
         color: white;
         margin-bottom: 1rem
     }
+
+
 
     .middel {
         @apply flex justify-between items-center;
@@ -100,15 +152,19 @@ header {
         }
 
         img {
-            width: 60%;
+            flex-grow: 1;
         }
 
         .search {
-            display: flex;
-
+            flex-grow: 2;
             input {
                 border-radius: 0rem 0.75rem 0.75rem 0rem;
-                padding-left: 2rem
+                font-size: var(--h7-font-size);
+                box-shadow: 0px 2.6993932723999023px 14.171814918518066px 0px rgba(0, 0, 0, 0.11);
+                width: 100%;
+                &::placeholder {
+                    font-size: var(--h9-font-size);
+                }
             }
 
             button {
@@ -123,7 +179,7 @@ header {
         .categories {
             ul {
                 @apply flex gap-10;
-                font-size: var(--h5-font-size);
+                font-size: var(--h7-font-size);
 
                 li {
                     a {}

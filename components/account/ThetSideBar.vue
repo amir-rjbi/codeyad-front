@@ -1,6 +1,6 @@
 <template>
-    <aside class="account-aside">
-        <ul>
+    <aside class="account-aside sm:!w-full">
+        <ul class="sm:flex sm:overflow-auto sm:hide-scroll-track sm:h-fit">
             <li>
                 <nuxt-link to="/account">داشبورد</nuxt-link>
             </li>
@@ -47,6 +47,28 @@
 </template>
 
 <style scoped lang="scss">
+@media screen and (max-width:768px) {
+    aside {
+        position: initial !important;
+
+        ul {
+            &::-webkit-scrollbar {
+                height: 2px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background: var(--color-blue-gray-400);
+            }
+        }
+
+        li {
+            a {
+                width: max-content !important;
+            }
+        }
+    }
+}
+
 aside {
     background: rgba(193, 222, 255, 0.22);
     width: 20%;

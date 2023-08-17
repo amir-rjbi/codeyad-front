@@ -5,6 +5,7 @@
         <SwiperSlide :class="slideClass" v-for="(item, index) in items" :key="index">
             <slot name="item" :item="item" :index="index" />
         </SwiperSlide>
+        <slot />
     </Swiper>
 </template>
 
