@@ -51,7 +51,7 @@
                 <BaseButton @click="authStore.isOpenModal = true" size="sm " class="sm:hidden">ورود/ثبت نام</BaseButton>
                 <IconsSearch hash-color="var(--color-black)" class="hidden sm:block" />
             </section>
-            <section class="bottom-header  header-categories">
+            <section class="bottom-header  header-categories" v-if="showCategories">
                 <BaseCarousel class="w-[90%]" :modules="[SwiperNavigation]" :navigation="{
                     enabled: true,
                     disabledClass: '!hidden'
@@ -73,6 +73,12 @@
 <script setup lang="ts">
 import { useAuthStore } from '~~/stores/auth.store';
 
+const porps = defineProps({
+    showCategories: {
+        type: Boolean,
+        default: true
+    }
+})
 const authStore = useAuthStore();
 const isOpenSidebar = ref(false);
 const breakpoints = ref({
@@ -157,11 +163,13 @@ header {
 
         .search {
             flex-grow: 2;
+
             input {
                 border-radius: 0rem 0.75rem 0.75rem 0rem;
                 font-size: var(--h7-font-size);
                 box-shadow: 0px 2.6993932723999023px 14.171814918518066px 0px rgba(0, 0, 0, 0.11);
                 width: 100%;
+
                 &::placeholder {
                     font-size: var(--h9-font-size);
                 }

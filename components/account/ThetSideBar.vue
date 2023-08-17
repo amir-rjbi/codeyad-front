@@ -52,6 +52,9 @@
         position: initial !important;
 
         ul {
+            flex-direction: column;
+            margin-bottom: 1rem;
+
             &::-webkit-scrollbar {
                 height: 2px;
             }
@@ -61,11 +64,6 @@
             }
         }
 
-        li {
-            a {
-                width: max-content !important;
-            }
-        }
     }
 }
 

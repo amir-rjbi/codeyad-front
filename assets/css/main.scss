@@ -167,8 +167,12 @@ p {
         font-display: swap;
     }
 
+    a {
+        @apply transition-all delay-50
+    }
+
     a:hover {
-        @apply text-blue transition-all delay-50
+        @apply text-blue
     }
 
     * {
