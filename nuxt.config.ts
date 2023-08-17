@@ -8,13 +8,17 @@ export default defineNuxtConfig({
     },
   },
   modules: [
-    "@nuxtjs/color-mode",
     "@nuxt/image",
     "@pinia/nuxt",
     "nuxt-swiper",
     "floating-vue/nuxt",
   ],
-  css: ["@/assets/css/main.scss", "@/assets/css/dark.scss","@/assets/css/custom.scss","@/assets/css/carousel.scss"],
+  css: [
+    "@/assets/css/main.scss",
+    "@/assets/css/dark.scss",
+    "@/assets/css/custom.scss",
+    "@/assets/css/carousel.scss",
+  ],
   app: {
     pageTransition: {
       name: "page",
