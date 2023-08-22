@@ -154,28 +154,5 @@ const hasSlot = () => {
     position: relative;
 }
 
-.form-control.outline {
-    border: 1px solid var(--color-dark-light);
-    background: transparent;
-    padding: 0.75rem 12px;
-    border-radius: 6px;
-    font-size: var(--h7-font-size);
 
-    &::placeholder {
-        font-size: var(--h7-font-size);
-        color: var(--color-dark-light);
-    }
-
-    &.invalid-data {
-        border-color: var(--color-error) !important;
-    }
-
-    &:focus {
-        border-color: var(--primary-color);
-    }
-
-    &:disabled {
-        background: #F2F2F2;
-    }
-}
 </style>

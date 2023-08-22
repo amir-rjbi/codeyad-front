@@ -2,10 +2,6 @@
   <div>
     <Head>
       <Link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
-      <Script src="/js/ckeditorConfig.js"></Script>
-      <Script src="/ckeditor5/build/ckeditor.js"></Script>
-
-      
     </Head>
     <NuxtLayout>
       <NuxtPage />

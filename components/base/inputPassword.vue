@@ -7,6 +7,8 @@
                 { 'bg-transparent': transparent },
                 { 'invalid-data': !!errorMessage },
                 'has-icon',
+                { 'outline': outLine }
+
             ]" :placeholder="placeholder" :value="inputValue" @input="modelValueChanged" :name="name"
                 autocomplete="off" />
             <div class="input__icon">
@@ -44,8 +46,8 @@
                 </svg>
             </div>
             <slot v-if="hasSlot()" />
-            <p class="input-invalid-text" v-if="errorMessage">{{ errorMessage }}</p>
         </div>
+        <p class="input-invalid-text" v-if="errorMessage">{{ errorMessage }}</p>
     </div>
 </template>
   
@@ -86,6 +88,13 @@ const props = defineProps({
     label: {
         type: String,
         default: ""
+    }, outLine: {
+        type: Boolean,
+        default: false
+    },
+    disabled: {
+        type: Boolean,
+        default: false
     }
 });
 

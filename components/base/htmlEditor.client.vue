@@ -1,5 +1,5 @@
 <template>
-    <textarea class="form-control" :placeholder="placeholder" :id="id">{{ modelValue }}</textarea>
+    <textarea class="form-control" rows="2" :placeholder="placeholder" :id="id">{{ modelValue }}</textarea>
 </template>
 <script setup lang="ts">
 const props = defineProps({
@@ -20,11 +20,13 @@ const props = defineProps({
     },
 });
 const emits = defineEmits(['update:modelValue'])
+const loading = ref(true);
 onMounted(() => {
+    //@ts-ignore
     setTimeout(async () => {
-        //@ts-ignore
-        const ckEditor = await loadCkeditor(props.id, props.uploadUrl, "auth");
+        const ckEditor = await loadCkeditor(props.id, props.uploadUrl, "jwtToken");
         ckEditor.model.document.on('change:data', (e: any) => changeData(e, ckEditor))
+        loading.value = true;
     }, 500);
 });
 const changeData = (e: any, editor: any) => {

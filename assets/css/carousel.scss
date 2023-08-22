@@ -34,11 +34,11 @@
 
     .swiper-button-prev,
     .swiper-button-next {
-        padding: 2rem;
-        border-radius: 0.75rem;
+        padding: 1rem 1.5rem;
         position: absolute;
-        top: 1rem !important;
-        background: linear-gradient(270deg, #FFF 34.38%, rgba(255, 255, 255, 0.00) 100%) !important;
+        top: 1.8rem !important;
+        border-radius: 8.098px;
+        background: linear-gradient(270deg, #FFF 34.38%, rgba(255, 255, 255, 0.00) 100%);
 
         &::after {
             content:
@@ -48,14 +48,17 @@
 
     .swiper-button-prev {
         z-index: 100 !important;
-        right: 0 !important;
+        right: .5 !important;
         transform: rotate(180deg);
+        box-shadow: -1px -4px 4px 0px rgba(0, 0, 0, 0.25) ;
     }
 
     .swiper-button-next {
         z-index: 100 !important;
-        left: 0rem !important;
+        left: .5rem !important;
         right: unset !important;
+        box-shadow: -4px 4px 4px 0px rgba(0, 0, 0, 0.15) ;
+
     }
 
 }

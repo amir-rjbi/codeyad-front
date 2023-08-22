@@ -40,7 +40,7 @@
                             <NuxtLink to="/masters">مدرسین</NuxtLink>
 
                         </li>
-                        <li class=" lg:hidden">
+                        <li class="lg:hidden">
                             <NuxtLink to="/bootcamps">بوتکمپ ها</NuxtLink>
                         </li>
                         <li>

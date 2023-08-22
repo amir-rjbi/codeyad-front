@@ -1,6 +1,6 @@
 <template>
     <div class="py-5">
-        <BaseButton to="/account" :render-button-tag="false">حساب کاربری</BaseButton>
+        <HomeLandingBanner />
     </div>
 </template>
 <script setup lang="ts">

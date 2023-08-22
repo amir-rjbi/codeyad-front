@@ -7,7 +7,7 @@
 
 
 body {
-    background: linear-gradient(180deg, #FFF 0%, rgba(255, 255, 255, 0.00) 100%);
+    background: rgba(40, 107, 184, 0.08);
     font-family: var(--h2-font-family);
     direction: rtl;
     text-align: right;
@@ -32,6 +32,9 @@ html {
     font-size: 12px
 }
 
+.font-9 {
+    font-size: var(--h9-font-size);
+}
 
 
 @layer components {
@@ -62,11 +65,13 @@ html {
     .input-group {
         position: relative;
 
-        .input-invalid-text {
-            color: var(--color-error);
-            margin-top: 4px;
-        }
 
+
+    }
+
+    .input-invalid-text {
+        color: var(--color-error);
+        margin-top: 4px;
     }
 
     .input-label {
@@ -87,6 +92,31 @@ html {
 
         &::placeholder {
             color: var(--color-blue-gray-400);
+        }
+
+        &.outline {
+            border: 1px solid var(--color-dark-light);
+            background: transparent;
+            padding: 0.75rem 12px;
+            border-radius: 6px;
+            font-size: var(--h7-font-size);
+
+            &::placeholder {
+                font-size: var(--h7-font-size);
+                color: var(--color-dark-light);
+            }
+
+            &.invalid-data {
+                border-color: var(--color-error) !important;
+            }
+
+            &:focus {
+                border-color: var(--primary-color);
+            }
+
+            &:disabled {
+                background: #F2F2F2;
+            }
         }
     }
 }
