@@ -8,24 +8,24 @@
             <div class="sidebar-back" v-if="isOpenSidebar" @click="isOpenSidebar = false"></div>
         </Transition>
         <div class="text-banner ">
-            <p class="sm:text-lg">"کدنویسی، هنری برای خلق دنیای بهتر"</p>
+            <p class="sm:text-h7">"کدنویسی، هنری برای خلق دنیای بهتر"</p>
         </div>
         <div class="container">
             <section class="middel gap-3">
                 <IconsHamburger class="hidden sm:block" @click="isOpenSidebar = true" />
                 <div class="flex items-center gap-9 w-fit justify-center">
-                    <img src="/logo.png" alt="logo" />
+                    <NuxtLink to="/"><img src="/logo.png" alt="logo" /></NuxtLink>
                     <div class="search flex lg:!hidden ">
                         <input type="text" placeholder="هرچی میخوای جست و جو کن" />
-                        <button>
-                            <IconsSearch hash-color="var(--color-white)" />
+                        <button name="search">
+                            <IconsSearch color="var(--color-white)" />
                         </button>
                     </div>
                 </div>
                 <nav class="categories sm:hidden ">
                     <ul class="gap-6">
                         <li>
-                            <NuxtLink to="/">دوره ها</NuxtLink>
+                            <NuxtLink to="/courses">دوره ها</NuxtLink>
 
                         </li>
                         <li>
@@ -49,16 +49,17 @@
                     </ul>
                 </nav>
                 <BaseButton @click="authStore.isOpenModal = true" size="sm " class="sm:hidden">ورود/ثبت نام</BaseButton>
-                <IconsSearch hash-color="var(--color-black)" class="hidden sm:block" />
+                <IconsSearch color="var(--color-black)" class="hidden sm:block" />
             </section>
             <section class="bottom-header  header-categories" v-if="showCategories">
                 <BaseCarousel class="w-[90%]" :modules="[SwiperNavigation]" :navigation="{
                     enabled: true,
                     disabledClass: '!hidden'
-                }" :items="['c#', 'python', 'python', 'c#', 'python', 'python', 'react', 'unity', 'asp', 'vue']"
+                }" :items="['c#', 'Nuxt', 'Next', 'c++', 'python', 'Ruby', 'react', 'unity', 'asp', 'vue']"
                     :breakpoints="breakpoints" :space-between="8" slide-class="!w-fit mb-4 mt-2 mr-1">
                     <template #item="{ index, item }">
-                        <nuxt-link :to="`/${item}`" class="category-item btn flex-grow bg-white dark:bg-slate-800 rounded">
+                        <nuxt-link :to="`/courses/${item}`"
+                            class="category-item btn flex-grow bg-white dark:bg-slate-800 rounded">
                             {{ item }}
                         </nuxt-link>
                     </template>
@@ -76,7 +77,7 @@ import { useAuthStore } from '~~/stores/auth.store';
 const porps = defineProps({
     showCategories: {
         type: Boolean,
-        default: true
+        default: false
     }
 })
 const authStore = useAuthStore();
@@ -110,6 +111,13 @@ const breakpoints = ref({
         }
     }
 
+    header {
+        img {
+            width: 110px;
+            height: 31px;
+        }
+    }
+
     .category-item {
         box-shadow: 0px 2.613333225250244px 13.719999313354492px 0px rgba(0, 0, 0, 0.11) !important;
     }
@@ -121,11 +129,12 @@ const breakpoints = ref({
     height: 100%;
     right: 0;
     background: rgba(0, 0, 0, 0.473);
-    z-index: 100;
+    z-index: 1000;
 }
 
 header {
     position: relative;
+    overflow: hidden;
 
     .category-item {
         box-shadow: 0px 2.6993932723999023px 14.171814918518066px 0px rgba(0, 0, 0, 0.11);
@@ -138,27 +147,29 @@ header {
         text-align: center;
         padding: 0.75rem;
         color: white;
-        margin-bottom: 1rem
     }
 
 
 
     .middel {
         @apply flex justify-between items-center;
-        padding-bottom: 1.5rem;
-
-        &::after {
-            @apply bg-gray-200;
-            content: " ";
-            width: 100%;
-            right: 0;
-            position: absolute;
-            bottom: 0;
-            height: 1px;
-        }
-
+        padding-bottom: 1rem;
+        position: relative;
+        // &::after {
+        //     @apply bg-gray-200;
+        //     content: " ";
+        //     width: 200%;
+        //     right: -50%;
+        //     position: absolute;
+        //     bottom: .70rem;
+        //     height: 1px;
+        // }
+        padding-top: 30px;
+            
         img {
             flex-grow: 1;
+            width: 141.718px;
+            height: 40px;
         }
 
         .search {
@@ -195,5 +206,4 @@ header {
             }
         }
     }
-}
-</style>
+}</style>

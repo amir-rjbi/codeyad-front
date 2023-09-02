@@ -66,21 +66,21 @@ module.exports = {
           300: "var(--color-gray-300)",
         },
         black: "#080808",
+        bodyBg: "#EEF3F9",
       },
-      container: (theme) => {
-        return {
-          center: true,
-          padding: "1rem",
-        };
+      container: {
+        center: true,
+        padding: "1rem",
       },
       borderRadius: {
-        DEFAULT: "0.75rem",
-        sm: "0.75rem",
+        DEFAULT: "0.47819rem",
+        sm: "0.42175rem",
         md: "0.9375rem",
         lg: "1.25rem",
       },
       boxShadow: {
         md: "17px 37px 42px 0px rgba(160, 160, 160, 0.12)",
+        sm: " 7px 8px 31px 0px rgba(20, 62, 101, 0.11)",
       },
       screens: {
         xl: { max: "1536px" },
@@ -95,6 +95,16 @@ module.exports = {
         IranSans: "iransans",
         IranSansBold: "iransans-bold",
       },
+    },
+    fontSize: {
+      h2: "var(--h2-font-size)",
+      h3: "var(--h3-font-size)",
+      h4: "var(--h4-font-size)",
+      h5: "var(--h5-font-size)",
+      h6: "var(--h6-font-size)",
+      h7: "var(--h7-font-size)",
+      h8: "var(--h8-font-size)",
+      22: "22px",
     },
   },
   plugins: [],

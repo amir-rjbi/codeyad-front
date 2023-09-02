@@ -1,7 +1,7 @@
 <template>
-    <section class="banner">
-        <div class="text sm:justify-center sm:items-center">
-            <p class="text-blue sm:!text-[12px] sm:font-bold sm:mb-1">دوره مورد علاقه خود را شروع کنید</p>
+    <section class="banner ">
+        <div class="text sm:justify-center sm:items-center bottom-8 sm:!bottom-0">
+            <p class="text-blue sm:!text-[12px] font-bold mb-1">دوره مورد علاقه خود را شروع کنید</p>
             <h2 class="sm:text-center sm:!text-[26px] sm:!font-black">
                 هر کسی باید یاد بگیره
                 <span class="text-blue ">که چطور کد بزنه</span>

@@ -9,9 +9,9 @@
     ]" :disabled="loading">
         <div :class="{ 'opacity-0': loading }">
             <template v-if="$slots.icon">
-                <div class="flex items-center gap-5 justify-center ">
-                    <slot name="icon" />
+                <div class="flex items-center gap-[6px] justify-center ">
                     <slot />
+                    <slot name="icon" />
                 </div>
             </template>
             <template v-else>
@@ -96,6 +96,7 @@ const props = defineProps({
 
 .btn-sm {
     padding: .25rem 1rem;
+    @apply rounded-sm;
 }
 
 .btn-lg {

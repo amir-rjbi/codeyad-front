@@ -1,8 +1,8 @@
 <template>
     <Swiper :space-between="spaceBetween" :navigation="navigation" :pagination="pagination" :wrapperClass="baseClass"
         :loop="loop" :autoplay="autoplay" dir="rtl" :effect="effect" :modules="modules" :slides-per-view="itemsToShow"
-        :breakpoints="breakpoints">
-        <SwiperSlide :class="slideClass" v-for="(item, index) in items" :key="index">
+        :breakpoints="breakpoints" :centered-slides="centeredSlides">
+        <SwiperSlide :class="slideClass" v-for="(item, index) in  items " :key="index">
             <slot name="item" :item="item" :index="index" />
         </SwiperSlide>
         <slot />
@@ -25,13 +25,15 @@ const props = withDefaults(defineProps<{
     navigation?: NavigationOptions,
     pagination?: PaginationOptions,
     spaceBetween?: number,
+    centeredSlides?: boolean
 }>(), {
     baseClass: "",
     effect: "slide",
     slideClass: "",
     loop: false,
     itemsToShow: 1,
-    spaceBetween: 0
+    spaceBetween: 0,
+    centeredSlides: false
 });
 
 </script>

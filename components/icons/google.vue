@@ -24,7 +24,7 @@
 
 <script setup>
 const props = defineProps({
-    hashColor: {
+    color: {
         type: String,
         default: "var(--body-text-color)",
     },

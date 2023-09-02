@@ -59,7 +59,7 @@ aside {
     top: 0;
     right: 0;
     height: 100%;
-    z-index: 101;
+    z-index: 1001;
     background: var(--color-white);
 
     .header {

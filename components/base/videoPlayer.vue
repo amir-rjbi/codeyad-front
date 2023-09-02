@@ -6,14 +6,10 @@
         <div :class="['h-full w-full', { 'in-load': loading }]">
             <div class="video">
                 <button v-tooltip="played ? 'توقف' : 'اجرا'">
-                    <svg v-if="played" height="24" version="1.1" viewBox="0 0 512 512" width="24" xml:space="preserve"
-                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <g>
-                            <path fill="var(--primary-color)"
-                                d="M224,435.8V76.1c0-6.7-5.4-12.1-12.2-12.1h-71.6c-6.8,0-12.2,5.4-12.2,12.1v359.7c0,6.7,5.4,12.2,12.2,12.2h71.6   C218.6,448,224,442.6,224,435.8z" />
-                            <path fill="var(--primary-color)"
-                                d="M371.8,64h-71.6c-6.7,0-12.2,5.4-12.2,12.1v359.7c0,6.7,5.4,12.2,12.2,12.2h71.6c6.7,0,12.2-5.4,12.2-12.2V76.1   C384,69.4,378.6,64,371.8,64z" />
-                        </g>
+                    <svg v-if="played" xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"
+                        fill="none">
+                        <rect width="5" height="16" rx="1" fill="#464646" />
+                        <rect x="7" width="5" height="16" rx="1" fill="#464646" />
                     </svg>
                     <svg v-else xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path
@@ -33,7 +29,7 @@
                                 fill="var(--color-muted)" />
                         </svg>
                     </button>
-                    <button v-if="isShowPIP" @click="togglePictureInPicture" v-tooltip="'نمایش در پایین صفحه'">
+                    <button name="PIP" v-if="isShowPIP" @click="togglePictureInPicture" v-tooltip="'نمایش در پایین صفحه'">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 28 16">
                             <g data-name="6 13">
                                 <g data-name="5 1" fill="var(--color-muted)">
@@ -51,7 +47,7 @@
                         </svg>
                     </button>
                     <div class="volume-controls">
-                        <button data-title="Mute (m)" class="volume-button" @click="toggleMute">
+                        <button name="sound" data-title="Mute (m)" class="volume-button" @click="toggleMute">
                             <IconsSound v-if="volume > 0" />
                             <IconsSoundOff v-else />
                         </button>
@@ -69,7 +65,7 @@
 
                 </div>
                 <div class="flex items-center justify-between gap-4">
-                    <button @click="changeTime(10)" v-tooltip="'10 ثانیه به جلو'">
+                    <button name="nextFrame" @click="changeTime(10)" v-tooltip="'10 ثانیه به جلو'">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path
                                 d="M11 8.76813L4.903 4.30813C3.601 3.41113 2 4.58013 2 6.42613V17.5741C2 19.4211 3.6 20.5891 4.903 19.6921L11 15.2321M21.079 10.1471C22.307 10.9541 22.307 13.0461 21.079 13.8531L13.661 18.7301C12.467 19.5151 11 18.4931 11 16.8771V7.12313C11 5.50713 12.467 4.48513 13.661 5.27013L21.079 10.1471Z"
@@ -77,7 +73,7 @@
                         </svg>
                     </button>
                     <p v-tooltip="'سرعت پخش'" @click="setPlayBackSpeed" class="text-sm cursor-pointer">{{ speed }}x</p>
-                    <button @click="changeTime(-10)" v-tooltip="'10 ثانیه به عقب'">
+                    <button name="prevFrame" @click="changeTime(-10)" v-tooltip="'10 ثانیه به عقب'">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path
                                 d="M13 8.76813L19.097 4.30813C20.399 3.41113 22 4.58013 22 6.42613V17.5741C22 19.4211 20.4 20.5891 19.097 19.6921L13 15.2321M2.921 10.1471C1.693 10.9541 1.693 13.0461 2.921 13.8531L10.339 18.7301C11.533 19.5151 13 18.4931 13 16.8771V7.12313C13 5.50713 11.533 4.48513 10.339 5.27013L2.921 10.1471Z"
@@ -85,7 +81,8 @@
                         </svg>
                     </button>
                 </div>
-                <button @click="togglePlayStatus" v-tooltip="played ? 'توقف' : (ended ? 'پخش مجدد' : 'اجرا')">
+                <button name="toggleStatus" @click="togglePlayStatus"
+                    v-tooltip="played ? 'توقف' : (ended ? 'پخش مجدد' : 'اجرا')">
                     <svg v-if="played" height="24" version="1.1" viewBox="0 0 512 512" width="24" xml:space="preserve"
                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                         <g>
@@ -228,10 +225,11 @@ onUnmounted(() => {
 
 });
 function toggleMute() {
-    player.value!.muted = !player.value!.muted;
-
+    var isMuted = player.value!.muted;
+    player.value!.muted = !isMuted;
     if (player.value!.muted) {
         volume.value = 0;
+
     } else {
         volume.value = 1;
     }
@@ -302,7 +300,7 @@ function formatTime(timeInSeconds: number) {
 
 .codeyad-video-player {
     width: 100%;
-    min-height: 31rem;
+    min-height: 400px;
     position: relative;
 
     .in-load {
@@ -370,7 +368,7 @@ function formatTime(timeInSeconds: number) {
     .video {
         position: relative;
         cursor: pointer;
-
+        height: 100%;
         &:hover {
             button {
                 display: block !important;
@@ -420,8 +418,8 @@ function formatTime(timeInSeconds: number) {
     video {
         height: 100%;
         border-radius: 1rem;
-        width: fit-content;
-        margin: auto;
+        width: 100%;
+        object-fit: cover;
     }
 }
 

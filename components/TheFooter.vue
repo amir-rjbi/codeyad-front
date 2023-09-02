@@ -14,16 +14,16 @@
         <div class="bottom-footer container items-center justify-between flex flex-wrap sm:justify-center sm:gap-7">
             <div class="social flex gap-7">
                 <a href="#">
-                    <IconsSocialInstagram hash-color="white" width="34" height="34" />
+                    <IconsSocialInstagram color="white" width="34" height="34" />
                 </a>
                 <a href="#">
-                    <IconsSocialTelegram hash-color="white" width="34" height="34" />
+                    <IconsSocialTelegram color="white" width="34" height="34" />
                 </a>
                 <a href="#">
-                    <IconsSocialTwitter hash-color="white" width="34" height="34" />
+                    <IconsSocialTwitter color="white" width="34" height="34" />
                 </a>
                 <a href="#">
-                    <IconsSocialYouTube hash-color="white" width="34" height="34" />
+                    <IconsSocialYouTube color="white" width="34" height="34" />
                 </a>
             </div>
             <p class="text-white copy-right" dir="ltr">@ 2023 Copyright.codeyad</p>
@@ -51,10 +51,7 @@
         letter-spacing: 0.8px !important;
     }
 
-    img.logo {
-        width: 223.977px !important;
-        height: 45px !important;
-    }
+   
 
     button.text-blue {
         position: absolute;
@@ -77,8 +74,8 @@ footer {
     padding-bottom: 70px;
 
     .logo {
-        width: 22.02381rem;
-        height: 4.25rem;
+        width: 223.977px ;
+        height: 45px ;
     }
 
     hr {

@@ -21,7 +21,11 @@ export default defineNuxtConfig({
         { src: "/ckeditor5/build/ckeditor.js" },
         { src: "/js/ckeditorConfig.js" },
       ],
+      htmlAttrs: {
+        lang: "fa",
+      },
     },
+
     pageTransition: {
       name: "page",
       mode: "out-in",
@@ -35,17 +39,17 @@ export default defineNuxtConfig({
     presets: {
       cover: {
         modifiers: {
-          format: 'webp',
+          format: "webp",
           width: 50,
-          height: 50
-        }
-      }
+          height: 50,
+        },
+      },
     },
     domains: [
       "https://api.codeyad.com",
       "localhost:3000",
       "https://codeyad.com",
-      "https://cdn.bama.ir"
+      "https://cdn.bama.ir",
     ],
     alias: {
       codeyad: "https://api.codeyad.com",
