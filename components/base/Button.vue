@@ -2,6 +2,7 @@
     <button v-if="renderButtonTag == true" :class="[
         'btn ',
         { 'btn-white': colorWhite },
+        { '!rounded-full': rounded },
         { 'btn-transparent': transparent },
         outline ? `text-${color}  !border-${color} hover:bg-${color}-250 dark:hover:bg-transparent dark:hover:opacity-80` : `text-white bg-${color} hover:bg-${color}-950`,
         size ? `btn-${size}` : null,
@@ -25,15 +26,16 @@
         'btn ',
         { 'btn-white': colorWhite },
         { 'btn-transparent': transparent },
+        { 'rounded-full': rounded },
         outline ? `text-${color}  !border-${color} hover:bg-${color}-250 dark:hover:bg-transparent dark:hover:opacity-80` : `!text-white bg-${color} hover:bg-${color}-950`,
         size ? `btn-${size}` : null,
         { 'loading': loading }
     ]" :disabled="loading">
         <div :class="{ 'opacity-0': loading }">
             <template v-if="$slots.icon">
-                <div class="flex items-center gap-5 justify-center ">
-                    <slot name="icon" />
+                <div class="flex items-center gap-[6px] justify-center ">
                     <slot />
+                    <slot name="icon" />
                 </div>
             </template>
             <template v-else>
@@ -52,6 +54,10 @@ const props = defineProps({
         default: "blue",
     },
     loading: {
+        type: Boolean,
+        default: false,
+    },
+    rounded: {
         type: Boolean,
         default: false,
     },
@@ -135,14 +141,14 @@ const props = defineProps({
 
 .sp-3balls:before {
     left: 18px;
-    top: -6px;
+    top: -5px;
     -webkit-animation: spScaleAlphaBefore 1s infinite linear;
     animation: spScaleAlphaBefore 1s infinite linear;
 }
 
 .sp-3balls:after {
     left: -18px;
-    top: -30px;
+    top: -25px;
     -webkit-animation: spScaleAlphaAfter 1s infinite linear;
     animation: spScaleAlphaAfter 1s infinite linear;
 }

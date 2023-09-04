@@ -5,7 +5,7 @@
         </div>
         <div :class="['h-full w-full', { 'in-load': loading }]">
             <div class="video">
-                <button v-tooltip="played ? 'توقف' : 'اجرا'">
+                <button name="togglePlayStatus" v-tooltip="played ? 'توقف' : 'اجرا'">
                     <svg v-if="played" xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16"
                         fill="none">
                         <rect width="5" height="16" rx="1" fill="#464646" />
@@ -22,7 +22,7 @@
             </div>
             <div class="controls flex items-center gap-5 justify-end mt-4" ref="controls">
                 <div class="flex gap-4">
-                    <button @click="fullScreen" v-tooltip="'تمام صفحه'">
+                    <button name="fullScreen" @click="fullScreen" v-tooltip="'تمام صفحه'">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                             <path
                                 d="M5 5H10V7H7V10H5V5ZM14 5H19V10H17V7H14V5ZM17 14H19V19H14V17H17V14ZM10 17V19H5V14H7V17H10Z"

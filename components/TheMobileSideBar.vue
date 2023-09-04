@@ -7,11 +7,9 @@
             <ul class="gap-8 flex flex-col mt-2">
                 <li>
                     <NuxtLink @click="CloseSideBar" to="/">دوره ها</NuxtLink>
-
                 </li>
                 <li>
                     <NuxtLink @click="CloseSideBar" to="/blog">بلاگ</NuxtLink>
-
                 </li>
                 <li>
                     <NuxtLink @click="CloseSideBar" to="/about">درباره ما</NuxtLink>
@@ -31,7 +29,7 @@
         </div>
         <div class="p-3 absolute bottom-2 w-full">
             <BaseButton @click="register" class="w-full mb-2">ثبت نام</BaseButton>
-            <BaseButton @click="login" class="w-full" outline>ورود</BaseButton>
+            <BaseButton @click="login" class="w-full font-bold" outline>ورود</BaseButton>
         </div>
 
     </aside>
@@ -61,7 +59,7 @@ aside {
     height: 100%;
     z-index: 1001;
     background: var(--color-white);
-
+    font-size: 16px;
     .header {
         display: flex;
         align-items: center;
@@ -72,10 +70,6 @@ aside {
         img {
             width: 110px;
         }
-    }
-
-    ul {
-        gap: 1rem;
     }
 }
 </style>

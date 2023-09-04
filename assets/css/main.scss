@@ -54,7 +54,8 @@ html {
     }
 
     .btn.btn-white {
-        @apply text-blue border-none bg-white;
+        @apply border-none bg-white;
+        color: var(--primary-color) !important;
     }
 
     .btn.btn-white:hover {
@@ -154,9 +155,11 @@ p {
     --body-text-color: rgba(20, 20, 20, 0.80);
     --body-bg-color: rgba(40, 107, 184, 0.08);
 }
+
 html {
     scroll-behavior: smooth;
-  }
+}
+
 h1 {
     font-size: 50px;
     font-weight: 700;
@@ -261,16 +264,9 @@ p {
     .btn {
         padding: .60rem 3rem;
     }
-
-    :root {
-        --h6-font-size: 14px;
-
-    }
-
     .section-title {
         font-weight: 600;
     }
-
     :root {
         --h2-font-size: 20px;
     }

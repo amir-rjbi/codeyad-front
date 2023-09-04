@@ -52,14 +52,14 @@
                 <IconsSearch color="var(--color-black)" class="hidden sm:block" />
             </section>
             <section class="bottom-header  header-categories" v-if="showCategories">
-                <BaseCarousel class="w-[90%]" :modules="[SwiperNavigation]" :navigation="{
+                <BaseCarousel class="w-[93%]" :modules="[SwiperNavigation]" :centered-slides="false" :navigation="{
                     enabled: true,
                     disabledClass: '!hidden'
                 }" :items="['c#', 'Nuxt', 'Next', 'c++', 'python', 'Ruby', 'react', 'unity', 'asp', 'vue']"
-                    :breakpoints="breakpoints" :space-between="8" slide-class="!w-fit mb-4 mt-2 mr-1">
+                    :breakpoints="breakpoints" :space-between="8" slide-class="bg-white py-[15px] items-center justify-center text-center category-item dark:bg-slate-800 rounded mb-4 mt-2 ">
                     <template #item="{ index, item }">
                         <nuxt-link :to="`/courses/${item}`"
-                            class="category-item btn flex-grow bg-white dark:bg-slate-800 rounded">
+                            class="  flex-grow ">
                             {{ item }}
                         </nuxt-link>
                     </template>
@@ -77,29 +77,29 @@ import { useAuthStore } from '~~/stores/auth.store';
 const porps = defineProps({
     showCategories: {
         type: Boolean,
-        default: false
+        default: true
     }
 })
 const authStore = useAuthStore();
 const isOpenSidebar = ref(false);
 const breakpoints = ref({
     1200: {
-        slidesPerView: 8,
+        slidesPerView: 10,
     },
     1090: {
-        slidesPerView: 6,
+        slidesPerView: 8,
     },
     768: {
-        slidesPerView: 4,
+        slidesPerView: 6,
     },
     576: {
-        slidesPerView: 3,
+        slidesPerView: 5,
     },
     480: {
-        slidesPerView: 3,
+        slidesPerView: 4,
     },
     0: {
-        slidesPerView: 2,
+        slidesPerView: 3,
     },
 });
 </script>
@@ -155,15 +155,16 @@ header {
         @apply flex justify-between items-center;
         padding-bottom: 1rem;
         position: relative;
-        // &::after {
-        //     @apply bg-gray-200;
-        //     content: " ";
-        //     width: 200%;
-        //     right: -50%;
-        //     position: absolute;
-        //     bottom: .70rem;
-        //     height: 1px;
-        // }
+        margin-bottom: 11px;
+        &::after {
+            @apply bg-gray-200;
+            content: " ";
+            width: 200%;
+            right: -50%;
+            position: absolute;
+            bottom: -0.50rem;
+            height: 1px;
+        }
         padding-top: 30px;
             
         img {

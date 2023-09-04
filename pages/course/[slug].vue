@@ -26,7 +26,8 @@
                                 <icons-users color="white" />
                             </div>
                         </div>
-                        <BaseButton class="sm:w-full" color-white>شروع دوره
+                        <BaseButton :render-button-tag="false" to="/course/panel-test" class="sm:w-full" color-white>شروع
+                            دوره
                             <template #icon>
                                 <IconsArrowLeft color="var(--primary-color)" />
                             </template>
@@ -102,13 +103,18 @@
 </template>
 <script setup lang="ts">
 const selectedTab = ref('');
+
+definePageMeta({
+    layout: 'un-category'
+})
 </script>
 <style scoped lang="scss">
 @media screen and (max-width:768px) {
-    .spec-card{
+    .spec-card {
         width: 100% !important;
     }
 }
+
 .tabs {
     display: flex;
 
@@ -118,15 +124,16 @@ const selectedTab = ref('');
         font-weight: 600;
         cursor: pointer;
         min-width: fit-content;
+
         &.active {
             border-bottom: 1.7px solid var(--primary-color);
             color: var(--primary-color);
         }
     }
 }
-.course-content{
-    p{
+
+.course-content {
+    p {
         color: var(--color-gray-400);
     }
-}
-</style>
+}</style>
