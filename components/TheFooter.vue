@@ -4,8 +4,8 @@
             <NuxtLink to="/">
                 <img class="logo" src="/logo-white.png" />
             </NuxtLink>
-            <div class="flex items-center gap-19 flex-wrap justify-center sm:mt-16 sm:relative sm:w-full sm:!gap-3">
-                <p class="text-white text-2xl font-bold font-IranSans sm:!text-xl">عضویت در خبرنامه</p>
+            <div class="flex items-center gap-3 flex-wrap justify-center sm:mt-16 sm:relative sm:w-full sm:!gap-3">
+                <p class="text-white text-2xl font-bold font-IranSans sm:!text-[20px]">عضویت در خبرنامه</p>
                 <input type="text" class="sm:!w-full" placeholder="ایمیلتو وارد کن" />
                 <button class="text-blue sm:justify-self-end">ارسال</button>
             </div>
@@ -14,16 +14,16 @@
         <div class="bottom-footer container items-center justify-between flex flex-wrap sm:justify-center sm:gap-7">
             <div class="social flex gap-7">
                 <a href="#">
-                    <IconsSocialInstagram color="white" width="34" height="34" />
+                    <IconsSocialInstagram color="white" width="24" height="24" />
                 </a>
                 <a href="#">
-                    <IconsSocialTelegram color="white" width="34" height="34" />
+                    <IconsSocialTelegram color="white" width="24" height="24" />
                 </a>
                 <a href="#">
-                    <IconsSocialTwitter color="white" width="34" height="34" />
+                    <IconsSocialTwitter color="white" width="24" height="24" />
                 </a>
                 <a href="#">
-                    <IconsSocialYouTube color="white" width="34" height="34" />
+                    <IconsSocialYouTube color="white" width="24" height="24" />
                 </a>
             </div>
             <p class="text-white copy-right" dir="ltr">@ 2023 Copyright.codeyad</p>
@@ -34,17 +34,14 @@
 <style scoped lang="scss">
 @media screen and (max-width:768px) {
     input {
-        height: 40px !important;
-        font-size: 12px !important;
-        padding: 10px 19px !important;
-        padding-bottom: 11px !important;
-
+        font-size: 14px !important;
         &::placeholder {
-            font-size: 12px;
+            font-size: 14px !important;
         }
     }
     footer {
-        padding-bottom: 58px !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
     }
     p.copy-right {
         font-size: 20px !important;
@@ -70,9 +67,10 @@
 }
 
 footer {
-    padding-top: 77px;
-    padding-bottom: 70px;
-
+    padding-top: 48px;
+    padding-bottom: 44px;
+    padding-left: 2rem;
+    padding-right: 2rem;
     .logo {
         width: 223.977px ;
         height: 45px ;
@@ -80,35 +78,33 @@ footer {
 
     hr {
         border-color: rgba(255, 255, 255, 0.089);
-        margin-top: 2.69rem;
-        margin-bottom: 2.58rem;
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
     }
 
     .top-footer {
         input {
             border-radius: 5rem;
-            font-size: 1.25rem;
-            padding: 0.94rem 1.95rem !important;
-            padding-bottom: 0.88rem !important;
+            font-size: 12px;
+            min-width: 260px;
+            padding: 9px 20px !important;
 
             &::placeholder {
                 @apply text-blue;
-
+                font-size: 12px;
             }
         }
 
         button {
             background: #5DCAA7;
             border-radius: 5rem;
-            padding: 0.62rem;
-            width: 6rem;
-            height: 60px;
-
+            width: 70px;
+            height: 38.103px;
         }
     }
 
     .copy-right {
-        font-size: 26px;
+        font-size: 16px;
         font-style: normal;
         font-weight: 400;
         line-height: normal;

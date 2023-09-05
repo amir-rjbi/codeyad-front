@@ -52,14 +52,14 @@
                 <IconsSearch color="var(--color-black)" class="hidden sm:block" />
             </section>
             <section class="bottom-header  header-categories" v-if="showCategories">
-                <BaseCarousel class="w-[93%]" :modules="[SwiperNavigation]" :centered-slides="false" :navigation="{
+                <BaseCarousel class="w-[93%]" :modules="[SwiperNavigation]" :navigation="{
                     enabled: true,
                     disabledClass: '!hidden'
                 }" :items="['c#', 'Nuxt', 'Next', 'c++', 'python', 'Ruby', 'react', 'unity', 'asp', 'vue']"
-                    :breakpoints="breakpoints" :space-between="8" slide-class="bg-white py-[15px] items-center justify-center text-center category-item dark:bg-slate-800 rounded mb-4 mt-2 ">
+                    :breakpoints="breakpoints" :space-between="8"
+                    slide-class=" bg-white py-[15px] items-center justify-center text-center category-item dark:bg-slate-800 rounded mb-4 mt-2 ">
                     <template #item="{ index, item }">
-                        <nuxt-link :to="`/courses/${item}`"
-                            class="  flex-grow ">
+                        <nuxt-link :to="`/courses/${item}`" class="  flex-grow !min-w-fit">
                             {{ item }}
                         </nuxt-link>
                     </template>
@@ -72,6 +72,7 @@
     </header>
 </template>
 <script setup lang="ts">
+import { useUtilStore } from '~~/stores/util.store';
 import { useAuthStore } from '~~/stores/auth.store';
 
 const porps = defineProps({
@@ -82,6 +83,7 @@ const porps = defineProps({
 })
 const authStore = useAuthStore();
 const isOpenSidebar = ref(false);
+const itemToShow = ref(8);
 const breakpoints = ref({
     1200: {
         slidesPerView: 10,
@@ -102,6 +104,12 @@ const breakpoints = ref({
         slidesPerView: 3,
     },
 });
+const utilStore = useUtilStore();
+onMounted(() => {
+    if (utilStore.isMobile()) {
+        itemToShow.value = 3;
+    }
+})
 </script>
 <style scoped lang="scss">
 @media screen and (max-width:768px) {
@@ -156,6 +164,7 @@ header {
         padding-bottom: 1rem;
         position: relative;
         margin-bottom: 11px;
+
         &::after {
             @apply bg-gray-200;
             content: " ";
@@ -165,8 +174,9 @@ header {
             bottom: -0.50rem;
             height: 1px;
         }
+
         padding-top: 30px;
-            
+
         img {
             flex-grow: 1;
             width: 141.718px;
@@ -207,4 +217,5 @@ header {
             }
         }
     }
-}</style>
+}
+</style>
