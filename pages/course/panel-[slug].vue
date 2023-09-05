@@ -150,6 +150,7 @@ aside {
 @media screen and (max-width:768px) {
     .tabs {
         overflow-x: auto;
+        overflow-y: hidden;
 
     }
 }
