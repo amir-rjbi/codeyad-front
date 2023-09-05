@@ -94,7 +94,7 @@
                 </div>
 
                 <div id="comments" class=" section pt-2">
-                    <HomeSpecialComments />
+                    <HomeSpecialComments title="نظرات دانشجویان"/>
                 </div>
             </div>
         </BaseSpyScroll>
