@@ -4,7 +4,7 @@
             <div class="container">
                 <div class="flex justify-between gap-[60px] sm:flex-col-reverse sm:gap-[40px]">
                     <div class="info w-[50%] text-white flex flex-col gap-[17px] sm:!w-full sm:gap-[12.23px]">
-                        <nuxt-link to="/courses" class="category-tag min-w-fit text-blue bg-secondary rounded-3xl  p-2">
+                        <nuxt-link to="/courses" class="category-tag min-w-fit text-blue bg-secondary rounded-3xl w-fit p-2">
                             برنامه نویسی وب
                         </nuxt-link>
                         <h1 class=" text-h3 sm:text-h7">آموزش جامع و پروژه محور ری اکت (React)</h1>
