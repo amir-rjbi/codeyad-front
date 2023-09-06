@@ -1,5 +1,5 @@
 <template>
-    <div class="flex tabs sm:overflow-y-auto sm:w-[104%] sm:pb-2">
+    <div class="flex tabs sm:overflow-y-auto sm:w-[104%] sm:pb-2 flex-wrap">
         <button @click="selectedTab = item.value" v-for="(item, index) in items" :key="index"
             :class="{ 'active': selectedTab == item.value }">{{ item.title
             }}</button>
@@ -32,6 +32,12 @@ watch(selectedTab, (val) => {
         &.active {
             background: var(--secondary-color, #E4EDF8);
         }
+    }
+}
+@media screen and (max-width:768px) {
+    .tabs{
+        flex-wrap: nowrap;
+        gap: unset;
     }
 }
 </style>

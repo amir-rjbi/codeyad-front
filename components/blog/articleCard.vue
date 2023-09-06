@@ -4,15 +4,18 @@
         <img src="/images/article.jpg" />
         <div class="article-conten">
             <p class="date-label">24 خرداد 1402</p>
-            <nuxt-link to="/" class="title">سه ستون لذت کاربر</nuxt-link>
+            <nuxt-link to="/blog/post/123" class="title">سه ستون لذت کاربر</nuxt-link>
             <p class="description">لذت را می توان به صورت درونی، درونی، رفتاری و بارفتاری و بازتابی تجربه کرد. یک طراحی عالی
                 است ...</p>
-            <div class="tags">
+            <div class="tags flex-wrap">
                 <nuxt-link to="/">
                     <label :class="generateColor()">Research</label>
                 </nuxt-link>
                 <nuxt-link to="/">
                     <label :class="generateColor()">UI UX</label>
+                </nuxt-link>
+                <nuxt-link to="/">
+                    <label :class="generateColor()">Developments</label>
                 </nuxt-link>
             </div>
         </div>
@@ -123,6 +126,7 @@ article.article-card {
     img {
         border-radius: 7.636px;
         height: 240px;
+        box-shadow: 0px 3.05429px 16.03502px 0px rgba(0, 0, 0, 0.11);
     }
 
     .tags {
