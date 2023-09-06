@@ -7,7 +7,7 @@
                 <slot />
             </div>
         </div>
-        <TheFooter />
+        <TheFooter class=" mt-[90px]"/>
     </div>
 </template>
 

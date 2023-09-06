@@ -37,6 +37,37 @@ html {
 
 
 @layer components {
+    .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    table {
+        border: 1px solid var(--color-blue-gray-200);
+        border-radius: 8px;
+        width: 100%;
+        background: var(--color-white);
+
+        thead {
+            border-bottom: 1px solid var(--color-blue-gray-200);
+        }
+
+        th,
+        td {
+            padding: 1rem;
+            border: 1px solid var(--color-blue-gray-200);
+            text-align: center
+        }
+
+        tbody {
+            tr {
+                &:hover {
+                    background: var(--color-blue-gray-050)
+                }
+            }
+        }
+    }
+
     .card {
         @apply bg-white rounded shadow-md pt-2 pb-2 pr-4 pl-4;
     }
@@ -95,7 +126,7 @@ html {
         }
 
         &.outline {
-            border: 1px solid var(--color-dark-light);
+            border: 1.5px solid var(--color-dark-light);
             background: transparent;
             padding: 0.75rem 12px;
             border-radius: 6px;
@@ -264,9 +295,11 @@ p {
     .btn {
         padding: .60rem 3rem;
     }
+
     .section-title {
         font-weight: 600;
     }
+
     :root {
         --h2-font-size: 20px;
     }

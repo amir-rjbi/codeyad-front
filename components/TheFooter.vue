@@ -1,5 +1,5 @@
 <template>
-    <footer class="bg-blue w-full overflow-hidden sm:!pt-9 ">
+    <footer class="bg-blue w-full overflow-hidden sm:!pt-9">
         <div class="top-footer flex justify-between container flex-wrap sm:justify-center">
             <NuxtLink to="/">
                 <img class="logo" src="/logo-white.png" />

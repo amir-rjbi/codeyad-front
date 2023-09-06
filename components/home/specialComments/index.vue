@@ -15,9 +15,9 @@
 </template>
 <script setup lang="ts">
 defineProps({
-    title:{
-        type:String,
-        default:"دیدگاه دانشجوها از کدیاد"
+    title: {
+        type: String,
+        default: "دیدگاه دانشجوها از کدیاد"
     }
 })
 const breakpoints = ref({

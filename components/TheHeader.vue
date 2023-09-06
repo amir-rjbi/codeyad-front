@@ -7,7 +7,7 @@
         <Transition name="page">
             <div class="sidebar-back" v-if="isOpenSidebar" @click="isOpenSidebar = false"></div>
         </Transition>
-        <div class="text-banner ">
+        <div class="text-banner " @click="$router.push('/account')">
             <p class="sm:text-h7">"کدنویسی، هنری برای خلق دنیای بهتر"</p>
         </div>
         <div class="container">
