@@ -19,18 +19,18 @@ module.exports = {
   ],
   safelist: [
     {
-      pattern: /bg-(red|green|blue|default)-(250|950|300)/,
+      pattern: /bg-(red|green|blue|orange|default)-(250|950|300)/,
       variants: ["hover"],
     },
     {
-      pattern: /bg-(red|green|blue|default)/,
+      pattern: /bg-(red|green|blue|orange|default)/,
     },
     {
-      pattern: /!border-(red|green|blue|default)/,
+      pattern: /!border-(red|green|blue|orange|default)/,
       variants: ["hover"],
     },
     {
-      pattern: /text-(red|green|blue|white|default)/,
+      pattern: /text-(red|green|blue|orange|white|default)/,
     },
   ],
   theme: {
@@ -67,6 +67,11 @@ module.exports = {
         },
         black: "#080808",
         bodyBg: "#EEF3F9",
+        orange: {
+          DEFAULT: "#EF8F00",
+          950: "#d07d00",
+
+        },
       },
       container: {
         center: true,

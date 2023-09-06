@@ -3,7 +3,7 @@
         leave-active-class="animate__animated animate__slideOutRight animate__faster">
         <TheMobileSideBar v-if="isOpenSidebar" @closeSideBar="() => isOpenSidebar = false" />
     </Transition>
-    <header>
+    <header class="main">
         <Transition name="page">
             <div class="sidebar-back" v-if="isOpenSidebar" @click="isOpenSidebar = false"></div>
         </Transition>
@@ -111,7 +111,7 @@ onMounted(() => {
     }
 })
 </script>
-<style scoped lang="scss">
+<style  lang="scss">
 @media screen and (max-width:768px) {
     .middel {
         &::after {
@@ -119,7 +119,7 @@ onMounted(() => {
         }
     }
 
-    header {
+    header.main {
         img {
             width: 110px;
             height: 31px;
@@ -140,7 +140,16 @@ onMounted(() => {
     z-index: 1000;
 }
 
-header {
+.text-banner {
+    background: linear-gradient(270deg, #286BB8 0%, #5FA4F0 23.78%, #286BB6 49.83%, #62A6F3 72.74%, #286BB8 100%);
+    width: 100%;
+    font-size: var(--h5-font-size);
+    text-align: center;
+    padding: 0.75rem;
+    color: white;
+}
+
+header.main {
     position: relative;
     overflow: hidden;
 
@@ -148,14 +157,7 @@ header {
         box-shadow: 0px 2.6993932723999023px 14.171814918518066px 0px rgba(0, 0, 0, 0.11);
     }
 
-    .text-banner {
-        background: linear-gradient(270deg, #286BB8 0%, #5FA4F0 23.78%, #286BB6 49.83%, #62A6F3 72.74%, #286BB8 100%);
-        width: 100%;
-        font-size: var(--h5-font-size);
-        text-align: center;
-        padding: 0.75rem;
-        color: white;
-    }
+
 
 
 
