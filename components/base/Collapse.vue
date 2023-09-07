@@ -1,7 +1,7 @@
 <template>
     <div :class="['w-full', { 'down-to-up': DownToUpIcon }]">
         <div class="head items-center flex gap-5 justify-between cursor-pointer" @click="isOpen = !isOpen">
-            <p class="text-black font-medium">{{ title }}</p>
+            <p :class="['text-black font-medium', titleClass]">{{ title }}</p>
             <div :class="['icon', { 'opened': isOpen }]">
                 <template v-if="DownToUpIcon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="11" viewBox="0 0 20 11" fill="none">
@@ -35,6 +35,10 @@ const props = defineProps({
     DownToUpIcon: {
         type: Boolean,
         default: false
+    },
+    titleClass: {
+        type: String,
+        default: ""
     }
 })
 </script>

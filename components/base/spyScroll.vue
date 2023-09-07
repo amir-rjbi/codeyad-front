@@ -19,10 +19,13 @@ defineProps({
 
 onMounted(() => {
     setTimeout(() => {
-        var section = document.querySelectorAll(".section");
-        section.forEach(function (e) {
-            Object.assign(sections, { [e.id]: [e.offsetTop] })
-        });
+        var section = document.querySelectorAll(".section"); +
+
+            section.forEach(function (e) {
+                Object.assign(sections, { [e.id]: [e.offsetTop] })
+            });
+            console.log(sections);
+
         window.addEventListener('scroll', spy)
     }, 500);
 });
@@ -35,6 +38,7 @@ const spy = () => {
     var i = 0;
     for (i in sections) {
         if (sections[i] <= scrollPosition + 65) {
+
             document.querySelector('.active').setAttribute('class', ' ');
             document.querySelector('a[href*=' + i + ']').setAttribute('class', 'active');
         }
