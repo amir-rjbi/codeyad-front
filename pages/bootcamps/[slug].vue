@@ -131,14 +131,14 @@
                 <div class="section pr-8 py-[115px] sm:pr-0" id="questions">
                     <h3 class="text-center text-black text-h3 sm:text-h4 font-bold mb-10">سوالات متداول</h3>
                     <div class="flex flex-col gap-4">
-                        <BaseCollapse title-class="font-bold text-h4 sm:!text-h6" title="پیش نیاز های دوره ؟"
+                        <BaseCollapse title-class="font-bold text-h4 sm:!text-h5" title="پیش نیاز های دوره ؟"
                             -down-to-up-icon>
                             <p class="text-h6 sm:text-h7 mt-2">کدیاد اولین برگزار کننده بوت کمپ طراحی سایت در ایران هستش که
                                 بر روی
                                 درآمدزایی ، مهارت های
                                 نرم ،اصول مذاکره و آموزش و طراحی قالب برای فروش در مارکت های راستچین و ژاکت است </p>
                         </BaseCollapse>
-                        <BaseCollapse title-class="font-bold text-h4 sm:!text-h6"
+                        <BaseCollapse title-class="font-bold text-h4 sm:!text-h5"
                             title="آیا در طول بوت کمپ امکان پرسش سوالات و دریافت پاسخ از منتورها وجود دارد؟‌"
                             -down-to-up-icon>
                             <p class="text-h6 sm:text-h7 mt-2">کدیاد اولین برگزار کننده بوت کمپ طراحی سایت در ایران هستش که
@@ -146,14 +146,14 @@
                                 درآمدزایی ، مهارت های
                                 نرم ،اصول مذاکره و آموزش و طراحی قالب برای فروش در مارکت های راستچین و ژاکت است </p>
                         </BaseCollapse>
-                        <BaseCollapse title-class="font-bold text-h4 sm:!text-h6"
+                        <BaseCollapse title-class="font-bold text-h4 sm:!text-h5"
                             title="این ورکشاپ برای چه کسانی مناسب است؟" -down-to-up-icon>
                             <p class="text-h6 sm:text-h7 mt-2">کدیاد اولین برگزار کننده بوت کمپ طراحی سایت در ایران هستش که
                                 بر روی
                                 درآمدزایی ، مهارت های
                                 نرم ،اصول مذاکره و آموزش و طراحی قالب برای فروش در مارکت های راستچین و ژاکت است </p>
                         </BaseCollapse>
-                        <BaseCollapse title-class="font-bold text-h4 sm:!text-h6" title="پلتفرم برگزاری دوره ؟"
+                        <BaseCollapse title-class="font-bold text-h4 sm:!text-h5" title="پلتفرم برگزاری دوره ؟"
                             -down-to-up-icon>
                             <p class="text-h6 sm:text-h7 mt-2">کدیاد اولین برگزار کننده بوت کمپ طراحی سایت در ایران هستش که
                                 بر روی
