@@ -19,7 +19,7 @@
                     <NuxtLink @click="CloseSideBar" to="/masters">مدرسین</NuxtLink>
 
                 </li>
-                <li class="lg:hidden">
+                <li>
                     <NuxtLink to="/bootcamps">بوتکمپ ها</NuxtLink>
                 </li>
                 <li>
@@ -60,6 +60,7 @@ aside {
     z-index: 1001;
     background: var(--color-white);
     font-size: 16px;
+
     .header {
         display: flex;
         align-items: center;

@@ -327,4 +327,5 @@ main {
             color: var(--primary-color);
         }
     }
-}</style>
+}
+</style>
