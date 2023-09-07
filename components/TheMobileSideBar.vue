@@ -20,10 +20,10 @@
 
                 </li>
                 <li>
-                    <NuxtLink to="/bootcamps">بوتکمپ ها</NuxtLink>
+                    <NuxtLink @click="CloseSideBar" to="/bootcamps">بوتکمپ ها</NuxtLink>
                 </li>
                 <li>
-                    <NuxtLink to="/questions">پرسش و پاسخ</NuxtLink>
+                    <NuxtLink @click="CloseSideBar" to="/questions">پرسش و پاسخ</NuxtLink>
                 </li>
             </ul>
         </div>
