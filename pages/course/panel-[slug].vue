@@ -62,67 +62,75 @@
                 </div>
             </BaseCollapse>
         </aside>
-        <div class="course-content py-[60px] container sm:!w-full">
-            <BaseVideoPlayer poster="/images/course.png" />
-            <div class="tabs justify-between">
-                <div class="items sm:!gap-6">
-                    <button @click="selectedTab = 'desc'" :class="{ 'active': selectedTab == 'desc' }"
-                        name="desc">توضیحات</button>
-                    <button @click="selectedTab = 'comments'" :class="{ 'active': selectedTab == 'comments' }"
-                        name="comments">نظرات</button>
-                    <button @click="selectedTab = 'requireds'" :class="{ 'active': selectedTab == 'requireds' }"
-                        name="requireds">پیش نیاز ها</button>
-                    <button @click="selectedTab = 'faqs'" :class="{ 'active': selectedTab == 'faqs' }" name="faqs">پرسش های
-                        متداول</button>
+        <div class="course-content py-[65px] container sm:!w-full">
+            <div class="pr-12 sm:pr-0">
+                <BaseVideoPlayer poster="/images/course.png" />
+                <div class="tabs justify-between">
+                    <div class="items sm:!gap-6">
+                        <button @click="selectedTab = 'desc'" :class="{ 'active': selectedTab == 'desc' }"
+                            name="desc">توضیحات</button>
+                        <button @click="selectedTab = 'comments'" :class="{ 'active': selectedTab == 'comments' }"
+                            name="comments">نظرات</button>
+                        <button @click="selectedTab = 'requireds'" :class="{ 'active': selectedTab == 'requireds' }"
+                            name="requireds">پیش نیاز ها</button>
+                        <button @click="selectedTab = 'faqs'" :class="{ 'active': selectedTab == 'faqs' }" name="faqs">پرسش
+                            های
+                            متداول</button>
+                    </div>
+                    <button class="share sm:hidden">اشتراک گذاری با لینک کوتاه</button>
                 </div>
-                <button class="share sm:hidden">اشتراک گذاری با لینک کوتاه</button>
-            </div>
-            <div class="tab-content pt-2">
-                <Transition name="page" mode="out-in">
-                    <div class="desc p-4" v-if="selectedTab == 'desc'">
-                        <h2>به دوره خوش آمدید</h2>
-                        <p>
-                            ری اکت چیست؟
-                            React یک کتابخانه‌ی جاوا اسکریپتی است که برای ساخت یوزر اینترفیس یا همان رابط کاربری مورد
-                            استفاده
-                            قرار
-                            می‌گیرد. همه‌ی این آلمان‌های در این صفحه کنار هم برای ما رابط کاربری را تشکیل می‌دهند. (یوزر
-                            اینترفیس
-                            (رابط کاربری) چیزی که با کاربر در ارتباط است). کاربرد ری‌اکت این است که یوزر اینترفیس را برای ما
-                            با
-                            یک
-                            سری ویژگی‌های خاص می‌سازد. یکی از مهمترین ویژگی‌ها این است که React این قابلیت را دارد که برای
-                            ما
-                            یوزر
-                            اینترفیس‌ها یا رابط‌های کاربری را با سرعت بالا بسازد. مسلما سرعت بالای هر وبسایت می‌تواند در جذب
-                            کاربر
-                            تاثیر بسزایی داشته باشد. پس تا به این جا همان طور که گفتم ری‌اکت یک کتابخانه‌‌ی جاوا اسکریپتی
-                            برای
-                            ساخت
-                            رابط‌های کاربری با سرعت بالا است.
-                        </p>
-                    </div>
-                    <CourseComments v-else-if="selectedTab == 'comments'" />
-                    <div class="requireds" v-else-if="selectedTab == 'requireds'">
-                        <div class="item flex justify-between gap-4 mb-4 items-center rounded-[12px] flex-wrap p-[19px] bg-white"
-                            v-for="item in ['الگوریتم و فلوچارت', 'سی شارپ']">
-                            <p class="text-h5">{{ item }}</p>
-                            <BaseButton class="px-7 sm:w-full" >شروع دوره</BaseButton>
+                <div class="tab-content pt-2">
+                    <Transition name="page" mode="out-in">
+                        <div class="desc p-4" v-if="selectedTab == 'desc'">
+                            <h2>به دوره خوش آمدید</h2>
+                            <p>
+                                ری اکت چیست؟
+                                React یک کتابخانه‌ی جاوا اسکریپتی است که برای ساخت یوزر اینترفیس یا همان رابط کاربری مورد
+                                استفاده
+                                قرار
+                                می‌گیرد. همه‌ی این آلمان‌های در این صفحه کنار هم برای ما رابط کاربری را تشکیل می‌دهند. (یوزر
+                                اینترفیس
+                                (رابط کاربری) چیزی که با کاربر در ارتباط است). کاربرد ری‌اکت این است که یوزر اینترفیس را
+                                برای ما
+                                با
+                                یک
+                                سری ویژگی‌های خاص می‌سازد. یکی از مهمترین ویژگی‌ها این است که React این قابلیت را دارد که
+                                برای
+                                ما
+                                یوزر
+                                اینترفیس‌ها یا رابط‌های کاربری را با سرعت بالا بسازد. مسلما سرعت بالای هر وبسایت می‌تواند در
+                                جذب
+                                کاربر
+                                تاثیر بسزایی داشته باشد. پس تا به این جا همان طور که گفتم ری‌اکت یک کتابخانه‌‌ی جاوا
+                                اسکریپتی
+                                برای
+                                ساخت
+                                رابط‌های کاربری با سرعت بالا است.
+                            </p>
                         </div>
-                    </div>
-                    <div class="faqs flex gap-6 flex-col" v-else-if="selectedTab == 'faqs'">
-                        <BaseCollapse :DownToUpIcon="true" v-for="item in ['یادگیری زبان برنامه نویسی پایتون آسان است؟',
-                            'چرا میان تمام زبان‌های برنامه نویسی موجود، این زبان بسیار پرطرفدار و محبوب می‌باشد؟',
-                            'زبان برنامه نویسی پایتون چیست؟']" :title="item">
+                        <CourseComments v-else-if="selectedTab == 'comments'" />
+                        <div class="requireds" v-else-if="selectedTab == 'requireds'">
+                            <div class="item flex justify-between gap-4 mb-4 items-center rounded-[12px] flex-wrap p-[19px] bg-white"
+                                v-for="item in ['الگوریتم و فلوچارت', 'سی شارپ']">
+                                <p class="text-h5">{{ item }}</p>
+                                <BaseButton class="px-7 sm:w-full">شروع دوره</BaseButton>
+                            </div>
+                        </div>
+                        <div class="faqs flex gap-6 flex-col" v-else-if="selectedTab == 'faqs'">
+                            <BaseCollapse :DownToUpIcon="true" v-for="item in ['یادگیری زبان برنامه نویسی پایتون آسان است؟',
+                                'چرا میان تمام زبان‌های برنامه نویسی موجود، این زبان بسیار پرطرفدار و محبوب می‌باشد؟',
+                                'زبان برنامه نویسی پایتون چیست؟']" :title="item">
 
-                            یادگیری و استفاده‌ی آسان، همه‌منظوره و بدون محدودیت، نزدیکی به زبان انسان و خوانایی بالا،
-                            افزونه‌سازی و استفاده از افزونه‌ها، شی‌گرا و سرگرم‌کننده و کتابخانه‌های عمومی و منابع رایگان
-                            برخی از ویژگی های این زبان برنامه نویسی است. همچنین با این زبان، غول های فناوری مثل اینستاگرام،
-                            فیسبوک، یوتیوب و... ساخته شده است. به همین دلیل این زبان محبوبیت و شهرت خاص و زیادی دارد.
-                        </BaseCollapse>
-                    </div>
-                </Transition>
+                                یادگیری و استفاده‌ی آسان، همه‌منظوره و بدون محدودیت، نزدیکی به زبان انسان و خوانایی بالا،
+                                افزونه‌سازی و استفاده از افزونه‌ها، شی‌گرا و سرگرم‌کننده و کتابخانه‌های عمومی و منابع رایگان
+                                برخی از ویژگی های این زبان برنامه نویسی است. همچنین با این زبان، غول های فناوری مثل
+                                اینستاگرام،
+                                فیسبوک، یوتیوب و... ساخته شده است. به همین دلیل این زبان محبوبیت و شهرت خاص و زیادی دارد.
+                            </BaseCollapse>
+                        </div>
+                    </Transition>
 
+                </div>
             </div>
         </div>
     </div>
@@ -153,6 +161,8 @@ aside {
         overflow-y: hidden;
 
     }
+
+    .course-content {}
 }
 
 .course-content {
@@ -237,5 +247,4 @@ aside {
     width: 100%;
     padding-top: 15px;
     padding-bottom: 15px;
-}
-</style>
+}</style>

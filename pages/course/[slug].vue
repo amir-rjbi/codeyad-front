@@ -80,7 +80,7 @@
                     <h3 class="text-h5 font-bold dark:text-white text-center mb-[50px]">ویژگی های دوره</h3>
                     <div class="flex justify-between sm:flex-wrap sm:gap-9">
                         <div v-for="item in [1, 2, 3]"
-                            class="spec-card xl:w-[28%]
+                            class="spec-card w-[28%]
                             md:!w-[32%]
                             text-center flex p-[23px] sm:p-[30px] flex-col items-center justify-center gap-5 bg-secondary rounded-[20px]">
                             <div class="flex flex-col gap-3 items-center justify-center ">
