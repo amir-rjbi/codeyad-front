@@ -52,7 +52,7 @@ export default defineNuxtConfig({
       "https://cdn.bama.ir",
     ],
     alias: {
-      codeyad: "https://api.codeyad.com",
+      codeyad: "https://dl.codeyad.com/images",
       test: "https://cdn.bama.ir",
       hamcar: "http://dl.test13.ir",
       //static: "http://localhost:3000",
