@@ -8,6 +8,9 @@ export default defineNuxtConfig({
     },
   },
   modules: ["@nuxt/image", "@pinia/nuxt", "nuxt-swiper", "floating-vue/nuxt"],
+  build: {
+    transpile: ["vue-toastification"],
+  },
   css: [
     "@/assets/css/main.scss",
     "@/assets/css/dark.scss",
