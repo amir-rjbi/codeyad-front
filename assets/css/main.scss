@@ -155,6 +155,7 @@ html {
 p {
     line-height: normal;
 }
+
 .text-banner {
     background: linear-gradient(270deg, #286BB8 0%, #5FA4F0 23.78%, #286BB6 49.83%, #62A6F3 72.74%, #286BB8 100%);
     width: 100%;
@@ -163,9 +164,89 @@ p {
     padding: 0.75rem;
     color: white;
 }
-.ck-editor{
+
+.ck-editor {
     width: 100% !important;
 }
+
+.t__close-btn {
+    color: var(--color-gray-600) !important;
+}
+
+.h__toast {
+    background: var(--color-white) !important;
+    color: var(--color-black) !important;
+    box-shadow: 0px 10px 36px rgba(15, 15, 16, 0.2) !important;
+    border-radius: 14px !important;
+    padding: 0 0 0 1.5rem !important;
+    min-width: 400px !important;
+    max-width: 100% !important;
+
+}
+
+.Vue-Toastification__toast-body {
+    padding: 1.5rem 1rem;
+}
+
+.Vue-Toastification__progress-bar {
+    background: #F0EFEF !important;
+    width: 94% !important;
+    right: unset !important;
+    left: -68px !important;
+}
+
+.toast__icon {
+    height: unset !important;
+    width: 88px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: unset !important;
+}
+
+.Vue-Toastification__toast--rtl {
+    margin-left: auto !important;
+    margin-right: unset !important;
+}
+
+.Vue-Toastification__toast {
+    font-family: var(--t6-font-family) !important;
+    font-size: var(--t6-font-size) !important;
+}
+
+.card-loading {
+    opacity: .4;
+    z-index: 1;
+    position: relative;
+
+    &::after {
+        content: " ";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 3;
+    }
+}
+
+@media screen and (max-width:768px) {
+    div.h__toast {
+        margin: 30px auto !important;
+        width: 85% !important;
+        display: flex;
+        min-width: unset !important;
+        min-height: 72px !important;
+        margin-bottom: 0 !important;
+    }
+
+    .Vue-Toastification__toast-body {
+        padding: 1.5rem 12px !important;
+        font-family: var(--t6-font-family) !important;
+        font-size: var(--t6-font-size) !important;
+    }
+}
+
 :root {
     --h1-font-family: "iransans-bold";
     --h2-font-family: "iransans";

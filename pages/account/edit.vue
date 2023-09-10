@@ -1,6 +1,6 @@
 <template>
     <Form :validation-schema="schema" v-slot="{ meta }" @submit="edit">
-        <base-card>
+        <base-card :loading="loading">
             <template #header>
                 <h5>ویرایش اطلاعات</h5>
             </template>
@@ -20,10 +20,10 @@
                 <div class="w-full p-2 sm:px-0">
                     <BaseHtmlEditor placeholder="درباره من" v-model="aboutMe" id="aboutme" />
                 </div>
-
             </div>
             <template #actions>
-                <base-button type="submit" :disabled="!meta.valid">ثبت اطلاعات</base-button>
+                <base-button @click="loading = !loading" type="submit" :loading="loading" :disabled="!meta.valid">ثبت
+                    اطلاعات</base-button>
             </template>
         </base-card>
     </Form>
@@ -31,6 +31,8 @@
 <script setup lang="ts">
 import { Form } from "vee-validate";
 import * as Yup from 'yup'
+
+const loading = ref(false);
 const schema = Yup.object().shape({
     name: Yup.string().required().label('نام'),
     family: Yup.string().required().label('نام خانوادگی'),

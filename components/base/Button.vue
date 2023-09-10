@@ -148,7 +148,7 @@ const props = defineProps({
 
 .sp-3balls:after {
     left: -18px;
-    top: -25px;
+    top: -30px;
     -webkit-animation: spScaleAlphaAfter 1s infinite linear;
     animation: spScaleAlphaAfter 1s infinite linear;
 }
