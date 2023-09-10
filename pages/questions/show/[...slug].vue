@@ -25,7 +25,7 @@
                     <div class="flex justify-between sm:flex-wrap items-center gap-3">
                         <h1 class="text-h4 sm:text-h5 ">هوش مصنوعی</h1>
                         <div class="flex items-center flex-col gap-2">
-                            <BaseButton :render-button-tag="false" class="items-center justify-center" to="/questions/add">
+                            <BaseButton class="items-center justify-center" @click="isOpenModal = true">
                                 سوالتو بپرس
                             </BaseButton>
                         </div>
@@ -87,18 +87,23 @@
                     </div>
                 </div>
                 <div class="mt-4 flex gap-4 justify-end flex-col items-end w-full">
-                    <BaseHtmlEditor placeholder="اگر برای پرسش بالا پاسخی دارید لطفا اینجا وارد کنید" id="desc" class="w-full"/>
+                    <BaseHtmlEditor name="answer" placeholder="اگر برای پرسش بالا پاسخی دارید لطفا اینجا وارد کنید"
+                        id="desc" class="w-full" />
                     <BaseButton>ثبت پاسخ</BaseButton>
                 </div>
             </div>
 
         </div>
+        <BaseModal title="پرسش سوال جدید" v-model="isOpenModal">
+            <questions-add />
+        </BaseModal>
     </div>
 </template>
 <script setup lang="ts">
 definePageMeta({
     layout: "un-category"
 })
+const isOpenModal = ref(false);
 </script>
 
 <style scoped lang="scss">

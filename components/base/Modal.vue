@@ -100,11 +100,12 @@ watch(
     () => props.modelValue,
     (val) => {
         if (val) {
-            document.body.style.overflow = "hidden";
+            document.getElementsByTagName("html")[0].style.overflow = "hidden"
             setTimeout(() => {
                 showModal.value = true;
             }, 150);
         } else {
+            document.getElementsByTagName("html")[0].style.overflow = "auto"
             document.body.style.overflow = "auto";
             showModal.value = false;
         }
@@ -248,8 +249,7 @@ body.modal-open {
 }
 
 .modal-fix-header .modal__name {
-    font-family: var(--t2-font-family);
-    font-size: var(--t2-font-size);
+    font-size: var(--h4-font-size);
 }
 
 .modal-fix-header .modal__close-btn svg {
@@ -294,19 +294,17 @@ body.modal-open {
 }
 
 .modal__name {
-    font-family: var(--t1-font-family);
-    font-size: var(--t1-font-size);
+    font-size: var(--h5-font-size);
 }
 
 .modal__caption {
     color: var(--color-gray-600);
-    font-family: var(--t6-font-family);
-    font-size: var(--t6-font-size);
+    font-size: var(--h8-font-size);
     margin-top: 0.5rem;
 }
 
 .modal__body {
-    padding: 2.25rem 4rem 3rem 4rem;
+    padding: 2.25rem 3rem 3rem 3rem;
     overflow-x: inherit;
 }
 
@@ -455,8 +453,7 @@ body.modal-open {
     }
 
     .modal__name {
-        font-family: var(--t3-font-family);
-        font-size: var(--t3-font-size);
+        font-weight: bold;
         text-align: right;
         margin-top: 1.25rem;
     }

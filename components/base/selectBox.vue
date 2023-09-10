@@ -1,21 +1,18 @@
 <template>
     <div>
-        <label :class="['input-label']" v-if="label">{{ label }}<span class="text-red-600" v-if="required">
+        <label class="input-label" v-if="label">{{ label }}<span class="text-red-600" v-if="required">
                 *</span></label>
-        <div :class="['input-group',]">
-            <input :type="type" :disabled="disabled" :class="[
+        <div>
+            <select :class="[
                 'form-control ',
                 { 'bg-transparent': transparent },
                 { 'invalid-data': !!errorMessage },
                 { 'has-icon': $slots.icon },
                 { 'outline': outLine }
-            ]" :placeholder="placeholder" :value="inputValue" :autofocus="autofocus" @input="modelValueChanged"
-                :name="name" autocomplete="off" :inputmode="number ? 'numeric' : 'text'" />
-            <div class="input__icon " v-if="$slots.icon && !errorMessage">
-                <slot name="icon" />
-            </div>
-
-            <slot v-if="hasSlot()" />
+            ]" :disabled="disabled" :placeholder="placeholder" :value="inputValue" @input="modelValueChanged"
+                :name="name">
+                <slot v-if="hasSlot()" />
+            </select>
             <p class="input-invalid-text" v-if="errorMessage">{{ errorMessage }}</p>
         </div>
     </div>
@@ -24,13 +21,11 @@
   
 <script setup lang="ts">
 import { useField } from "vee-validate";
+
+
 const slots = useSlots();
 const emit = defineEmits(["update:modelValue"]);
 const props = defineProps({
-    autofocus: {
-        default: null,
-        type: Boolean,
-    },
     placeholder: {
         default: "",
         type: String,
@@ -39,10 +34,6 @@ const props = defineProps({
         default: "",
         type: String || null,
     },
-    type: {
-        default: "text",
-        type: String,
-    },
     name: {
         type: String,
         required: true,
@@ -50,10 +41,6 @@ const props = defineProps({
     message: {
         type: String,
         default: "",
-    },
-    number: {
-        type: Boolean,
-        default: false,
     },
     ignoreErrorMessage: {
         type: Boolean,
@@ -103,58 +90,22 @@ watch(
     }
 );
 const modelValueChanged = ($event: any) => {
-    if(props.type=='input'){
-        return;
-    }
-    if (props.type == 'checkbox') {
-        if ($event.target.checked) {
-            handleChange($event);
-            emit("update:modelValue", $event.target.value);
-        } else {
-            emit("update:modelValue", "");
-            setValue("");
-        }
-    } else {
-        if (props.number) {
-            if (!isNaN($event.target.value)) {
-                emit("update:modelValue", $event.target.value);
-            } else {
-                $event.target.value = props.modelValue;
-            }
-        } else {
-            emit("update:modelValue", $event.target.value);
-        }
-        handleChange($event);
-    }
+    emit("update:modelValue", $event.target.value);
+    handleChange($event);
 };
 const hasSlot = () => {
     return !!slots.default;
 };
 </script>
 <style scoped lang="scss">
-.checkbox__wrap {
-    display: flex;
-    gap: 0.5rem;
+select {
+    outline: none !important;
+    width: 100%;
+    padding-top: .6rem !important;
+    padding-bottom: .6rem !important;
 }
 
-.checkbox__wrap label {
-    cursor: pointer;
-}
-
-.has-icon {
-    padding-left: 2.7rem;
-}
-
-.input__icon {
-    position: absolute;
-    height: 100%;
-    left: 1.25rem;
-    top: 0;
-    display: flex;
-    align-items: center;
-}
-
-.input {
-    position: relative;
+.form-control.outline {
+    outline: none;
 }
 </style>

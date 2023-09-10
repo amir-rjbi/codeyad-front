@@ -20,8 +20,7 @@
                     <h2 class="text-h4 sm:text-h5 ">همه سوالات
                         - asp.net core</h2>
                     <div class="flex items-center flex-col gap-2 sm:w-full">
-                        <BaseButton :render-button-tag="false" class="items-center justify-center sm:w-full"
-                            to="/questions/add">
+                        <BaseButton class="items-center justify-center sm:w-full" @click="isOpenModal = true">
                             سوالتو بپرس
                         </BaseButton>
                         <label class="text-h6 sm:text-h8">559 سوال</label>
@@ -91,12 +90,16 @@
                 </div>
             </div>
         </div>
+        <BaseModal title="پرسش سوال جدید" v-model="isOpenModal" >
+            <questions-add />
+        </BaseModal>
     </div>
 </template>
 <script setup lang="ts">
 definePageMeta({
     layout: "un-category"
-})
+});
+const isOpenModal = ref(false);
 </script>
 
 <style scoped lang="scss">
