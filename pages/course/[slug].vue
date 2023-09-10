@@ -26,14 +26,18 @@
                                 <icons-users color="white" />
                             </div>
                         </div>
-                        <BaseButton :render-button-tag="false" to="/course/panel-test" class="sm:w-full" color-white>شروع
-                            دوره
-                            <template #icon>
-                                <IconsArrowLeft color="var(--primary-color)" />
-                            </template>
-                        </BaseButton>
+                        <div class="flex justify-between flex-wrap gap-3">
+                            <p class="text-h5 text-green-action font-semibold">قیمت دوره : 1,500,000 تومان</p>
+                            <BaseButton :render-button-tag="false" to="/course/panel-test" class="sm:w-full" color-white>
+                                شروع
+                                دوره
+                                <template #icon>
+                                    <IconsArrowLeft color="var(--primary-color)" />
+                                </template>
+                            </BaseButton>
+                        </div>
                     </div>
-                    <base-img alt="courseTitle" class="w-[50%] rounded-[10px] h-[300px] sm:!w-full sm:h-[200px]"
+                    <base-img alt="courseTitle" class="w-[50%] rounded-[10px] h-[300px] sm:!w-full sm:h-[183px]"
                         style="object-fit: fill;" src="static/images/course.png" />
                 </div>
             </div>
@@ -94,7 +98,7 @@
                 </div>
 
                 <div id="comments" class=" section pt-2">
-                    <HomeSpecialComments title="نظرات دانشجویان"/>
+                    <HomeSpecialComments title="نظرات دانشجویان" />
                 </div>
             </div>
         </BaseSpyScroll>
@@ -136,4 +140,5 @@ definePageMeta({
     p {
         color: var(--color-gray-400);
     }
-}</style>
+}
+</style>

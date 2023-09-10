@@ -41,10 +41,7 @@
         }]" />
         <div class="flex relative justify-between sm:flex-wrap">
             <div class="w-[30%] sticky top-2 h-fit sm:w-full sm:relative sm:mb-11">
-                <h2 class="text-h5 mb-8 sm:text-h5">محبوب ترین مقالات</h2>
-                <nuxt-link :key="index" :to="`/blog/post/${index}`" class="bg-white mb-5 p-3 rounded-[12px] pt-4 text-h7"
-                    v-for="(item, index) in ['آموزش کامل ساخت ربات', 'پروژه های توسعه چابک و قابلیت استفاده', 'آموزش کامل ربات ایسنتاگرام']">
-                    {{ item }}</nuxt-link>
+                <BlogPopularArticles />
             </div>
             <div class="w-[67%] sm:w-full">
                 <h5 class="hidden sm:!block text-[20px] font-semibold mb-4">آخرین مقالات</h5>

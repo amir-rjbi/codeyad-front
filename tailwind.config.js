@@ -60,6 +60,7 @@ module.exports = {
           DEFAULT: "#39A54A",
           250: "#f0fdf4",
           950: "#166534",
+          'action': "#5DCAA7",
         },
         gray: {
           400: "var(--color-gray-400)",

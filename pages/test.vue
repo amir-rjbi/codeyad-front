@@ -4,9 +4,9 @@
             <h3>card header</h3>
         </template>
         <div class="flex gap-2 p-2">
-            <nuxt-img
+            <base-img alt="test"
                 src="test/uploads/BamaImages/VehicleCarImages/9a144757-0bda-4f57-a202-71fdeaa64853/CarImage_638279857293426716_thumb_900_600.jpeg"
-                width="210"  style="height:116px ;" height="116"/>
+               />
             <img src="https://cdn.bama.ir/uploads/BamaImages/VehicleCarImages/9a144757-0bda-4f57-a202-71fdeaa64853/CarImage_638279857293426716_thumb_900_600.jpeg"
                 width="320" fit="fill" />
             <BaseButton>

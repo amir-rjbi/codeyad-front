@@ -4,6 +4,4 @@ export default interface FetchCustomConfig {
     onError?: (e: FetchError) => void;
     onValidationFailed?: (errors: Record<string, string>, e: FetchError) => void;
     setErrors?: (errors: { [key: string]: string }) => void;
-    // transformer?: (data: any) => any;
-    goToLogin?: boolean;
 }

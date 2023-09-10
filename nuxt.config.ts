@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: false },
+  ssr: true,
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -39,27 +40,20 @@ export default defineNuxtConfig({
     },
   },
   image: {
-    presets: {
-      cover: {
-        modifiers: {
-          format: "webp",
-          width: 50,
-          height: 50,
-        },
-      },
-    },
+    quality: 90,
     domains: [
       "https://api.codeyad.com",
-      "localhost:3000",
+      "http://localhost:3000",
       "https://codeyad.com",
       "https://cdn.bama.ir",
+      "http://127.0.0.1:3000"
     ],
     alias: {
       codeyad: "https://dl.codeyad.com/images",
       test: "https://cdn.bama.ir",
       hamcar: "http://dl.test13.ir",
-      //static: "http://localhost:3000",
-      static: "https://codeyad-front.vercel.app",
+      static: "http://127.0.0.1:3000",
+      //static: "https://codeyad-front.vercel.app",
     },
   },
 });

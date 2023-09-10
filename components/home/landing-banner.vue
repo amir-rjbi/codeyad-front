@@ -24,7 +24,7 @@
             <BaseButton class="sm:w-full sm:!mt-[34px]">بزن بریم</BaseButton>
 
         </div>
-        <div class="image sm:!hidden">
+        <div class="image  sm:!hidden">
             <svg class="absolute-svg lg:hidden" xmlns="http://www.w3.org/2000/svg" width="156" height="89"
                 viewBox="0 0 156 89" fill="none">
                 <g clip-path="url(#clip0_572_12777)">
@@ -68,7 +68,7 @@
                 <p>2435</p>
                 <p>دوره ها</p>
             </div>
-            <img class="brand lg:w-[550px] md:!w-[450px]" src="/landing.png" />
+            <base-img class="brand lg:w-[550px] md:!w-[450px]"  src="static/images/landing.png" alt="banner" />
         </div>
     </section>
 </template>
@@ -81,7 +81,6 @@
         display: flex;
         justify-content: flex-end;
         position: relative;
-
         svg.absolute-svg {
             position: absolute;
             right: -14rem;

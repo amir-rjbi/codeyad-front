@@ -1,7 +1,7 @@
 <template>
     <div class="course-card flex flex-col gap-3">
         <div class="course-banner">
-            <img src="/images/course.jpg" alt="course" />
+            <base-img src="static/images/course.jpg" alt="course" />
         </div>
         <div class="card-content flex gap-3 flex-col w-full">
             <p class="course-title">Ionic React: توسعه موبایل با Ionic 5 آغاز شد</p>
