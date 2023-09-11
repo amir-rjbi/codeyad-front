@@ -46,12 +46,13 @@
             <template #tabs>
                 <div class="tabs sm:overflow-x-auto">
                     <a href="#content" class="active">محتوای دوره</a>
+                    <a href="#sections">سرفصل های دوره</a>
                     <a href="#specification">ویژگی های دوره</a>
                     <a href="#comments">نظرات دانشجویان</a>
                 </div>
             </template>
             <div class="course-content ">
-                <div id="content" class="section container mb-[70px] pt-10">
+                <div id="content" class="section container mb-[70px] sm:!mb-3 pt-9">
                     <h2 class="text-h5 font-bold dark:text-white mb-4">توضیحات</h2>
                     <p>
                         ری اکت چیست؟
@@ -79,7 +80,7 @@
                         خودش یک کامپوننت مجزا است و به راحتی می‌توانیم آن قسمت را پیدا کنیم و تغییر در آن اعمال کنیم.
                     </p>
                 </div>
-
+                <CourseLandingSections />
                 <div id="specification" class="section container pt-14">
                     <h3 class="text-h5 font-bold dark:text-white text-center mb-[50px]">ویژگی های دوره</h3>
                     <div class="flex justify-between sm:flex-wrap sm:gap-9">

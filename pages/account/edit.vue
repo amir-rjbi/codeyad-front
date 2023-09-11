@@ -18,7 +18,7 @@
                     <BaseInput out-line name="email" type="email" label="ایمیل" />
                 </div>
                 <div class="w-full p-2 sm:px-0">
-                    <BaseHtmlEditor placeholder="درباره من" v-model="aboutMe" id="aboutme" />
+                    <BaseHtmlEditor name="aboutme" placeholder="درباره من" v-model="aboutMe" id="aboutme" />
                 </div>
             </div>
             <template #actions>
