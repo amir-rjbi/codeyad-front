@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>پنل ادمین</h1>
+    <h1>بوت کمپ های من</h1>
   </div>
 </template>
 

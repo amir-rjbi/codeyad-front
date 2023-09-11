@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>پنل ادمین</h1>
+    <h1>سفارشات</h1>
   </div>
 </template>
 

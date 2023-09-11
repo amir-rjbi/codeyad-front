@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>پنل ادمین</h1>
+    <h1>اعلانات</h1>
   </div>
 </template>
 
