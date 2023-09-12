@@ -52,7 +52,7 @@ module.exports = {
         },
         red: {
           // DEFAULT: "#D40138",
-          Default: "var(--color-error)",
+          DEFAULT: "var(--color-error)",
           250: "#fef2f2",
           950: "#991b1b",
         },

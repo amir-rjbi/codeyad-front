@@ -85,6 +85,15 @@ const props = defineProps({
 </script>
 
 <style scoped lang="scss">
+@media screen and (max-width:1527px) {
+    .sp-3balls:after {
+        top: -250% !important;
+    }
+    .sp-3balls::before {
+        top: -35% !important;
+    }
+}
+
 .loading {
     pointer-events: none;
 
@@ -141,14 +150,14 @@ const props = defineProps({
 
 .sp-3balls:before {
     left: 18px;
-    top: -5px;
+    top: -60%;
     -webkit-animation: spScaleAlphaBefore 1s infinite linear;
     animation: spScaleAlphaBefore 1s infinite linear;
 }
 
 .sp-3balls:after {
     left: -18px;
-    top: -30px;
+    top: -300%;
     -webkit-animation: spScaleAlphaAfter 1s infinite linear;
     animation: spScaleAlphaAfter 1s infinite linear;
 }

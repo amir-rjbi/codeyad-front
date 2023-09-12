@@ -6,7 +6,6 @@
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
-
     <base-modal size="sm" :mobile-header="true" :hide-close-btn="true" :header-class="'!p-0 !min-h-0 !h-0'"
       v-model="authStore.isOpenModal">
       <AuthContainer />
