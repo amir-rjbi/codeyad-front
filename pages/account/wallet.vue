@@ -77,7 +77,7 @@
       </table>
     </div>
     <BaseModal title="شارژ کیف پول" v-model="isOpenModal">
-      <questions-add />
+      <wallet-add />
     </BaseModal>
   </div>
 </template>
