@@ -1,6 +1,6 @@
 <template>
-    <div :class="['w-full', { 'down-to-up': DownToUpIcon }]">
-        <div class="head items-center flex gap-5 justify-between cursor-pointer" @click="isOpen = !isOpen">
+    <div :class="['w-full', { 'down-to-up': DownToUpIcon }, { 'bg-white': bgWhite }, { 'open': isOpen }]">
+        <div :class="['head items-center flex gap-5 justify-between cursor-pointer']" @click="isOpen = !isOpen">
             <p :class="['text-black font-medium', titleClass]">{{ title }}</p>
             <div :class="['icon', { 'opened': isOpen }]">
                 <template v-if="DownToUpIcon">
@@ -39,7 +39,11 @@ const props = defineProps({
     titleClass: {
         type: String,
         default: ""
-    }
+    },
+    bgWhite: {
+        type: Boolean,
+        default: false
+    },
 })
 </script>
 <style scoped lang="scss">
@@ -56,12 +60,41 @@ const props = defineProps({
     }
 }
 
+.bg-white {
+    padding: 1.5rem;
+    border-radius: 8px 8px;
+    overflow: hidden;
+
+    .content {
+        padding-top: 1.5rem;    
+        margin-top: 0;
+    }
+
+    &.open {
+        .head {
+            position: relative;
+            padding-bottom: 1.5rem;
+
+            &::before {
+                content: " ";
+                position: absolute;
+                height: .5px;
+                width: 120%;
+                right: -10%;
+                background: var(--color-gray-300);
+                bottom: 0;
+            }
+        }
+    }
+
+}
+
 .head {
     width: 100%;
     font-size: 16px;
-
     p {
         line-height: normal;
+        font-weight: bold;
 
     }
 
