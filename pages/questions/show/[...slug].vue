@@ -100,9 +100,7 @@
     </div>
 </template>
 <script setup lang="ts">
-definePageMeta({
-    layout: "un-category"
-})
+
 const isOpenModal = ref(false);
 </script>
 

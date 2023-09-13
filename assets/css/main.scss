@@ -72,6 +72,10 @@ html {
         @apply bg-white rounded shadow-md pt-2 pb-2 pr-4 pl-4;
     }
 
+    .card-body {
+        padding: 1rem
+    }
+
     .btn {
         @apply relative w-fit items-center justify-center flex py-2 px-12 rounded transition-all ease-in delay-50;
         border-width: 2px;
@@ -118,7 +122,7 @@ html {
         border-radius: 18.505px;
         color: var(--color-black);
         width: 100%;
-        padding: 1.16rem;
+        padding: 13.55px;
 
 
         &::placeholder {
@@ -360,20 +364,23 @@ p {
         margin: 0;
     }
 
-   
 
+
+    textarea {
+        outline: none !important;
+    }
 
     input {
         outline: none !important;
         padding: .5rem 1rem;
         color: black;
         background: white;
-        font-size: var(--h6-font-size);
+        font-size: var(--h7-font-size);
         font-weight: 400;
     }
 
     input::placeholder {
-        font-size: var(--h6-font-size);
+        font-size: var(--h7-font-size);
         color: rgba(8, 8, 8, 0.25);
     }
 }

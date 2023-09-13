@@ -1,8 +1,10 @@
 <template>
     <div class="container py-12 sm:pt-5">
+        <Head>
+            <Title>سبد خرید</Title>
+        </Head>
         <h1 class="mb-4 text-h3">سفارش شما</h1>
         <div class="flex gap-4 flex-wrap justify-between mt-5">
-
             <div class=" sm:bg-transparent flex-grow flex gap-2 flex-col h-fit">
                 <div class="item sm:justify-center  bg-white flex sm:gap-3 sm:flex-wrap justify-between items-center shadow border rounded-md p-3 w-full"
                     v-for="item in [1, 2, 3]">
