@@ -6,7 +6,7 @@
                 leave-active-class="animate__animated animate__slideOutDown animate__faster">
                 <div v-if="showModal" :class="[
                     { ' modal-wrapper--normal': isNormal },
-                    { 'modal-fix-header': mobileHeader },
+                    'modal-fix-header',
                     'modal-wrapper--inner'
                 ]">
                     <div :class="['modal', size, modalClass]" v-if="modelValue">
@@ -304,7 +304,7 @@ body.modal-open {
 }
 
 .modal__body {
-    padding: 2.25rem 3rem 3rem 3rem;
+    padding: 3rem 3rem 2rem 3rem;
     overflow-x: inherit;
 }
 

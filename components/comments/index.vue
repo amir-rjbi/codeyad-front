@@ -2,7 +2,8 @@
     <section class="comments">
         <form @submit.prevent="sendComment">
             <div class="flex gap-2">
-                <base-img class="user-avatar" src="static/images/users/avatar.png" alt="userName" />
+                <base-img width="38px" height="38px" class="user-avatar rounded-full" src="static/images/users/avatar.png"
+                    alt="userName" />
                 <div class="flex flex-col gap-2 w-full">
                     <input v-model="commentText" placeholder="نظر خود را بنویسید..." />
                     <div class="flex justify-end">
@@ -13,7 +14,8 @@
         </form>
         <div class="comment-list mt-5">
             <div class="item flex gap-2" v-for="item in [1, 2]" :key="item">
-                <BaseImg class="user-avatar" src="static/images/users/avatar.png" alt="userName" />
+                <BaseImg width="38px" height="38px" class="user-avatar" src="static/images/users/avatar.png"
+                    alt="userName" />
                 <div class="comment-info">
                     <p class="font-bold text-h8 text-black">محمد اشرافی</p>
                     <p class="text-h8 mt-2">
@@ -27,7 +29,8 @@
                     </div>
                     <div class="replies mt-4">
                         <div class="item flex gap-2" v-for="item in [1, 2]" :key="item">
-                            <BaseImg class="user-avatar" src="static/images/users/avatar.png" alt="userName" />
+                            <base-img width="38px" height="38px" class="user-avatar" src="static/images/users/avatar.png"
+                                alt="userName" />
                             <div class="comment-info">
                                 <p class="font-bold text-h8 text-black">محمد اشرافی</p>
                                 <p class="text-h8 mt-2">
@@ -69,9 +72,11 @@ input {
         font-size: 13px;
     }
 }
+
 .item {
     margin-bottom: 1rem;
 }
+
 .comment-info {
     button {
         position: relative;
@@ -98,8 +103,8 @@ input {
 }
 
 .user-avatar {
-    width: 40.839px;
     border-radius: 50%;
-    height: 40.839px;
+    width: 38px;
+    height:38px;
 }
 </style>

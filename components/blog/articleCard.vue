@@ -14,9 +14,6 @@
                 <nuxt-link to="/">
                     <label :class="generateColor()">UI UX</label>
                 </nuxt-link>
-                <nuxt-link to="/">
-                    <label :class="generateColor()">Developments</label>
-                </nuxt-link>
             </div>
         </div>
 
@@ -59,20 +56,19 @@ function getRandomInt(min: number, max: number) {
             margin-top: 13px !important;
             height: fit-content !important;
             label {
-                font-size: 7.862px !important;
-            
+                font-size: 10px !important;
             }
         }
 
         .title {
-            font-size: 10px !important;
+            font-size: 12px !important;
             font-weight: 600;
             margin-top: 6px !important;
             margin-top: 4.5px !important;
         }
 
         .description {
-            font-size: 9px !important;
+            font-size: 10px !important;
             max-height: 41px;
             overflow: hidden;
             text-overflow: ellipsis;
