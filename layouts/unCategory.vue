@@ -1,9 +1,9 @@
 <template>
     <div>
-        <TheHeader :show-categories="false"/>
-        <div >
+        <TheHeader :show-categories="false" />
+        <main role="main">
             <slot />
-        </div>
+        </main>
         <TheFooter />
     </div>
 </template>

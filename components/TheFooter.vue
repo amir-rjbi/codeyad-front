@@ -1,5 +1,5 @@
 <template>
-    <footer class="bg-blue w-full overflow-hidden sm:!pt-9">
+    <footer class="bg-blue w-full overflow-hidden sm:!pt-9" role="contentinfos">
         <div class="top-footer flex justify-between container flex-wrap sm:justify-center">
             <NuxtLink to="/">
                 <img class="logo" src="/logo-white.png" />
@@ -35,20 +35,23 @@
 @media screen and (max-width:768px) {
     input {
         font-size: 14px !important;
+
         &::placeholder {
             font-size: 14px !important;
         }
     }
+
     footer {
         padding-left: 0 !important;
         padding-right: 0 !important;
     }
+
     p.copy-right {
         font-size: 20px !important;
         letter-spacing: 0.8px !important;
     }
 
-   
+
 
     button.text-blue {
         position: absolute;
@@ -71,9 +74,10 @@ footer {
     padding-bottom: 44px;
     padding-left: 2rem;
     padding-right: 2rem;
+
     .logo {
-        width: 223.977px ;
-        height: 45px ;
+        width: 223.977px;
+        height: 45px;
     }
 
     hr {
@@ -110,5 +114,4 @@ footer {
         line-height: normal;
         letter-spacing: 1.04px;
     }
-}
-</style>
+}</style>

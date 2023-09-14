@@ -1,9 +1,9 @@
 <template>
     <div>
         <TheHeader />
-        <div >
+        <main role="main" >
             <slot />
-        </div>
+        </main>
         <TheFooter />
     </div>
 </template>

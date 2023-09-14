@@ -16,7 +16,7 @@
                 <IconsHamburger class="hidden sm:block" @click="isOpenSidebar = true" />
                 <div class="flex items-center gap-9 w-fit justify-center">
                     <NuxtLink to="/"><img class="logo" src="/logo.png" alt="logo" /></NuxtLink>
-                    <div class="search flex lg:!hidden ">
+                    <div class="search flex lg:!hidden " role="search">
                         <input type="text" placeholder="هرچی میخوای جست و جو کن" />
                         <button name="search">
                             <IconsSearch color="var(--color-white)" />
