@@ -7,16 +7,15 @@
   >
     <div class="w-full">
       <BaseInput
-        required
-        placeholder="مبلغ مورد نظر (تومان)"
+        placeholder="0"
         out-line
         name="title"
-        label="مبلغ"
+        label="تعداد مشاوره در ماه"
       />
     </div>
 
     <div class="justify-end flex w-full mt-2">
-      <BaseButton color="green">شارژ کیف پول</BaseButton>
+      <BaseButton color="green">ثبت درخواست </BaseButton>
     </div>
   </Form>
 </template>
@@ -30,9 +29,9 @@ const data = reactive({
 });
 const schema = Yup.object().shape({
   title: Yup.number()
-    .typeError("حتما باید عددی را وارد کنید !")
+    .typeError("حتما باید عدد وارد کنید !")
     .required()
-    .min(3, "بیشتر از یک عدد باشد"),
+    .min(1, "بیشتر از یک عدد باشد"),
 });
 const AddToWallet = () => {};
 </script>

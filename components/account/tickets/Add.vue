@@ -8,15 +8,23 @@
     <div class="w-full">
       <BaseInput
         required
-        placeholder="مبلغ مورد نظر (تومان)"
+        placeholder="  عنوان تیکت"
         out-line
         name="title"
-        label="مبلغ"
+        label="عنوان:"
       />
     </div>
-
+    <div class="w-full p-2 sm:px-0">
+      <BaseHtmlEditor
+        placeholder="   متن پیام"
+        required
+        label="متن :"
+        name="description"
+        id="question_text"
+      />
+    </div>
     <div class="justify-end flex w-full mt-2">
-      <BaseButton color="green">شارژ کیف پول</BaseButton>
+      <BaseButton color="green">ثبت تیکت جدید</BaseButton>
     </div>
   </Form>
 </template>
@@ -30,7 +38,7 @@ const data = reactive({
 });
 const schema = Yup.object().shape({
   title: Yup.number()
-    .typeError("حتما باید عددی را وارد کنید !")
+    .typeError("حتما باید عدد وارد کنید !")
     .required()
     .min(3, "بیشتر از یک عدد باشد"),
 });

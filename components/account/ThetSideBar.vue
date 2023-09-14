@@ -20,6 +20,12 @@
         <nuxt-link to="/account/messages"> گفتوگو ها </nuxt-link>
       </li>
       <li>
+        <nuxt-link to="/account/tickets"> تیکت ها </nuxt-link>
+      </li>
+      <li>
+        <nuxt-link to="/account/Consultations"> مشاوره ها </nuxt-link>
+      </li>
+      <li>
         <nuxt-link to="/account/orders"> فاکتور ها </nuxt-link>
       </li>
       <li>
@@ -27,6 +33,23 @@
       </li>
       <li>
         <nuxt-link to="/account/my-bootcamps"> بوتکمپ های من </nuxt-link>
+      </li>
+      <li>
+        <nuxt-link to="/account/cards"> کارت های بانکی </nuxt-link>
+      </li>
+      <li>
+        <nuxt-link to="/account/withdrawals"> برداشت از حساب </nuxt-link>
+      </li>
+      <li>
+        <nuxt-link to="/account/courses"> دوره های مدرس </nuxt-link>
+      </li>
+      <li>
+        <nuxt-link to="/account/tvEpisode"> کدیاد TV </nuxt-link>
+      </li>
+      <li>
+        <nuxt-link to="/account/t-consultations">
+          درخواست های مشاوره
+        </nuxt-link>
       </li>
     </ul>
   </aside>
