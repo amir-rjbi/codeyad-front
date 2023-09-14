@@ -73,7 +73,7 @@
                                     <NuxtLink to="/account/edit">ویرایش اطلاعات</NuxtLink>
                                     <NuxtLink to="/account/tickets">تیکت ها</NuxtLink>
                                     <NuxtLink to="/account/change-password">تغییر کلمه عبور</NuxtLink>
-                                    <a to="#" class="text-red">خروج از حسال</a>
+                                    <a to="#" @click="authStore.logOut" class="text-red">خروج از حساب</a>
                                 </div>
                             </Transition>
                         </div>

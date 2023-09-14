@@ -14,7 +14,11 @@ export const Login = (
     },
   });
 };
-
+export const LogoutUser=()=>{
+  return FetchApi("/auth/logout",{
+    method:"DELETE"
+  })
+}
 export const LoginWithGoogle = (
   token: string
 ): Promise<IApiResponse<LoginResult>> => {

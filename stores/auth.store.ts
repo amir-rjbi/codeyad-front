@@ -1,13 +1,15 @@
+import { useAccountStore } from "./account.store";
+import { LogoutUser } from "./../services/auth.service";
 import { LoginResult } from "./../models/account/LoginResult";
 import { defineStore } from "pinia";
 
 export const useAuthStore = defineStore("auth", () => {
   const isOpenModal = ref(false);
   const currentStep = ref("login");
-
+  const loading = ref(false);
   const isLogin = computed(() => {
     var cookie = useCookie("c-access-token");
-    return cookie.value != null;
+    return cookie.value != null && cookie.value != "";
   });
   const setToken = (tokenResult: LoginResult) => {
     var cookie = useCookie("c-access-token", {
@@ -19,7 +21,17 @@ export const useAuthStore = defineStore("auth", () => {
     cookie.value = tokenResult.token;
     refreshCookie.value = tokenResult.refreshToken;
   };
-
+  const logOut = async () => {
+    loading.value = true;
+    var res = await LogoutUser();
+    if (res.isSuccess) {
+      var cookie = useCookie("c-access-token");
+      var refreshCookie = useCookie("c-refresh-token");
+      cookie.value = null;
+      refreshCookie.value = null;
+    }
+    loading.value = false;
+  };
   const changeStep = (
     step: "login" | "register" | "forgotPassword" | "activate"
   ) => {
@@ -41,5 +53,6 @@ export const useAuthStore = defineStore("auth", () => {
     openLoginModal,
     openRegisterModal,
     setToken,
+    logOut,
   };
 });

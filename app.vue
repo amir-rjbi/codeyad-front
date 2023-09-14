@@ -23,7 +23,17 @@ const authStore = useAuthStore();
 const accountStore = useAccountStore();
 
 onMounted(async () => {
-  if (authStore.isLogin)
+  if (authStore.isLogin) {
     await accountStore.initData();
+  }
+});
+
+watch(() => authStore.isLogin, (val) => {
+  if (val == false) {
+    accountStore.currentUser = null;
+    accountStore.notifications = [];
+  } else if (accountStore.currentUser == null) {
+    accountStore.initData();
+  }
 })
 </script>

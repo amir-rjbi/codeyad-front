@@ -49,7 +49,7 @@ export default defineNuxtConfig({
       "http://127.0.0.1:3000"
     ],
     alias: {
-      codeyad: "https://dl.codeyad.com/images",
+      codeyad: "https://codeyad.com",
       test: "https://cdn.bama.ir",
       hamcar: "http://dl.test13.ir",
       static: "http://127.0.0.1:3000",
