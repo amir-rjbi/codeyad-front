@@ -17,6 +17,7 @@
 <script setup lang="ts">
 import { useField } from "vee-validate";
 
+const emit = defineEmits(['update:modelValue'])
 const props = defineProps({
     placeholder: {
         default: "",
@@ -25,6 +26,10 @@ const props = defineProps({
     accept: {
         type: String,
         default: "image/*"
+    },
+    ModelValue: {
+        type: Object || null,
+        default: null
     },
     name: {
         type: String,
@@ -51,7 +56,6 @@ const props = defineProps({
         default: false
     }
 });
-
 const {
     value: inputValue,
     errorMessage,
@@ -63,6 +67,7 @@ const {
     validateOnValueUpdate: false,
 });
 const modelValueChanged = ($event: any) => {
+    emit("update:modelValue", $event.target.files[0])
     handleChange($event);
 };
 </script>

@@ -5,4 +5,5 @@ export const CurrentDomainUrl = isProd
   ? "https://test.codeyad.com"
   : "http://localhost:3000";
 
+export const DL_DOMAIN_URL = "https://dl.codeyad.com";
 export const BASE_URL: string = isProd ? productionUrl : developmentUrl;

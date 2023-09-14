@@ -100,13 +100,12 @@ watch(
     () => props.modelValue,
     (val) => {
         if (val) {
-            document.getElementsByTagName("html")[0].style.overflow = "hidden"
+            document.getElementsByTagName("html")[0].style.overflowY = "hidden"
             setTimeout(() => {
                 showModal.value = true;
             }, 150);
         } else {
-            document.getElementsByTagName("html")[0].style.overflow = "auto"
-            document.body.style.overflow = "auto";
+            document.getElementsByTagName("html")[0].style.overflowY = "auto"
             showModal.value = false;
         }
     }

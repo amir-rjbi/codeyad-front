@@ -8,7 +8,7 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: ["@nuxt/image", "@pinia/nuxt", "nuxt-swiper", "floating-vue/nuxt"],
+  modules: ["@nuxt/image", "@pinia/nuxt", "nuxt-swiper", "floating-vue/nuxt","@vueuse/nuxt"],
   build: {
     transpile: ["vue-toastification"],
   },
