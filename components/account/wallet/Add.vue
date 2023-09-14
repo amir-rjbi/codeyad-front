@@ -5,7 +5,7 @@
     @submit="AddToWallet"
     class="flex flex-wrap"
   >
-    <div class="p-2 w-full sm:px-0">
+    <div class="w-full">
       <BaseInput
         required
         placeholder="مبلغ مورد نظر (تومان)"
@@ -15,7 +15,7 @@
       />
     </div>
 
-    <div class="justify-center flex w-full mt-2">
+    <div class="justify-end flex w-full mt-2">
       <BaseButton color="green">شارژ کیف پول</BaseButton>
     </div>
   </Form>

@@ -56,7 +56,7 @@
       </table>
     </div>
     <BaseModal title="نمایش فاکتور" v-model="isOpenModal">
-      <order-show />
+      <account-order-show />
     </BaseModal>
   </div>
 </template>

@@ -63,7 +63,7 @@
       </table>
     </div>
     <BaseModal title="نمایش گفتگو" v-model="isOpenModal">
-      <message-show />
+      <account-message-show />
     </BaseModal>
   </div>
 </template>

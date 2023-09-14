@@ -76,8 +76,13 @@
         </tbody>
       </table>
     </div>
-    <BaseModal title="شارژ کیف پول" v-model="isOpenModal">
-      <wallet-add />
+    <BaseModal
+      title="شارژ کیف پول"
+      v-model="isOpenModal"
+      :mobile-header="true"
+      size="sm"
+    >
+      <account-wallet-add />
     </BaseModal>
   </div>
 </template>
