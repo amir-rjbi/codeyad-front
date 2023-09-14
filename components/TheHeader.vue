@@ -63,15 +63,17 @@
                         <div class="flex relative items-center gap-2 cursor-pointer"
                             v-click-outside="() => showMenu = false" @click="showMenu = !showMenu">
                             <IconsArrowLeft class="transition-all" :style="{ rotate: showMenu ? '90deg' : '-90deg' }" />
-                            <p class="font-semibold text-h9 ">محمد اشرافی</p>
-                            <base-img src="static/images/users/avatar.png" class="w-[30px] h-[30px]  rounded" width="60px"
-                                alt="mohammad" />
+                            <p class="font-semibold text-h9 ">{{ accountStore.currentUser.name }} {{
+                                accountStore.currentUser.family }}</p>
+                            <base-img :src="GetUserAvatar(accountStore.currentUser.imageName)"
+                                class="w-[30px] h-[30px]  rounded" width="60px" alt="mohammad" />
                             <Transition name="layout">
                                 <div class="account-menu" v-if="showMenu">
                                     <NuxtLink to="/account">پروفایل</NuxtLink>
                                     <NuxtLink to="/account/edit">ویرایش اطلاعات</NuxtLink>
                                     <NuxtLink to="/account/tickets">تیکت ها</NuxtLink>
                                     <NuxtLink to="/account/change-password">تغییر کلمه عبور</NuxtLink>
+                                    <a to="#" class="text-red">خروج از حسال</a>
                                 </div>
                             </Transition>
                         </div>
@@ -107,6 +109,7 @@
 import { useUtilStore } from '~~/stores/util.store';
 import { useAuthStore } from '~~/stores/auth.store';
 import { useAccountStore } from '~/stores/account.store';
+import { GetUserAvatar } from '~/utils/imageUtil';
 
 const showMenu = ref(false);
 const porps = defineProps({

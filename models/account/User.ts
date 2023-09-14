@@ -6,4 +6,6 @@ export interface User {
   roles: string[];
   courseIds: number[];
   fullName: string;
+  name: string;
+  family: string;
 }

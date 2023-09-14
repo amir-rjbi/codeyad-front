@@ -218,7 +218,9 @@ p {
     font-family: var(--t6-font-family) !important;
     font-size: var(--t6-font-size) !important;
 }
-
+.Vue-Toastification__container{
+    z-index: 9999999 !important;
+}
 .card-loading {
     opacity: .4;
     z-index: 1;
