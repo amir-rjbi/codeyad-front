@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="tabs flex justify-center  sm:justify-between sm:!gap-8">
+        <div class="nav-tabs flex justify-center  sm:justify-between sm:!gap-8">
             <button name="all" :class="{ active: selected == 'all' }" @click="selected = 'all'">جاری</button>
             <button name="inProgress" :class="{ active: selected == 'inProgress' }" @click="selected = 'inProgress'">درحال
                 برگزاری</button>
@@ -124,7 +124,7 @@ const selected = ref('all');
         }
     }
 
-    .tabs {
+    .nav-tabs {
         margin-top: 25px !important;
         margin-bottom: 25px !important;
 
@@ -164,35 +164,4 @@ const selected = ref('all');
 }
 
 
-.tabs {
-    border-bottom: 1px solid var(--color-gray-400);
-    gap: 120px;
-    margin-bottom: 80px;
-    margin-top: 80px;
-    width: 100%;
-
-    button {
-        position: relative;
-        padding-bottom: 21px;
-        font-size: var(--h5-font-size);
-        font-weight: 500;
-        min-width: fit-content;
-
-        &.active {
-            font-weight: 900;
-
-            &::before {
-                content: " ";
-                bottom: -4px;
-                height: 6px;
-                z-index: 4;
-                background: var(--primary-color);
-                width: 110%;
-                left: 50%;
-                transform: translate(-50%, 0);
-                position: absolute;
-            }
-        }
-    }
-}
 </style>

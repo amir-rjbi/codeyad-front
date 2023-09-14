@@ -115,7 +115,7 @@ const props = defineProps({
 }
 
 .btn-lg {
-    padding: 1.40rem 1rem;
+    padding: 17px 1rem;
     font-weight: 600;
     line-height: 20px;
 }

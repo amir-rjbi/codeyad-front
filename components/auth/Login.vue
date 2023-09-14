@@ -1,22 +1,26 @@
 <template>
-    <div>
+    <div :class="{ 'card-loading': loading }">
         <h5 class="text-blue font-bold text-2xl">ورود به حساب کاربری</h5>
         <Form class="mt-10">
             <base-input name="phoneNumber" number label="شماره تلفن" placeholder="093511100156" />
             <base-input-password name="password" placeholder="**************" class="mt-4 mb-2" label="رمز عبور" />
-            <button type="button" @click="authStore.changeStep('forgotPassword')" class="text-blue ">کلمه عبور خود را فراموش کرده
+            <button type="button" @click="authStore.changeStep('forgotPassword')" class="text-blue ">کلمه عبور خود را فراموش
+                کرده
                 اید؟</button>
         </Form>
-        <base-button class="w-full mt-9" size="lg">ورود</base-button>
+        <base-button :loading="loading" class="w-full mt-9" size="lg">ورود</base-button>
         <base-line-text class="text-xl my-8">
             یا
         </base-line-text>
-        <base-button class="w-full mt-9 font-bold" transparent>
-            <template #icon>
-                <IconsGoogle width="40" height="40" />
-            </template>
-            ورود با گوگل
-        </base-button>
+        <GoogleLogin :callback="googleCallback" popup-type="TOKEN" class="w-full h-fit ">
+            <base-button :loading="loading" class="w-full  font-bold" transparent>
+                <template #icon>
+                    <IconsGoogle width="40" height="40" />
+                </template>
+                ورود با گوگل
+            </base-button>
+        </GoogleLogin>
+
 
         <div class="flex gap-4 items-center justify-center mt-6">
             <p class="m-0">حساب کاربری ندارید ؟ </p>
@@ -30,4 +34,19 @@ import { useAuthStore } from '~~/stores/auth.store';
 
 
 const authStore = useAuthStore();
+const loading = ref(false);
+const toast = useToast();
+import type { CallbackTypes } from "vue3-google-login";
+import { LoginWithGoogle } from '~/services/auth.service';
+var cookie = useCookie("c-access-token");
+const googleCallback: CallbackTypes.TokenResponseCallback = async (response) => {
+    loading.value = true;
+    var res = await LoginWithGoogle(response.access_token);
+    if (res.isSuccess) {
+        authStore.setToken(res.data!);
+        authStore.isOpenModal = false;
+        toast.showToast("ورود با موفقیت انجام شد")
+    }
+    loading.value = false;
+};
 </script>

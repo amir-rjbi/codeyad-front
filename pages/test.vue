@@ -3,12 +3,13 @@
         <div class="">
             <BaseSkeletonLoaidng type="three-line" />
         </div>
+       
         <base-card class="mt-3 ">
             <template #header>
                 <h3>card header</h3>
             </template>
             <div class="flex gap-2 p-2">
-               
+
                 <BaseButton>
                     خوبی
                 </BaseButton>
@@ -48,4 +49,8 @@
     </div>
 </template>
 <script setup lang="ts">
+
+onMounted(() => {
+
+})
 </script>

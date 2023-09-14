@@ -14,6 +14,7 @@ body {
     font-size: var(--h7-font-size);
     color: var(--body-text-color);
     min-height: 100vh;
+    overflow-x: clip;
 }
 
 @media screen and (min-width:1024px) {
@@ -77,7 +78,7 @@ html {
     }
 
     .btn {
-        @apply relative w-fit items-center justify-center flex py-2 px-12 rounded transition-all ease-in delay-50;
+        @apply relative w-fit items-center justify-center flex py-2 px-7 rounded transition-all ease-in delay-50;
         border-width: 2px;
         border-color: transparent;
         height: fit-content;
@@ -269,8 +270,9 @@ p {
     --color-black: #080808;
     --color-error: #FF5656;
     --color-white: white;
-    --color-blue-gray-400: #829AB1;
+    --color-blue-gray-100: #EEF4FB;
     --color-blue-gray-200: #BCCCDC;
+    --color-blue-gray-400: #829AB1;
     --color-blue-gray-050: #F0F4F8;
     --color-blue-gray-600: #486581;
     --color-blue-gray-700: #334E68;
@@ -278,7 +280,7 @@ p {
     --color-gray-200: #f7f7f7;
     --color-gray-400: #464646;
     --color-dark-light: #9D9D9D;
-    --body-text-color: rgba(20, 20, 20, 0.80);
+    --body-text-color: #080808;
     --body-bg-color: rgba(40, 107, 184, 0.08);
 }
 
@@ -394,7 +396,8 @@ p {
 
 @media screen and (max-width:768px) {
     .btn {
-        padding: .60rem 3rem;
+        padding: .60rem 1.2rem;
+        font-size: var(--h9-font-size);
     }
 
     .section-title {

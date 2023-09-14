@@ -1,4 +1,4 @@
-let developmentUrl: string = "https://api.codeyad.com";
+let developmentUrl: string = "https://api.codeyad.com/api";
 let productionUrl: string = "https://api.codeyad.com";
 export const isProd = process.env.NODE_ENV === "production";
 export const CurrentDomainUrl = isProd

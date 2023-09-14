@@ -60,7 +60,7 @@ module.exports = {
           DEFAULT: "#39A54A",
           250: "#f0fdf4",
           950: "#166534",
-          'action': "#5DCAA7",
+          action: "#5DCAA7",
         },
         gray: {
           400: "var(--color-gray-400)",
@@ -71,7 +71,9 @@ module.exports = {
         orange: {
           DEFAULT: "#EF8F00",
           950: "#d07d00",
-
+        },
+        bluegray: {
+          100: "var(--color-blue-gray-100)",
         },
       },
       container: {
@@ -110,6 +112,7 @@ module.exports = {
       h6: "var(--h6-font-size)",
       h7: "var(--h7-font-size)",
       h8: "var(--h8-font-size)",
+      h9: "var(--h9-font-size)",
       22: "22px",
     },
   },

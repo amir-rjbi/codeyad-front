@@ -22,6 +22,7 @@
     "@nuxt/image": "^1.0.0-rc.1",
     "@persian-tools/persian-tools": "^3.5.0",
     "@pinia/nuxt": "^0.4.11",
+    "click-outside-vue3": "^4.0.1",
     "floating-vue": "^2.0.0-beta.24",
     "moment": "^2.29.4",
     "nuxt-swiper": "^1.2.0",
@@ -31,6 +32,7 @@
     "vue-skeletor": "^1.0.6",
     "vue-tippy": "^6.3.1",
     "vue-toastification": "^2.0.0-rc.5",
+    "vue3-google-login": "^2.0.20",
     "yup": "^1.2.0"
   },
   "overrides": {
