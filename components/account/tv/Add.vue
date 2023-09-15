@@ -7,10 +7,10 @@
   >
     <div class="w-1/2 p-2 sm:w-full sm:px-0">
       <BaseInput
-        placeholder="عنوان    "
+        placeholder=" عنوان ویدئو    "
         out-line
         name="title"
-        label="عنوان دوره:"
+        label=" عنوان ویدئو :"
       />
     </div>
     <div class="w-1/2 p-2 sm:w-full sm:px-0">
@@ -18,15 +18,15 @@
         placeholder="  عنوان انگلیسی    "
         out-line
         name="title"
-        label="عنوان انگلیسی (slug):"
+        label=" عنوان ویدئو (انگلیسی ) :"
       />
     </div>
     <div class="w-full p-2 sm:w-full sm:px-0">
       <BaseInput
-        placeholder="قیمت دوره  "
+        placeholder="00:00:00  "
         out-line
         name="title"
-        label=" قیمت دوره : (0 = رایگان)"
+        label=" زمان این بخش : فرمت مجاز : ##:##:##"
       />
     </div>
     <div class="w-full p-2 sm:px-0">
@@ -72,31 +72,34 @@
       </BaseSelectBox>
     </div>
     <div class="p-2 w-1/2 sm:px-0">
-      <BaseInputFile out-line name="attachment" label="تصویر اصلی " />
-    </div>
-    <div class="w-1/2 p-2 sm:w-full sm:px-0">
-      <BaseSelectBox
-        required
-        v-model="data.categoryId"
-        label="سطح دوره  "
-        out-line
-        name="categoryId"
-      >
-        <option>123</option>
-        <option>312</option>
-      </BaseSelectBox>
-    </div>
-    <div class="w-full p-2 sm:w-full sm:px-0">
-      <BaseInput
-        placeholder="پیشنیاز ها را با - از هم جدا کنید, مثال - c#-js    "
-        out-line
-        name="title"
-        label=" پیش نیاز های دوره:"
-      />
+      <BaseInputFile out-line name="attachment" label="فایل تصویر   " />
     </div>
     <div class="p-2 w-1/2 sm:px-0">
-      <BaseInputFile out-line name="attachment" label="مقدمه دوره " />
+      <BaseInputFile out-line name="attachment" label="فایل ویدیو   " />
     </div>
+
+    <div class="w-1/2 p-2 sm:w-full sm:px-0">
+      <BaseInput out-line name="title" label=" MetaTitle" />
+    </div>
+
+    <div class="w-1/2 p-2 sm:w-full sm:px-0">
+      <BaseInput
+        out-line
+        name="title"
+        label=" 
+Meta KeyWords (Test,Test2,Test3)"
+      />
+    </div>
+
+    <div class="w-full p-2 sm:px-0">
+      <BaseHtmlEditor
+        label="   MetaDescription "
+        name="description"
+        v-model="data.description"
+        id="question_text3"
+      />
+    </div>
+
     <div class="justify-end flex w-full mt-2">
       <BaseButton color="green">ثبت اطلاعات</BaseButton>
     </div>

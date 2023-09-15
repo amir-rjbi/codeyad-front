@@ -53,8 +53,8 @@
         </tbody>
       </table>
     </div>
-    <BaseModal title="درخواست  مشاوره  " v-model="isOpenModal">
-      <account-consultations-add />
+    <BaseModal title="افزودن دوره " v-model="isOpenModal">
+      <account-tv-add />
     </BaseModal>
   </div>
 </template>
