@@ -13,10 +13,10 @@ export async function FetchApi<T>(
   if (!config.headers) {
     config.headers = {};
   }
-  var cookie = useCookie("a-token");
+  var cookie = useCookie("c-access-token");
   if (cookie.value) {
     //@ts-ignore
-    config.headers["Authorization"] = `Bearer `;
+    config.headers["Authorization"] = `Bearer ${cookie.value}`;
   }
   function showError(result: IApiResponse<any>) {
     if (
@@ -29,7 +29,6 @@ export async function FetchApi<T>(
       }
     }
   }
-
   //@ts-ignore
   return $fetch<IApiResponse<T>>(url, config)
     .then((response) => {

@@ -10,3 +10,6 @@
             {{ item }}</nuxt-link>
     </div>
 </template>
+<script setup lang="ts">
+
+</script>

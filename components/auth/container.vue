@@ -4,6 +4,7 @@
             <auth-login v-if="authStore.currentStep == 'login'" />
             <auth-register v-else-if="authStore.currentStep == 'register'" />
             <auth-forgot-password v-else-if="authStore.currentStep == 'forgotPassword'" />
+            <AuthActivateAccount v-else-if="authStore.currentStep == 'activate'" />
         </Transition>
 
     </div>

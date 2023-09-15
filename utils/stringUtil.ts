@@ -42,4 +42,10 @@ export function replaceAt(
     mainData.substring(index + replacement.length);
   return res;
 }
-
+export const removeHtmlTagsFromString = (input: string) => {
+  return input
+    .replace( /<.*?>/ig, ' ')
+    .replace("&zwnj;", " ")
+    .replace(";&zwnj", " ")
+    .replace("&nbsp;", " ")
+};

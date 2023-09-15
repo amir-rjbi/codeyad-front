@@ -66,7 +66,7 @@ const props = defineProps({
     overflow: hidden;
 
     .content {
-        padding-top: 1.5rem;    
+        padding-top: 1.5rem;
         margin-top: 0;
     }
 
@@ -74,6 +74,10 @@ const props = defineProps({
         .head {
             position: relative;
             padding-bottom: 1.5rem;
+
+            p {
+                font-weight: bold;
+            }
 
             &::before {
                 content: " ";
@@ -92,9 +96,9 @@ const props = defineProps({
 .head {
     width: 100%;
     font-size: 16px;
+
     p {
         line-height: normal;
-        font-weight: bold;
 
     }
 
@@ -103,5 +107,4 @@ const props = defineProps({
             rotate: -90deg;
         }
     }
-}
-</style>
+}</style>

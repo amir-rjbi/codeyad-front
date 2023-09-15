@@ -108,7 +108,7 @@
                                 رابط‌های کاربری با سرعت بالا است.
                             </p>
                         </div>
-                        <CourseComments v-else-if="selectedTab == 'comments'" />
+                        <Comments v-else-if="selectedTab == 'comments'" />
                         <div class="requireds" v-else-if="selectedTab == 'requireds'">
                             <div class="item flex justify-between gap-4 mb-4 items-center rounded-[12px] flex-wrap p-[19px] bg-white"
                                 v-for="item in ['الگوریتم و فلوچارت', 'سی شارپ']">
@@ -247,4 +247,5 @@ aside {
     width: 100%;
     padding-top: 15px;
     padding-bottom: 15px;
-}</style>
+}
+</style>

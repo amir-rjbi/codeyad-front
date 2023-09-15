@@ -19,7 +19,6 @@
                 <slot />
             </template>
         </div>
-
         <div class="sp sp-3balls" v-if="loading"></div>
     </button>
     <nuxt-link v-else :class="[
@@ -42,7 +41,6 @@
                 <slot />
             </template>
         </div>
-
         <div class="sp sp-3balls" v-if="loading"></div>
     </nuxt-link>
 </template>
@@ -85,13 +83,24 @@ const props = defineProps({
 </script>
 
 <style scoped lang="scss">
-@media screen and (max-width:1527px) {
-    .sp-3balls:after {
-        top: -250% !important;
+@media screen and (max-width:768px) {
+    .sp-3balls {
+        width: 8px !important;
+        height: 8px !important;
+
+        &::after {
+            top: -280% !important;
+            width: 8px !important;
+            height: 8px !important;
+        }
+
+        &::before {
+            top: -50% !important;
+            width: 8px !important;
+            height: 8px !important;
+        }
     }
-    .sp-3balls::before {
-        top: -35% !important;
-    }
+
 }
 
 .loading {
@@ -115,7 +124,7 @@ const props = defineProps({
 }
 
 .btn-lg {
-    padding: 1.40rem 1rem;
+    padding: 17px 1rem;
     font-weight: 600;
     line-height: 20px;
 }
@@ -133,8 +142,8 @@ const props = defineProps({
 
 .sp-3balls {
     position: absolute;
-    width: 10px !important;
-    height: 10px !important;
+    width: 10px;
+    height: 10px;
     background-color: white;
     opacity: 1;
     -webkit-animation: spScaleAlpha 1s infinite linear;
@@ -150,14 +159,14 @@ const props = defineProps({
 
 .sp-3balls:before {
     left: 18px;
-    top: -60%;
+    top: -50%;
     -webkit-animation: spScaleAlphaBefore 1s infinite linear;
     animation: spScaleAlphaBefore 1s infinite linear;
 }
 
 .sp-3balls:after {
     left: -18px;
-    top: -300%;
+    top: -250%;
     -webkit-animation: spScaleAlphaAfter 1s infinite linear;
     animation: spScaleAlphaAfter 1s infinite linear;
 }

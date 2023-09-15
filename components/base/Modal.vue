@@ -6,7 +6,7 @@
                 leave-active-class="animate__animated animate__slideOutDown animate__faster">
                 <div v-if="showModal" :class="[
                     { ' modal-wrapper--normal': isNormal },
-                    { 'modal-fix-header': mobileHeader },
+                    'modal-fix-header',
                     'modal-wrapper--inner'
                 ]">
                     <div :class="['modal', size, modalClass]" v-if="modelValue">
@@ -100,13 +100,12 @@ watch(
     () => props.modelValue,
     (val) => {
         if (val) {
-            document.getElementsByTagName("html")[0].style.overflow = "hidden"
+            document.getElementsByTagName("html")[0].style.overflowY = "hidden"
             setTimeout(() => {
                 showModal.value = true;
             }, 150);
         } else {
-            document.getElementsByTagName("html")[0].style.overflow = "auto"
-            document.body.style.overflow = "auto";
+            document.getElementsByTagName("html")[0].style.overflowY = "auto"
             showModal.value = false;
         }
     }
@@ -148,7 +147,7 @@ body.modal-open {
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 9999999;
+    z-index: 9999998;
     background: #00000073;
     justify-content: center;
     overflow: hidden;
@@ -304,7 +303,7 @@ body.modal-open {
 }
 
 .modal__body {
-    padding: 2.25rem 3rem 3rem 3rem;
+    padding: 3rem 3rem 2rem 3rem;
     overflow-x: inherit;
 }
 
