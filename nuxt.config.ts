@@ -52,8 +52,8 @@ export default defineNuxtConfig({
       codeyad: "https://codeyad.com",
       test: "https://cdn.bama.ir",
       hamcar: "http://dl.test13.ir",
-      static: "http://127.0.0.1:3000",
-      //static: "https://codeyad-front.vercel.app",
+      //static: "http://127.0.0.1:3000",
+      static: "https://codeyad-front.vercel.app",
     },
   },
 });
