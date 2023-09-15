@@ -55,22 +55,21 @@
               <td>1402/06/13</td>
               <td>1402/06/13</td>
               <td class="flex justify-center">
-                <BaseButton @click="isOpenModal = true">نمایش</BaseButton>
+                <BaseButton @click="router.push('/account/messages/edit')"
+                  >نمایش</BaseButton
+                >
               </td>
             </tr>
           </template>
         </tbody>
       </table>
     </div>
-    <BaseModal title="نمایش گفتگو" v-model="isOpenModal">
-      <account-message-show />
-    </BaseModal>
   </div>
 </template>
 <script setup lang="ts">
+const router = useRouter();
 definePageMeta({
   layout: "account",
 });
 const loading = ref(false);
-const isOpenModal = ref(false);
 </script>

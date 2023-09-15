@@ -51,7 +51,9 @@
               <td>1402/01/14</td>
               <td>پرداخت شده</td>
               <td class="flex justify-center">
-                <BaseButton @click="isOpenModal = true">نمایش</BaseButton>
+                <BaseButton @click="router.push('/account/tickets/edit')"
+                  >نمایش</BaseButton
+                >
               </td>
             </tr>
           </template>
@@ -64,6 +66,7 @@
   </div>
 </template>
 <script setup lang="ts">
+const router = useRouter();
 definePageMeta({
   layout: "account",
 });
