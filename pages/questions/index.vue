@@ -43,7 +43,7 @@
                     <template v-if="initLoading">
                         <BaseSkeletonLoaidng class="mb-2" v-for="item in [1, 2, 3, 4]" :key="item" />
                     </template>
-                    <div v-for="item in questions" :key="item.id" :class="['question-item overflow-hidden flex gap-4 bg-white mb-2 rounded-sm items-center border-2 p-2 sm:pl-4 last:border-none hover:bg-slate-100 transition-all'
+                    <div v-for="item in questions" :key="item.id" :class="['question-item overflow-hidden flex gap-4 bg-white mb-2 rounded-sm items-center border-2 p-2 pl-4 last:border-none hover:bg-slate-100 transition-all'
                         , { 'completed': item.isAnyBestAnswer }]">
                         <div class="flex flex-col justify-center items-center">
                             <p>{{ item.questionMessagesCount }}</p>
@@ -53,7 +53,7 @@
                             <nuxt-link class="text-blue text-h5"
                                 :to="`/questions/show/${item.id}/${item.subject.replaceAll(' ', '-')}`">{{ item.subject
                                 }}</nuxt-link>
-                            <p class="text-h8 text-justify">
+                            <p class="text-h8 description text-justify">
                                 {{ removeHtmlTagsFromString(item.text) }}
                             </p>
                             <div class="flex justify-between">
@@ -73,7 +73,7 @@
 
         </div>
         <BaseModal title="پرسش سوال جدید" v-model="isOpenModal">
-            <questions-add @close-modal="() => isOpenModal = false"/>
+            <questions-add @close-modal="() => isOpenModal = false" />
         </BaseModal>
         <BaseModal title="فیلتر سوالات" :show-header="false" v-model="isOpenSearchModal">
             <Form @submit="filter" class="min-w-[600px] sm:!min-w-full">
@@ -190,6 +190,15 @@ onMounted(async () => {
     .label {
         background: white;
         color: black !important;
+    }
+}
+.question-item
+{
+    .description{
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
     }
 }
 </style>

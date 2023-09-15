@@ -42,6 +42,7 @@ function getRandomInt(min: number, max: number) {
     article.article-card {
         padding: 11px !important;
         gap: 0.75rem !important;
+
         &.row {
             img {
                 height: 112.312px !important;
@@ -55,6 +56,7 @@ function getRandomInt(min: number, max: number) {
         .tags {
             margin-top: 13px !important;
             height: fit-content !important;
+
             label {
                 font-size: 10px !important;
             }
@@ -69,9 +71,7 @@ function getRandomInt(min: number, max: number) {
 
         .description {
             font-size: 10px !important;
-            max-height: 41px;
-            overflow: hidden;
-            text-overflow: ellipsis;
+
         }
     }
 }
@@ -117,6 +117,10 @@ article.article-card {
 
     p.description {
         font-size: 15px;
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
     }
 
     img {

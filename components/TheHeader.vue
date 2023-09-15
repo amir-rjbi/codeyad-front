@@ -63,8 +63,10 @@
                         <div class="flex relative items-center gap-2 cursor-pointer"
                             v-click-outside="() => showMenu = false" @click="showMenu = !showMenu">
                             <IconsArrowLeft class="transition-all" :style="{ rotate: showMenu ? '90deg' : '-90deg' }" />
-                            <p class="font-semibold text-h9 ">{{ accountStore.currentUser.name }} {{
-                                accountStore.currentUser.family }}</p>
+                            <p class="font-semibold text-h9 " v-if="accountStore.currentUser.fullName">{{
+                                accountStore.currentUser.fullName }}</p>
+                            <p class="font-semibold text-h9 " v-else>{{
+                                accountStore.currentUser.phoneNumber }}</p>
                             <base-img :src="GetUserAvatar(accountStore.currentUser.imageName)"
                                 class="w-[30px] h-[30px]  rounded" width="60px" alt="mohammad" />
                             <Transition name="layout">

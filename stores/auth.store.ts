@@ -1,5 +1,5 @@
 import { useAccountStore } from "./account.store";
-import { LogoutUser } from "./../services/auth.service";
+import { LogoutUser, RegisterCommand } from "./../services/auth.service";
 import { LoginResult } from "./../models/account/LoginResult";
 import { defineStore } from "pinia";
 
@@ -8,6 +8,8 @@ export const useAuthStore = defineStore("auth", () => {
   const currentStep = ref("login");
   const loading = ref(false);
   const callBackFunctionAfterLogin: Ref<Function | null> = ref(null);
+
+  const registerData: Ref<RegisterCommand | null> = ref(null);
 
   const isLogin = computed(() => {
     var cookie = useCookie("c-access-token");
@@ -59,6 +61,7 @@ export const useAuthStore = defineStore("auth", () => {
     isLogin,
     changeStep,
     currentStep,
+    registerData,
     openLoginModal,
     openRegisterModal,
     setToken,
