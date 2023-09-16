@@ -8,3 +8,9 @@ export const GetCurrentUserData = (): Promise<IApiResponse<User>> => {
 export const GetNotifications = (): Promise<IApiResponse<NotificationDto[]>> => {
   return FetchApi("/notification");
 };
+export const ChangePassword = (data: FormData) => {
+  return FetchApi("/User/ChangepPassword", {
+    method: "POST",
+    body: data,
+  });
+};
