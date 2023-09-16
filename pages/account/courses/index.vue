@@ -4,9 +4,7 @@
       <div class="flex items-center gap-4 sm:flex-wrap">
         <p class="text-h6 sm:!text-h7">دوره ها</p>
       </div>
-      <BaseButton color="green" @click="isOpenModal_a = true"
-        >افزودن دوره</BaseButton
-      >
+      <BaseButton color="green" @click="isOpenModal_a = true">افزودن دوره</BaseButton>
     </div>
     <div>Selected: {{ selected }}</div>
     <div class="table-responsive mt-4 shadow-md">
@@ -57,12 +55,18 @@
               <td>آموزش جامع ویو جی اس (3 Vue.js) و Nuxt Js - پروژه محور</td>
               <td>محمد اشرافی</td>
               <td class="flex justify-center">
-                <BaseSelectBox name="test" v-model="selected">
-                  <option disabled value="">انتخاب کنید</option>
-                  <option>ویرایش</option>
-                  <option>ثبت یادداشت</option>
-                  <option>کامنت های ویژه</option>
-                </BaseSelectBox>
+                <div class="flex relative items-center gap-2 cursor-pointer" v-click-outside="() => showMenu = false"
+                  @click="showMenu = !showMenu">
+                  <IconsArrowLeft class="transition-all" :style="{ rotate: showMenu ? '90deg' : '-90deg' }" />
+                  <Transition name="layout">
+                    <div class="account-menu" v-if="showMenu">
+                      <NuxtLink to="/account">پروفایل</NuxtLink>
+                      <NuxtLink to="/account/edit">ویرایش اطلاعات</NuxtLink>
+                      <NuxtLink to="/account/tickets">تیکت ها</NuxtLink>
+                      <NuxtLink to="/account/change-password">تغییر کلمه عبور</NuxtLink>
+                    </div>
+                  </Transition>
+                </div>
               </td>
             </tr>
           </template>
@@ -77,16 +81,21 @@
     </BaseModal>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
+import { Course } from '~/models/courses/Course';
+
 const selected = ref("");
 const loading = ref(false);
 const isOpenModal_a = ref(false);
 const rout = useRouter();
-let isOpenModal_e = ref(false);
+const isOpenModal_e = ref(false);
+const courses: Ref<Course[]> = ref([]);
+
+const showMenu = ref(false);
 watch(selected, () => {
   if (selected.value == "ویرایش") {
     selected.value = "";
-    isOpenModal_e = true;
+    isOpenModal_e.value = true;
   }
   if (selected.value == "ثبت یادداشت") {
     selected.value = "";

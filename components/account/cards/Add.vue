@@ -1,54 +1,19 @@
 <template>
-  <Form
-    v-slot="{ errors }"
-    :validation-schema="schema"
-    @submit="AddToWallet"
-    class="flex flex-wrap"
-  >
+  <Form v-slot="{ errors }" :validation-schema="schema" @submit="AddToWallet" class="flex flex-wrap">
     <div class="w-1/2 pl-5 pb-5">
-      <BaseInput
-        required
-        placeholder="####-####-####-####"
-        out-line
-        name="card"
-        label="شماره کارت :"
-      />
+      <BaseInput required placeholder="####-####-####-####" out-line name="card" label="شماره کارت :" />
     </div>
     <div class="w-1/2">
-      <BaseInput
-        required
-        placeholder="شماره حساب"
-        out-line
-        name="hesab"
-        label="شماره حساب"
-      />
+      <BaseInput required placeholder="شماره حساب" out-line name="hesab" label="شماره حساب" />
     </div>
     <div class="w-1/2 pl-5 pb-5">
-      <BaseInput
-        required
-        placeholder="مثال: بانک صادرات"
-        out-line
-        name="bank"
-        label="نام بانک:"
-      />
+      <BaseInput required placeholder="مثال: بانک صادرات" out-line name="bank" label="نام بانک:" />
     </div>
     <div class="w-1/2">
-      <BaseInput
-        required
-        placeholder=" نام و نام خانوادگی صاحب حساب"
-        out-line
-        name="creator"
-        label="نام صاحب حساب :"
-      />
+      <BaseInput required placeholder=" نام و نام خانوادگی صاحب حساب" out-line name="creator" label="نام صاحب حساب :" />
     </div>
     <div class="w-full pb-5">
-      <BaseInput
-        required
-        placeholder="   شماره شبا بدون در نظر گرفتن IR"
-        out-line
-        name="shaba"
-        label="شماره شبا :"
-      />
+      <BaseInput required placeholder="   شماره شبا بدون در نظر گرفتن IR" out-line name="shaba" label="شماره شبا :" />
     </div>
 
     <div class="justify-end flex w-full mt-2">
@@ -60,6 +25,7 @@
 import { reactive } from "vue";
 import { Form } from "vee-validate";
 import * as Yup from "yup";
+
 
 const data = reactive({
   card: "",
@@ -78,5 +44,5 @@ const schema = Yup.object().shape({
   creator: Yup.string().required().label(" نام و نام خانوادگی صاحب حساب "),
   shaba: Yup.number().typeError("شماره شبا  را وارد کنید ").required(),
 });
-const AddToWallet = () => {};
+const AddToWallet = () => { };
 </script>

@@ -17,7 +17,7 @@
 
             </div>
             <template #actions>
-                <base-button type="submit" :disabled="!meta.valid">ثبت اطلاعات</base-button>
+                <base-button :loading="loading" type="submit" :disabled="!meta.valid">ثبت اطلاعات</base-button>
             </template>
         </base-card>
     </Form>
@@ -37,8 +37,12 @@ definePageMeta({
     layout: 'account'
 });
 
+const loading = ref(false);
+const edit = async () => {
+    loading.value = true;
 
-const edit = () => {
+    // var res= await
+    loading.value = false;
 
 }
 </script>

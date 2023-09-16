@@ -18,6 +18,7 @@ export async function FetchApi<T>(
     //@ts-ignore
     config.headers["Authorization"] = `Bearer ${cookie.value}`;
   }
+
   function showError(result: IApiResponse<any>) {
     if (
       customConfig.ignoreErrors == false ||
@@ -29,6 +30,7 @@ export async function FetchApi<T>(
       }
     }
   }
+
   //@ts-ignore
   return $fetch<IApiResponse<T>>(url, config)
     .then((response) => {

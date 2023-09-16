@@ -1,3 +1,4 @@
+import { NotificationDto } from './../models/account/Notification';
 import {
   GetCurrentUserData,
   GetNotifications,
@@ -9,7 +10,7 @@ import Loading from "~/components/icons/loading.vue";
 
 export const useAccountStore = defineStore("account", () => {
   const currentUser: Ref<User | null> = ref(null);
-  const notifications: Ref<Notification[]> = ref([]);
+  const notifications: Ref<NotificationDto[]> = ref([]);
   const initLoading = ref(true);
 
   const initData = async () => {

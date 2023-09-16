@@ -152,6 +152,7 @@ import { DL_DOMAIN_URL } from '~/utils/api.config';
 import { useAuthStore } from '~/stores/auth.store';
 import { Form } from 'vee-validate';
 import * as Yup from 'yup'
+import { QuestionDto } from '~/models/Question';
 
 const openDeletePopup = ref(false);
 const openDeleteQustionPopup = ref(false);
@@ -205,7 +206,6 @@ const deleteQuestion = async () => {
         toast.showToast("پرسش با موفقیت حذف شد")
         router.push('/questions')
         selectedMessage.value = 0;
-
     }
 }
 const deleteMessage = async () => {

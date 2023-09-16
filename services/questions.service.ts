@@ -29,6 +29,7 @@ export const GetQuestionById = (
 ): Promise<IApiResponse<QuestionDto>> => {
   return FetchApi(`/question/${id}?title=show`);
 };
+
 export const DeleteQuestionMessage = (
   questionId: number,
   messageId: number
@@ -37,6 +38,7 @@ export const DeleteQuestionMessage = (
     method: "DELETE",
   });
 };
+
 export const DeleteQuestion = (questionId: number) => {
   return FetchApi(`/Question/${questionId}`, {
     method: "DELETE",

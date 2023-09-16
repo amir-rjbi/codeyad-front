@@ -141,7 +141,6 @@ onMounted(() => {
     if (inputValue.value)
         displayValue.value = splitNumber(inputValue.value);
 });
-
 </script>
 <style scoped>
 .checkbox__wrap {

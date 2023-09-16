@@ -10,11 +10,7 @@
           موجودی کیف پول ارزی : <b class="text-green-500">0$</b>
         </p>
       </div>
-      <BaseButton
-        color="green"
-        @click="(loading = !loading), (isOpenModal = true)"
-        >شارژ کیف پول</BaseButton
-      >
+      <BaseButton color="green" @click="(loading = !loading), (isOpenModal = true)">شارژ کیف پول</BaseButton>
     </div>
     <div class="table-responsive mt-4 shadow-md">
       <table>
@@ -47,7 +43,7 @@
               </td>
             </tr>
           </template>
-          <template v-else>
+          <template v-else-if="wallets.length > 0">
             <tr>
               <td>390,000 تومان</td>
               <td>$0.00</td>
@@ -73,15 +69,15 @@
               </td>
             </tr>
           </template>
+          <template v-else>
+            <tr>
+              <td colspan="5">اطلاعاتی وجود ندارد</td>
+            </tr>
+          </template>
         </tbody>
       </table>
     </div>
-    <BaseModal
-      title="شارژ کیف پول"
-      v-model="isOpenModal"
-      :mobile-header="true"
-      size="sm"
-    >
+    <BaseModal title="شارژ کیف پول" v-model="isOpenModal" :mobile-header="true" size="sm">
       <account-wallet-add />
     </BaseModal>
   </div>
@@ -92,4 +88,5 @@ definePageMeta({
 });
 const loading = ref(false);
 const isOpenModal = ref(false);
+const wallets = ref([]);
 </script>
