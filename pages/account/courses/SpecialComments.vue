@@ -2,6 +2,8 @@
   <div>spe</div>
 </template>
 
-<script setup></script>
+<script setup>definePageMeta({
+  layout: "account",
+});</script>
 
-<style lang="scss" scoped></style>
+<style> </style>
