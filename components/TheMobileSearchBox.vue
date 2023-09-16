@@ -1,11 +1,11 @@
 <template>
     <div class="relative">
-        <div class="search flex">
-            <input type="text" placeholder="هرچی میخوای جست و جو کن" />
-            <button name="search">
+        <form @submit.prevent="search" class="search flex">
+            <input type="text" v-model="searchValue" placeholder="هرچی میخوای جست و جو کن" />
+            <button type="submit" name="search">
                 <IconsSearch color="var(--color-white)" />
             </button>
-        </div>
+        </form>
         <div class=" container my-6">
             <p class="text-h8 mb-2">نتایج جستوجو در دوره ها</p>
             <div class="flex gap-2 flex-col">
@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class=" container my-6">
-            <hr class="mb-4"/>
+            <hr class="mb-4" />
 
             <p class="text-h8 mb-2">نتایج جستوجو در مقالات</p>
             <div class="flex gap-2 flex-col">
@@ -26,6 +26,10 @@
 const emits = defineEmits(['closeSideBar']);
 const CloseSideBar = () => {
     emits('closeSideBar');
+}
+const searchValue = ref('');
+const search = () => {
+
 }
 </script>
 <style scoped lang="scss">
