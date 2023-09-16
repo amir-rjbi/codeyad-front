@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <h1>پنل ادمین</h1>
-  </div>
+  <div>addnote</div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 definePageMeta({
   layout: "account",
 });
 </script>
+
+<style></style>
