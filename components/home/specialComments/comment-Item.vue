@@ -3,21 +3,15 @@
         { 'top-4': currentIndex == swiper.activeIndex - 1 }]" @click="swiper.slideTo(currentIndex)">
         <div class="header justify-between w-full items-center">
             <div class="flex items-end gap-[6px]">
-                <img src="/images/users/avatar.png" alt="user">
-                <p class="">مریم مجدی</p>
+                <base-img :src="GetUserAvatar(item.userAvatar)" width="50px" height="50px" :alt="item.userFullName"/>
+                    <p class="">{{ item.userFullName }}</p>
             </div>
             <IconsQuote color="var(--primary-color)" />
         </div>
         <p>
-            به متنی آزمایشی و بی‌معنی در صنعت چاپ، صفحه‌آرایی و طراحی گرافیک گفته می‌شود. طراح گرافیک از این
-            متن
-            به
-            عنوان عنصری از ترکیب بندی
+            {{ item.text }}
+        </p>
 
-        </p>
-        <p>
-            متن به عنوان عنصری از ترکیب بندی
-        </p>
     </div>
 </template>
 <script setup lang="ts">
@@ -51,7 +45,9 @@ onMounted(() => {
     line-height: 25.979px;
     /* 147.273% */
     letter-spacing: -0.505px;
-
+    height: 350px;
+    overflow: auto;
+    cursor: auto;
     p {
         font-size: 17.64px;
         text-align: right;

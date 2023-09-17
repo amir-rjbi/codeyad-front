@@ -5,16 +5,16 @@
                 <div class="flex justify-between gap-[60px] sm:flex-col-reverse sm:gap-[40px]">
                     <div class="info w-[50%] text-white flex flex-col gap-[17px] sm:!w-full sm:gap-[12.23px]">
                         <nuxt-link to="/courses" class="category-tag  text-blue bg-secondary rounded-3xl w-fit p-2">
-                            برنامه نویسی وب
+                            {{ courseData.courseDto.subCategory.title }}
                         </nuxt-link>
-                        <h1 class=" text-h3 sm:text-h7">آموزش جامع و پروژه محور ری اکت (React)</h1>
+                        <h1 class=" text-h3 sm:text-h7">{{ courseData.courseDto.courseTitle }}</h1>
                         <p class="text-h8 ">
-                            یکی از کاربردی‌ترین ابرارهایی که برای اپلیکیشن‌های تک صفحه‌ای به منظور مدیریت لایه‌ها استفاده
-                            می‌شود، ری‌ اکت می‌باشد.
+                            {{ courseData.courseDto.shortDescription }}
                         </p>
                         <div class="flex justify-between gap-2 py-2 flex-wrap sm:gap-4">
                             <div class="flex gap-2 items-center sm:w-full">
-                                <span>آخرین بروزرسانی در تاریخ 1402/02/03</span>
+                                <span>آخرین بروزرسانی در تاریخ {{ toPersianDate(new Date(courseData.courseDto.lastModify))
+                                }}</span>
                                 <IconsCalender color="white" />
                             </div>
                             <div class="flex gap-2 items-center sm:w-full">
@@ -22,12 +22,14 @@
                                 <IconsTime color="white" />
                             </div>
                             <div class="flex gap-2 items-center sm:w-full">
-                                <span>745 دانشجو</span>
+                                <span>{{ courseData.courseDto.studentCount.toLocaleString() }} دانشجو</span>
                                 <icons-users color="white" />
                             </div>
                         </div>
-                        <div class="flex justify-between flex-wrap gap-3">
-                            <p class="text-h5 text-green-action font-semibold">قیمت دوره : 1,500,000 تومان</p>
+                        <div class="flex justify-between items-center flex-wrap gap-3">
+                            <p class="text-h5 text-green-action font-semibold">قیمت دوره : <label
+                                    v-if="courseData.courseDto.price == 0">رایگان</label><label v-else>{{
+                                        courseData.courseDto.price.toLocaleString() }} تومان </label></p>
                             <BaseButton :render-button-tag="false" to="/course/panel-test" class="sm:w-full" color-white>
                                 شروع
                                 دوره
@@ -37,8 +39,14 @@
                             </BaseButton>
                         </div>
                     </div>
-                    <base-img alt="courseTitle" class="w-[50%] rounded-[10px] h-[300px] sm:!w-full sm:h-[183px]"
-                        style="object-fit: fill;" src="static/images/course.png" />
+                    <div class="cousrse-banner w-[50%] relative flex justify-center items-center  h-[300px] sm:!w-full cursor-pointer sm:h-[183px]"
+                        v-tooltip="'نمایش ویدئو معرفی'">
+                        <div class="absolute play__back">
+                            <IconsPlay width="50px" height="50px" color="white" />
+                        </div>
+                        <base-img alt="courseTitle" class="w-full h-full rounded-[10px]" style="object-fit: fill;"
+                            :src="GetCourseImage(courseData.courseDto.imageName)" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -54,33 +62,19 @@
             <div class="course-content ">
                 <div id="content" class="section container mb-[70px] sm:!mb-3 pt-9">
                     <h2 class="text-h5 font-bold dark:text-white mb-4">توضیحات</h2>
-                    <p>
-                        ری اکت چیست؟
-                        React یک کتابخانه‌ی جاوا اسکریپتی است که برای ساخت یوزر اینترفیس یا همان رابط کاربری مورد استفاده
-                        قرار می‌گیرد. همه‌ی این آلمان‌های در این صفحه کنار هم برای ما رابط کاربری را تشکیل می‌دهند. (یوزر
-                        اینترفیس (رابط کاربری) چیزی که با کاربر در ارتباط است). کاربرد ری‌اکت این است که یوزر اینترفیس را
-                        برای ما با یک سری ویژگی‌های خاص می‌سازد. یکی از مهمترین ویژگی‌ها این است که React این قابلیت را دارد
-                        که برای ما یوزر اینترفیس‌ها یا رابط‌های کاربری را با سرعت بالا بسازد. مسلما سرعت بالای هر وبسایت
-                        می‌تواند در جذب کاربر تاثیر بسزایی داشته باشد. پس تا به این جا همان طور که گفتم ری‌اکت یک
-                        کتابخانه‌‌ی جاوا اسکریپتی برای ساخت رابط‌های کاربری با سرعت بالا است. اینستاگرام به تنهایی می‌تواند
-                        یک وزنه‌ی سنگین برای معرفی ری‌اکت‌نیتیو باشد که از این نوع کتابخانه‌ استفاده می‌کند.
-                        ری اکت در کنار دو رقیب
-                        React برای اولین بار در سال ۲۰۱۱ توسط فیس بوک استفاده شد. بعد از آن روز به روز به محدودیت ری‌اکت
-                        افزوده شد. فیس بوک شرکت کوچکی نبود و استفاده‌ی فیس‌بوک از ری‌اکت نشان دهنده‌ی این است که قابلیت
-                        بالایی دارد. اگر سری به گوگل ترنس بزنیم و این نوع کتابخانه را در کنار دو رقیبش angular و vue قرار
-                        دهیم، می‌بینیم با توجه به قدرتی که این دو رقیب دارند باز هم React پیشتاز است. React برخلاف angular و
-                        vue که فریم ورک‌های جاوا اسکریپتی هستند یک کتابخانه است و همین کتابخانه بودنش باعث شده است که اولا
-                        خیلی سبک باشد، استفاده از آن آسان و از همه مهم‌تر یادگیری‌اش بسیار راحت است.
-                        چرا یادگیری React ساده است؟
-                        چرا که ما فقط قرار است از سینتکس خود از جاوا اسکریپت استفاده کنیم. اگر تا حدودی با جاوا اسکریپت آشنا
-                        باشیم می‌توانیم به راحتی از آن استفاده کنیم. یکی از مزایای دیگر این نوع کتابخانه کامپوننت محور بودن
-                        آن می‌باشد. یعنی همه‌ی آلمان‌های صفحه را داخل یک کامپوننت قرار می‌دهیم و با کنار هم قرار گرفتن آنها
-                        پروژه‌ی ما شکل می‌گیرد. حسن این کار این است که مدیریت قسمت‌های مختلف پروژه برای ما خیلی آسان می‌شود.
-                        هر تغییری بخواهیم در هر لحظه در پروژه انجام بدهیم نیاز به برسی کدهای زیادی نداریم چرا که هر قسمت
-                        خودش یک کامپوننت مجزا است و به راحتی می‌توانیم آن قسمت را پیدا کنیم و تغییر در آن اعمال کنیم.
-                    </p>
+                    <div :class="[{ 'close': isShowMore == false }, { 'open': isShowMore }]">
+                        <div v-html="courseData.courseDto.description">
+
+                        </div>
+                        <a href="#content" name="show-more" @click="isShowMore = !isShowMore">
+                            <IconsArrowLeft />
+                            <span v-if="isShowMore == false">مشاهده بیشتر</span>
+                            <span v-else>مشاهده کمتر</span>
+                        </a>
+                    </div>
+
                 </div>
-                <CourseLandingSections />
+                <CourseLandingSections :data="courseData.courseDto.sections" />
                 <div id="specification" class="section container pt-14">
                     <h3 class="text-h5 font-bold dark:text-white text-center mb-[50px]">ویژگی های دوره</h3>
                     <div class="flex justify-between sm:flex-wrap sm:gap-9">
@@ -98,8 +92,8 @@
                     </div>
                 </div>
 
-                <div id="comments" class=" section pt-2">
-                    <HomeSpecialComments title="نظرات دانشجویان" />
+                <div id="comments" class="section pt-2">
+                    <HomeSpecialComments title="نظرات دانشجویان" :data="courseData.specialComment" />
                 </div>
             </div>
         </BaseSpyScroll>
@@ -107,8 +101,23 @@
     </div>
 </template>
 <script setup lang="ts">
-const selectedTab = ref('');
+import { GetCourseLanding } from "@/services/course.service";
+import { CourseLanding } from "~/models/courses/CourseLanding";
+const route = useRoute();
+const router = useRouter();
+const toast = useToast();
+const { data, pending } = await useAsyncData("CourseLanding", () => GetCourseLanding(route.params.slug.toString() ?? ''));
+if (!data.value?.data) {
+    if (process.server) {
+        throw createError({ statusCode: 404, message: 'not found' })
+    } else {
+        router.push('/courses')
+        toast.showToast('دوره مورد نظر یافت نشد', ToastType.warning)
+    }
+}
 
+const isShowMore = ref(false);
+const courseData: Ref<CourseLanding> = ref(data.value!.data!);
 definePageMeta({
     layout: 'un-category'
 })
@@ -141,5 +150,72 @@ definePageMeta({
     p {
         color: var(--color-gray-400);
     }
+}
+
+.play__back {
+    background: rgba(0, 0, 0, 0.658);
+    border-radius: 50%;
+}
+
+.close {
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+
+    &::after {
+        position: absolute;
+        bottom: 0;
+        background: linear-gradient(#eef3f9a2, #EEF3F9);
+        width: 100%;
+        height: 100px;
+        content: " ";
+        right: 0;
+    }
+}
+
+.open {
+    position: relative;
+
+    a[name=show-more] {
+        bottom: -2rem;
+
+        &:hover {
+            bottom: -1.9rem !important;
+        }
+
+        svg {
+            rotate: 90deg;
+        }
+    }
+}
+
+a[name=show-more] {
+    position: absolute;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 1rem;
+    transition: all ease .2s;
+
+    svg {
+        rotate: -90deg;
+    }
+
+    &:hover {
+        bottom: 1.9rem;
+
+    }
+
+    font-size: var(--h7-font-size);
+    background: white;
+    padding: .5rem;
+    border-radius: 10px;
+    @apply shadow-xl;
+    bottom: 2rem;
+    z-index: 2;
+    left: 50%;
+    transform: translate(-50%, 0);
+    cursor: pointer;
 }
 </style>

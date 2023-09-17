@@ -2,64 +2,60 @@
     <div class="container py-9 mb-9">
         <h1 class="text-center text-[30px] font-semibold">مدرسین کدیاد</h1>
         <div class="flex mt-[56px] gap-[52px] flex-wrap justify-center">
-            <div class="teacher-card flex justify-center items-center flex-col bg-surface sm:w-full"
-                v-for="item in ['محمد اشرافی', 'محمد هاشمی', 'میلاد دهیامی', 'امیرحسین امیری', 'محمد اشرافی', 'محمد هاشمی', 'میلاد دهیامی', 'امیرحسین امیری']">
-                <BaseImg src="static/images/users/avatar.png" alt="mohammad" />
-                <p class="text-black text-h7 font-bold mt-1">{{ item }}</p>
-                <p class=" text-h8 mt-1">mohammad.ashrafi2020@outlook.com</p>
-                <div class="footer flex justify-between w-full mt-[18px]">
-                    <div class="detail flex gap-4">
-                        <div class="flex gap-[5px] items-center">
-                            <label>215</label>
+            <template v-if="pending">
+                <BaseSkeletonLoaidng height="300px" v-for="item in [1, 2, 3, 4]" :key="item"
+                    parent-class="teacher-card flex h-[100%] w-[22%] justify-center items-center flex-col bg-surface sm:w-full" />
 
-                            <IconsUser color="var(--color-gray-300)" />
+            </template>
+            <template v-else>
+                <div class="teacher-card flex w-[22%] justify-center items-center flex-col bg-surface sm:w-full"
+                    v-for="item in data?.data?.data">
+                    <BaseImg :src="GetUserAvatar(item.imageName)" width="100px" height="100px" :alt="item.fullName" />
+                    <p class="text-black text-h7 font-bold mt-1">{{ item.fullName }}</p>
+                    <p class=" text-h8 mt-1">{{ item.email }}</p>
+                    <div class="footer flex justify-between w-full mt-[18px]">
+                        <div class="detail flex gap-4">
+                            <div class="flex gap-[5px] items-center">
+                                <label>{{ item.followers.toLocaleString() }}</label>
+
+                                <IconsUser color="var(--color-gray-300)" />
+                            </div>
+                            <div class="flex gap-[5px] items-center">
+                                <label>{{ item.courseCount }}</label>
+                                <IconsBook color="var(--color-gray-300)" />
+                            </div>
                         </div>
-                        <div class="flex gap-[5px] items-center">
-                            <label>15</label>
-                            <IconsBook color="var(--color-gray-300)" />
+                        <div class="social flex gap-[5px]">
+                            <a :href="item.socialNetworks.linkeDin" v-if="item.socialNetworks.linkeDin">
+                                <IconsSocialLinkdin />
+                            </a>
+                            <a :href="item.socialNetworks.twitter" v-if="item.socialNetworks.twitter">
+                                <IconsSocialTwitter with-bg width="28" height="28" />
+                            </a>
+                            <a :href="item.socialNetworks.instagram" v-if="item.socialNetworks.instagram">
+                                <IconsSocialInstagram with-bg width="28" height="28" />
+                            </a>
                         </div>
                     </div>
-                    <div class="social flex gap-[5px]">
-                        <a href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="27" height="28" viewBox="0 0 27 28" fill="none">
-                                <circle cx="13.5665" cy="13.9298" r="11.0958" fill="#0077B5" />
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M10.6646 8.54442C10.6646 9.23518 10.1386 9.7942 9.31613 9.7942C8.52567 9.7942 7.99972 9.23518 8.01599 8.54442C7.99972 7.82008 8.52566 7.27734 9.33189 7.27734C10.1386 7.27734 10.6488 7.82008 10.6646 8.54442ZM8.08212 18.8275V10.7815H10.5827V18.827H8.08212V18.8275Z"
-                                    fill="white" />
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M12.5876 13.3488C12.5876 12.3453 12.5545 11.4897 12.5215 10.7821H14.6935L14.8089 11.8844H14.8583C15.1874 11.3742 16.0099 10.6016 17.3426 10.6016C18.9876 10.6016 20.2216 11.6876 20.2216 14.0559V18.8281H17.721V14.3692C17.721 13.3321 17.3594 12.625 16.4545 12.625C15.7632 12.625 15.3522 13.1021 15.1879 13.5625C15.1218 13.7273 15.0892 13.9572 15.0892 14.1881V18.8281H12.5886V13.3488H12.5876Z"
-                                    fill="white" />
-                            </svg>
-                        </a>
-                        <a href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="27" height="28" viewBox="0 0 27 28" fill="none">
-                                <circle cx="13.379" cy="13.9298" r="11.0958" fill="#1DA1F2" />
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M20.0434 9.65776C19.5539 9.87523 19.0271 10.0217 18.4746 10.0878C19.0387 9.74963 19.4718 9.2144 19.6755 8.57666C19.1483 8.88999 18.5629 9.11677 17.9412 9.2397C17.4428 8.70892 16.7322 8.37695 15.9472 8.37695C14.4387 8.37695 13.2156 9.60007 13.2156 11.1085C13.2156 11.3225 13.24 11.531 13.2866 11.7312C11.0161 11.6176 9.00344 10.5298 7.65606 8.87712C7.42085 9.28053 7.28637 9.74963 7.28637 10.2502C7.28637 11.1978 7.7679 12.0339 8.5015 12.5238C8.05326 12.5096 7.63254 12.3867 7.26374 12.1821V12.2163C7.26374 13.5401 8.20593 14.6439 9.45479 14.8955C9.22578 14.9576 8.98436 14.9914 8.73538 14.9914C8.5592 14.9914 8.38789 14.9741 8.22102 14.9421C8.56851 16.0272 9.57772 16.8172 10.7729 16.8394C9.83823 17.5716 8.66038 18.0088 7.38046 18.0088C7.15945 18.0088 6.94198 17.9959 6.72852 17.9702C7.93743 18.745 9.37313 19.1977 10.9158 19.1977C15.9401 19.1977 18.6876 15.0353 18.6876 11.4259C18.6876 11.3074 18.6854 11.1893 18.6796 11.0726C19.214 10.6865 19.6773 10.2054 20.0434 9.65776Z"
-                                    fill="white" />
-                            </svg>
-                        </a>
-                        <a href="#">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
-                                <circle cx="14.2051" cy="13.9298" r="11.0958" fill="#C13584" />
-                                <path
-                                    d="M14.2083 8.47688C15.9859 8.47688 16.1964 8.48367 16.8984 8.5157C17.5475 8.5453 17.9 8.65375 18.1346 8.74493C18.4454 8.8657 18.6671 9.00996 18.9001 9.24291C19.1331 9.47589 19.2773 9.69766 19.3981 10.0084C19.4893 10.243 19.5977 10.5955 19.6273 11.2446C19.6594 11.9466 19.6662 12.1572 19.6662 13.9348C19.6662 15.7124 19.6594 15.923 19.6273 16.625C19.5977 17.2741 19.4893 17.6266 19.3981 17.8611C19.2773 18.1719 19.1331 18.3937 18.9001 18.6266C18.6671 18.8596 18.4454 19.0039 18.1346 19.1246C17.9 19.2158 17.5475 19.3243 16.8984 19.3539C16.1965 19.3859 15.986 19.3927 14.2083 19.3927C12.4305 19.3927 12.22 19.3859 11.5181 19.3539C10.869 19.3243 10.5165 19.2158 10.2819 19.1246C9.97111 19.0039 9.74934 18.8596 9.51638 18.6266C9.28343 18.3937 9.13914 18.1719 9.01837 17.8611C8.9272 17.6266 8.81874 17.2741 8.78914 16.625C8.75711 15.923 8.75032 15.7124 8.75032 13.9348C8.75032 12.1572 8.75711 11.9466 8.78914 11.2446C8.81874 10.5955 8.9272 10.243 9.01837 10.0084C9.13914 9.69766 9.2834 9.47589 9.51638 9.24294C9.74934 9.00996 9.97111 8.8657 10.2819 8.74493C10.5165 8.65375 10.869 8.5453 11.5181 8.5157C12.2201 8.48367 12.4306 8.47688 14.2083 8.47688ZM14.2083 7.27734C12.4002 7.27734 12.1735 7.28501 11.4634 7.31741C10.7548 7.34973 10.2708 7.46228 9.84735 7.62684C9.40957 7.79697 9.03829 8.02461 8.66816 8.39472C8.29805 8.76485 8.07041 9.13612 7.9003 9.57391C7.73572 9.99737 7.62316 10.4813 7.59084 11.1899C7.55845 11.9 7.55078 12.1267 7.55078 13.9348C7.55078 15.7428 7.55845 15.9695 7.59084 16.6796C7.62316 17.3882 7.73572 17.8722 7.9003 18.2957C8.07041 18.7334 8.29805 19.1047 8.66816 19.4748C9.03829 19.845 9.40957 20.0726 9.84735 20.2427C10.2708 20.4073 10.7548 20.5198 11.4634 20.5522C12.1735 20.5846 12.4002 20.5922 14.2083 20.5922C16.0163 20.5922 16.243 20.5846 16.9531 20.5522C17.6617 20.5198 18.1457 20.4073 18.5691 20.2427C19.0069 20.0726 19.3782 19.845 19.7483 19.4748C20.1184 19.1047 20.3461 18.7334 20.5162 18.2957C20.6808 17.8722 20.7933 17.3882 20.8256 16.6796C20.858 15.9695 20.8657 15.7428 20.8657 13.9348C20.8657 12.1267 20.858 11.9 20.8256 11.1899C20.7933 10.4813 20.6808 9.99737 20.5162 9.57391C20.3461 9.13612 20.1184 8.76485 19.7483 8.39472C19.3782 8.02461 19.0069 7.79697 18.5691 7.62684C18.1457 7.46228 17.6617 7.34973 16.9531 7.31741C16.243 7.28501 16.0163 7.27734 14.2083 7.27734Z"
-                                    fill="white" />
-                                <path
-                                    d="M14.2097 10.5176C12.3216 10.5176 10.791 12.0482 10.791 13.9362C10.791 15.8244 12.3216 17.3549 14.2097 17.3549C16.0978 17.3549 17.6284 15.8244 17.6284 13.9362C17.6284 12.0482 16.0978 10.5176 14.2097 10.5176ZM14.2097 16.1554C12.9841 16.1554 11.9906 15.1619 11.9906 13.9362C11.9906 12.7107 12.9841 11.7171 14.2097 11.7171C15.4353 11.7171 16.4289 12.7107 16.4289 13.9362C16.4289 15.1619 15.4353 16.1554 14.2097 16.1554Z"
-                                    fill="white" />
-                                <path
-                                    d="M18.5665 10.379C18.5665 10.8202 18.2089 11.1779 17.7676 11.1779C17.3264 11.1779 16.9688 10.8202 16.9688 10.379C16.9688 9.93776 17.3264 9.58008 17.7676 9.58008C18.2089 9.58008 18.5665 9.93776 18.5665 10.379Z"
-                                    fill="white" />
-                            </svg>
-                        </a>
-                    </div>
+                    <baseButton :render-button-tag="false" :to="`/masters/profile-${item.userName}`"
+                        class="w-full mt-[18px]">
+                        مشاهده
+                        پروفایل</baseButton>
                 </div>
-                <baseButton :render-button-tag="false" to="/masters/profile-mohammad" class="w-full mt-[18px]">مشاهده پروفایل</baseButton>
-            </div>
+            </template>
         </div>
     </div>
 </template>
+<script setup lang="ts">
+import { GetMasters } from '~/services/master.service';
+
+useSeoMeta({
+    title: "مدرسین کدیاد",
+    ogTitle: 'مدرسین کدیاد'
+});
+
+const { data, pending } = useAsyncData('masters', () => GetMasters());
+</script>
 <style scoped lang="scss">
 .teacher-card {
     border-radius: 8.118px;

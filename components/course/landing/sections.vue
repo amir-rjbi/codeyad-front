@@ -1,7 +1,7 @@
 <template>
     <section class="section flex flex-col gap-6 mb-[70px] pt-16 container" id="sections">
         <p class="text-black text-h5 font-bold">سرفصل های ودره</p>
-        <BaseCollapse bg-white title="طراحی گرافیک" class="">
+        <BaseCollapse bg-white :title="item.title" v-for="item in data">
             <template #icon>
                 <svg width="10" height="17" viewBox="0 0 10 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -11,11 +11,18 @@
             </template>
             <div class="episodes">
                 <ul>
-                    <li class="text-black flex justify-between items-center" v-for="item in [1, 2, 3]">
-                        <p>آموزش Docker - قسمت اول</p>
-                        <div class="flex gap-4">
-                            <span class="text-blue">منتشر شده</span>
-                            <span>00:36:20</span>
+                    <li class="text-black flex  gap-2 justify-between items-center" v-for="episode in item.episodes"
+                        :key="episode.id">
+                        <p>{{ episode.title }}</p>
+                        <div class="flex gap-4 items-center">
+                            <BaseButton size="sm" v-if="episode.isFree" name="play">
+                                <div class="flex gap-2 items-center">
+                                    <IconsPlay color="white" width="25" height="25" />
+                                    نمایش
+                                </div>
+                            </BaseButton>
+                            <span class="text-blue  block min-w-max" v-else>منتشر شده</span>
+                            <span class="sm:hidden">{{ episode.duration }}</span>
                         </div>
                     </li>
                 </ul>
@@ -23,6 +30,13 @@
         </BaseCollapse>
     </section>
 </template>
+<script setup lang="ts">
+import { Section } from '~/models/courses/Course';
+
+defineProps<{
+    data: Section[]
+}>()
+</script>
 <style scoped lang="scss">
 ul {
     li {

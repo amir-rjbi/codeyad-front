@@ -154,7 +154,4 @@ const hasSlot = () => {
     align-items: center;
 }
 
-.input {
-    position: relative;
-}
 </style>

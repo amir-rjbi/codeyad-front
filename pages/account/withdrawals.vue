@@ -4,15 +4,12 @@
       <div class="flex items-center gap-4 sm:flex-wrap">
         <p class="text-h6 sm:!text-h7">تسویه حساب ها</p>
       </div>
-      <BaseButton color="green" @click="isOpenModal = true"
-        >افزودن درخواست</BaseButton
-      >
+      <BaseButton color="green" @click="isOpenModal = true">افزودن درخواست</BaseButton>
     </div>
     <div class="table-responsive mt-4 shadow-md">
       <table>
         <thead>
           <tr>
-            <th>#</th>
             <th>مبلغ</th>
             <th>مبلغ ارزی</th>
             <th>شماره کارت</th>
@@ -47,31 +44,61 @@
               </td>
             </tr>
           </template>
-          <template v-else>
+          <template v-else-if="data?.withdrawals.length == 0">
             <tr>
-              <td>1</td>
-              <td>1</td>
-              <td>1</td>
-              <td>1</td>
-              <td>آموزش جامع ویو جی اس (3 Vue.js) و Nuxt Js - پروژه محور</td>
-              <td>محمد اشرافی</td>
-              <td class="flex justify-center">
-                <BaseButton>نمایش</BaseButton>
+              <td colspan="6">
+                دیتایی برای نمایش وجود ندارد
+              </td>
+            </tr>
+          </template>
+          <template v-else>
+            <tr v-for="item in data?.withdrawals">
+              <td>{{ item.amount.toLocaleString() }} تومان </td>
+              <td>{{ item.cryptoAmount }}</td>
+              <td>{{ item.cardNumber }}</td>
+              <td>{{ toPersianDate(new Date(item.createDate)) }}</td>
+              <td>{{ toPersianDate(new Date(item.paymentDate)) }}</td>
+              <td>
+                <b class="text-green" v-if="item.isPay">پرداخت شده</b>
+                <b class="text-blue" v-else>در انتظار پرداخت</b>
               </td>
             </tr>
           </template>
         </tbody>
       </table>
     </div>
+    <div class="flex justify-center" v-if="data">
+      <BasePagination :filter-result="data!" class="mt-2" v-model="pageId" />
+    </div>
     <BaseModal title="درخواست  مشاوره  " v-model="isOpenModal">
-      <account-consultations-add />
+      <account-withdrawals-add />
     </BaseModal>
   </div>
 </template>
 <script setup lang="ts">
+import { WithdrawalFilterResult } from '~/models/account/Withdrawal';
+import { GetWithdrawals } from '~/services/Withdrawal.service';
+
 definePageMeta({
   layout: "account",
 });
 const loading = ref(false);
 const isOpenModal = ref(false);
+const pageId = ref(1);
+const data: Ref<WithdrawalFilterResult | null> = ref(null);
+
+onMounted(async () => {
+  await getData();
+});
+watch(pageId, async (val) => {
+  await getData();
+})
+const getData = async () => {
+  loading.value = true;
+  var res = await GetWithdrawals(pageId.value);
+  if (res.isSuccess) {
+    data.value = res.data!;
+  }
+  loading.value = false;
+}
 </script>

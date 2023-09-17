@@ -1,24 +1,26 @@
 <template>
     <div class="course-card flex flex-col gap-3">
         <div class="course-banner">
-            <base-img src="static/images/course.jpg" alt="course" />
+            <base-img width="350px" height="200px" :src="GetCourseImage(item.imageName)" :alt="item.courseTitle" />
         </div>
         <div class="card-content flex gap-3 flex-col w-full">
-            <p class="course-title">Ionic React: توسعه موبایل با Ionic 5 آغاز شد</p>
-            <div class="details flex justify-between">
-                <label>سطح متوسط</label>
+            <p class="course-title">{{ item.courseTitle }}</p>
+            <div class="details items-center flex justify-between">
+                <label>سطح متوسط
+                </label>
                 <div class="flex gap-[6px] items-center">
-                    <label>301</label>
-                    <IconsUser color="var(--color-gray-300)" />
+                    <label>{{ item.duration }}</label>
+                    <IconsTime width="15" color="var(--color-gray-300)" />
                 </div>
                 <div class="flex gap-[6px] items-center">
-                    <label>8</label>
+                    <label>{{ item.episodeCount.toLocaleString() }}</label>
                     <IconsBook color="var(--color-gray-300)" />
                 </div>
             </div>
             <div class="footer flex justify-between items-center">
-                <p>850,000 تومان</p>
-                <BaseButton :render-button-tag="false" size="md" to="/course/test">
+                <p v-if="item.totalPrice > 0">{{ item.totalPrice.toLocaleString() }} تومان</p>
+                <p class="text-green font-bold" v-else>رایگان</p>
+                <BaseButton :render-button-tag="false" size="md" :to="`/course/${item.slug}`">
                     <div class="flex items-center gap-[6px]">
                         شروع دوره
                         <IconsArrowLeft color="#fff" />
@@ -28,6 +30,13 @@
         </div>
     </div>
 </template>
+<script setup lang="ts">
+import { CourseFilterData } from '~/models/courses/CourseFilterData';
+
+defineProps<{
+    item: CourseFilterData
+}>();
+</script>
 <style scoped lang="scss">
 @media screen and (max-width:768px) {
     .course-card {
@@ -50,6 +59,10 @@
 
     .course-title {
         font-size: 13.77px;
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
     }
 
     label {

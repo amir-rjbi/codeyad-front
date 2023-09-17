@@ -9,8 +9,10 @@ export interface ResponseMetaData {
   message: string;
   appStatusCode: ApiStatusCodes;
 }
-export interface FilterResult<T> {
+export interface FilterResult<T> extends BaseFilterResult {
   data: T[] | undefined;
+}
+export interface BaseFilterResult {
   entityCount: number;
   currentPage: number;
   pageCount: number;

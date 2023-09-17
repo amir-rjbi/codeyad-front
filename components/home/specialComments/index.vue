@@ -3,7 +3,7 @@
         <p class="text-blue container font-bold text-[20px] hidden sm:!block">{{ title }}</p>
         <section class="special-comments sm:!mt-3 sm:!py-0">
             <h6 class="text-blue text-[32px] text-center sm:hidden">{{ title }}</h6>
-            <BaseCarousel class="comments sm:!mt-0 sm:w-4/5 sm:!mr-4" :items="[1, 2, 3, 1, 2, 3, 1, 2, 3]" :modules="[]"
+            <BaseCarousel class="comments sm:!mt-0 sm:w-4/5 sm:!mr-4" :items="data" :modules="[]"
                 :centered-slides="true" :space-between="17" :breakpoints="breakpoints">
                 <template #item="{ item, index }">
                     <HomeSpecialCommentsCommentItem :item="item" :current-index="index" />
@@ -18,6 +18,10 @@ defineProps({
     title: {
         type: String,
         default: "دیدگاه دانشجوها از کدیاد"
+    },
+    data: {
+        type: Array,
+        default: [1, 2, 3, 1, 2, 3, 1, 2, 3]
     }
 })
 const breakpoints = ref({

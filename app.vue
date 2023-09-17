@@ -5,7 +5,7 @@
       <Link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
     </Head>
     <NuxtLayout>
-      <NuxtLoadingIndicator />
+      <NuxtLoadingIndicator dir="rtl" :height="3"/>
       <NuxtPage />
     </NuxtLayout>
     <ClientOnly>
