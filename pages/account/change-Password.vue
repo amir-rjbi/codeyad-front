@@ -54,7 +54,7 @@ const schema = Yup.object().shape({
     .label("تکرار کلمه عبور"),
 });
 const data = reactive({
-  userid: 0,
+  userid: 8,
   currentPassword: "",
   newPassword: "",
   rePassword: "",
@@ -71,7 +71,13 @@ const edit = async () => {
   formData.append("CurrentPassword ", data.currentPassword);
   formData.append("NewPassword  ", data.newPassword);
   formData.append("RePassword ", data.rePassword);
-  await ChangePassword(formData);
+  for (var pair of formData.entries()) {
+    console.log(pair[0] + " - " + typeof pair[1]);
+    console.log(typeof data.userid);
+  }
+
+  var res = await ChangePassword(formData);
+  console.log(res);
   loading.value = false;
 };
 definePageMeta({

@@ -42,11 +42,11 @@
           </template>
           <template v-else>
             <tr>
-              <td>12513</td>
-              <td>500,000 تومان</td>
-              <td>1</td>
-              <td>1402/01/14</td>
-              <td>پرداخت شده</td>
+              <td>{{ data.orderId }}</td>
+              <td>{{ data.price }}</td>
+              <td>{{ data.discount }}</td>
+              <td>500</td>
+              <td>{{ data.isFinally }}</td>
               <td class="flex justify-center">
                 <BaseButton @click="isOpenModal = true">نمایش</BaseButton>
               </td>
@@ -61,8 +61,25 @@
   </div>
 </template>
 <script setup lang="ts">
+import { date } from "yup";
+import { GetUserOrder } from "../../services/order.service";
 definePageMeta({
   layout: "account",
+});
+const data = reactive({
+  orderId: 2,
+  price: 2,
+  discount: 2,
+
+  isFinally: true,
+});
+onMounted(async () => {
+  var res = await GetUserOrder();
+  console.log(res);
+  data.orderId = res.data!.userId;
+  data.discount = res.data!.discount;
+  data.isFinally = res.data!.isFinally;
+  data.price = res.data!.price;
 });
 const loading = ref(false);
 const isOpenModal = ref(false);

@@ -9,8 +9,14 @@ export const GetNotifications = (): Promise<IApiResponse<NotificationDto[]>> => 
   return FetchApi("/notification");
 };
 export const ChangePassword = (data: FormData) => {
-  return FetchApi("/User/ChangepPassword", {
+  return FetchApi("/user/ChangePassword", {
     method: "POST",
+    body: data,
+  });
+};
+export const EditUser = (data: FormData) => {
+  return FetchApi("/user", {
+    method: "PUT",
     body: data,
   });
 };
