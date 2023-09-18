@@ -123,8 +123,8 @@ const edit = async () => {
   var formData = new FormData();
   formData.append("Name", data.name);
   formData.append("Family", data.family);
-  formData.append("PhoneNumber ", data.phoneNumber);
-  formData.append("Email ", data.email);
+  formData.append("PhoneNumber", data.phoneNumber);
+  formData.append("Email", data.email);
   await EditUser(formData);
 };
 </script>
