@@ -1,13 +1,12 @@
 <template>
-    <!-- <nav aria-label="Page navigation example" v-if="filterResult && filterResult.pageCount > 1"> -->
-    <nav aria-label="Page navigation example">
+    <nav aria-label="Page navigation example" v-if="filterResult && filterResult.pageCount > 1">
         <ul class="inline-flex -space-x-px  h-10">
             <li :class="{ 'card-loading': modelValue == 1 }" @click="prevPage()">
-                <a href="#"
-                    class="flex items-center justify-center px-3 h-10 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">قبلی</a>
+                <button
+                    class="flex items-center justify-center px-3 h-10 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">قبلی</button>
             </li>
             <li v-for="item in RangeNumber(filterPaginationResult.startPage, filterPaginationResult.endPage)">
-                <a href="#" @click="changePage(item)" aria-current="page" :class="[`flex items-center justify-center px-3 h-10
+                <button @click="changePage(item)" aria-current="page" :class="[`flex items-center justify-center px-3 h-10
                      border border-gray-300  
                       dark:border-gray-700  dark:text-white`,
                     {
@@ -20,12 +19,12 @@
                     }]">
                     {{ item }}
 
-                </a>
+                </button>
             </li>
 
             <li @click="nextPage()" :class="{ 'card-loading': modelValue == filterPaginationResult.pageCount }">
-                <a href="#"
-                    class="flex items-center justify-center px-3 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">بعدی</a>
+                <button
+                    class="flex items-center justify-center px-3 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">بعدی</button>
             </li>
         </ul>
     </nav>

@@ -85,7 +85,7 @@ export const fixNumbers = (str: string) => {
   return str;
 };
 
-export const getPersianDate = (date: Date, format: string) => {
+export const getPersianDate = (date: Date, format: string | null = null) => {
   let week = new Array(
     "يكشنبه",
     "دوشنبه",
@@ -251,7 +251,7 @@ export const getPersianDate = (date: Date, format: string) => {
 
   var ye = new Date(date).toLocaleDateString("fa-IR").split("/")[0];
   if (format === null || format === undefined)
-    return `${week[d]} ${day} ${months[month - 1]} ${year}`;
+    return `${day} ${months[month - 1]} ${ye}`;
   if (format === "y/m/d") return `${year}/${month}/${day}`;
   if (format === "y") return `${ye}`;
   if (format === "d/m/y") return `${day}/${month}/${year}`;

@@ -149,6 +149,32 @@
   }
 }
 
+.blog-content {
+  margin-top: 11px;
+  line-height: 22.131px;
+
+  p {
+    font-weight: normal;
+    margin-bottom: .5rem;
+  }
+
+  a {
+    display: inline-block;
+    color: blue;
+  }
+
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--color-black);
+    font-size: var(--h5-font-size);
+    margin-top: 2rem;
+    margin-bottom: .5rem;
+  }
+}
+
 code {
   word-break: normal;
   white-space: break-spaces;

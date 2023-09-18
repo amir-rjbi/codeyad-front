@@ -1,5 +1,10 @@
+import {
+  CourseFilterData,
+  CourseFilterParams,
+} from "./../models/courses/CourseFilterData";
 import { CourseLanding } from "./../models/courses/CourseLanding";
-import { IApiResponse } from "./../models/IApiResponse";
+import { IApiResponse, FilterResult } from "./../models/IApiResponse";
+
 export const GetCourseLanding = (
   slug: string
 ): Promise<IApiResponse<CourseLanding>> => {
@@ -10,4 +15,11 @@ export const GetCourseLanding = (
       ignoreErrors: true,
     }
   );
+};
+export const GetCourseByFilter = (
+  filterParams: CourseFilterParams
+): Promise<IApiResponse<FilterResult<CourseFilterData>>> => {
+  return FetchApi("/course/getByFilter", {
+    query: filterParams,
+  });
 };

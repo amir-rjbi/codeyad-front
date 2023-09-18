@@ -6,7 +6,7 @@
                 class="bg-white mb-5 p-3 rounded-[12px] pt-4 text-h7" />
         </template>
         <template v-else>
-            <nuxt-link :key="index" :to="`/blog/post/${item.slug}`" class="bg-white mb-5 p-3 rounded-[12px] pt-4 text-h7"
+            <nuxt-link :key="index" :to="`/mag/post/${item.slug}`" class="bg-white mb-5 p-3 rounded-[12px] pt-4 text-h7"
                 v-for="(item, index) in 
             utilStore.popularArticles">
                 {{ item.title }}</nuxt-link>
@@ -17,6 +17,18 @@
 import { getPopularArticles } from '~/services/article.service';
 import { useUtilStore } from '~/stores/util.store';
 
+useHead({
+    script: [
+        { src: 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js' }
+    ],
+    link: [
+        {
+            href: '/ckeditor4/ckeditor/plugins/codesnippet/lib/highlight/styles/default.css',
+            rel: "stylesheet"
+        }
+    ]
+
+})
 const utilStore = useUtilStore();
 const loading = ref(false);
 onMounted(async () => {

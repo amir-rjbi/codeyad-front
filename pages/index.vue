@@ -4,7 +4,7 @@
             <HomeLandingBanner />
             <HomeLinks />
             <div class="flex gap-[100px] flex-col">
-                <HomePopularCourses />
+                <HomePopularCourses :data="data?.[1].data?.data ?? []" />
                 <section class="description text-center flex flex-col justify-center items-center  ">
                     <h6 class="text-blue text-h2">برنامه نویسی رو از کجا شروع کنم؟</h6>
                     <p class="text-h4 text-center sm:text-[13px] mt-7 sm:mt-4 sm:font-bold ">
@@ -23,12 +23,20 @@
             </div>
         </div>
         <HomeSpecialComments />
-        <HomeArticles />
+        <HomeArticles :data="data?.[0].data?.articles ?? []" />
     </div>
 </template>
 <script setup lang="ts">
 import { useAuthStore } from "~~/stores/auth.store";
-import { Form } from "vee-validate";
+import { GetLatestArticles } from "~/services/article.service";
+import { GetCourseByFilter } from "~/services/course.service";
 const isOpenModal = ref(false);
 const authStore = useAuthStore();
+const { data } = await useAsyncData("singlePage", () => Promise.all([
+    GetLatestArticles(),
+    GetCourseByFilter({
+        pageId: 1,
+        take: 8,
+    })
+]))
 </script>

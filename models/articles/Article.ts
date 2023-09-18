@@ -1,5 +1,8 @@
+import { User } from "./../account/User";
+import { BaseFilterResult } from "./../IApiResponse";
 import { SeoData } from "./../SeoData";
 export interface Article {
+  id: number;
   title: string;
   slug: string;
   body: string;
@@ -9,6 +12,15 @@ export interface Article {
   dateRelease: string;
   mainCategory: ArticleCategory;
   subCategory: ArticleCategory;
+  seoData: SeoData;
+}
+export interface SinglePageArticle {
+  ownerUser: User;
+  article: Article;
+  relatedArticles: Article[];
+}
+export interface ArticleFilterResult extends BaseFilterResult {
+  articles: Article[];
 }
 export interface ArticleCategory {
   id: number;

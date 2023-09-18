@@ -6,7 +6,10 @@
         <div class="card-content flex gap-3 flex-col w-full">
             <p class="course-title">{{ item.courseTitle }}</p>
             <div class="details items-center flex justify-between">
-                <label>سطح متوسط
+                <label>سطح
+                    <span v-if="item.courseLevel == CourseLevel.beginner">مقدماتی</span>
+                    <span v-if="item.courseLevel == CourseLevel.intermediate">از مقدماتی تا پیشرفته</span>
+                    <span v-if="item.courseLevel == CourseLevel.expert">پیشرفته</span>
                 </label>
                 <div class="flex gap-[6px] items-center">
                     <label>{{ item.duration }}</label>
@@ -31,7 +34,7 @@
     </div>
 </template>
 <script setup lang="ts">
-import { CourseFilterData } from '~/models/courses/CourseFilterData';
+import { CourseFilterData, CourseLevel } from '~/models/courses/CourseFilterData';
 
 defineProps<{
     item: CourseFilterData

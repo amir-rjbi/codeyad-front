@@ -1,5 +1,5 @@
 <template>
-    <nav class="flex items-center gap-2 text-h8">
+    <nav class="flex flex-wrap items-center gap-2 text-h8">
         <template v-for="item in items">
             <template v-if="item.isActive == false">
                 <nuxt-link :to="item.link ?? '/'">{{ item.title }}</nuxt-link>
