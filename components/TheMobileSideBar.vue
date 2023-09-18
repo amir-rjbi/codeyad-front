@@ -9,7 +9,7 @@
                     <NuxtLink @click="CloseSideBar" to="/">دوره ها</NuxtLink>
                 </li>
                 <li>
-                    <NuxtLink @click="CloseSideBar" to="/blog">بلاگ</NuxtLink>
+                    <NuxtLink @click="CloseSideBar" to="/mag">بلاگ</NuxtLink>
                 </li>
                 <li>
                     <NuxtLink @click="CloseSideBar" to="/about">درباره ما</NuxtLink>

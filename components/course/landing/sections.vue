@@ -1,6 +1,6 @@
 <template>
     <section class="section flex flex-col gap-6 mb-[70px] pt-16 container" id="sections">
-        <p class="text-black text-h5 font-bold">سرفصل های ودره</p>
+        <p class="text-black text-h5 font-bold">سرفصل های دوره</p>
         <BaseCollapse bg-white :title="item.title" v-for="item in data">
             <template #icon>
                 <svg width="10" height="17" viewBox="0 0 10 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -10,12 +10,15 @@
                 </svg>
             </template>
             <div class="episodes">
+                <i v-if="item.episodeCount == 0" class="text-orange">درحال حاضر قسمتی برای این فصل منتشر نشده است</i>
                 <ul>
                     <li class="text-black flex  gap-2 justify-between items-center" v-for="episode in item.episodes"
                         :key="episode.id">
                         <p>{{ episode.title }}</p>
                         <div class="flex gap-4 items-center">
-                            <BaseButton size="sm" v-if="episode.isFree" name="play">
+                            <BaseButton
+                                @click="() => emit('select-free-episode', { token: episode.token, title: episode.title })"
+                                size="sm" v-if="episode.isFree" name="play">
                                 <div class="flex gap-2 items-center">
                                     <IconsPlay color="white" width="25" height="25" />
                                     نمایش
@@ -33,6 +36,7 @@
 <script setup lang="ts">
 import { Section } from '~/models/courses/Course';
 
+const emit = defineEmits(['select-free-episode']);
 defineProps<{
     data: Section[]
 }>()

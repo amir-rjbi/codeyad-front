@@ -1,10 +1,13 @@
-import { Article } from './../models/articles/Article';
+import { CourseCategory } from "./../models/courses/Course";
+import { Article, ArticleCategory } from "./../models/articles/Article";
 import { QuestionCategory } from "./../models/Question";
 import { defineStore } from "pinia";
 
 export const useUtilStore = defineStore("utils", () => {
   const questionCategories: Ref<QuestionCategory[]> = ref([]);
   const popularArticles: Ref<Article[]> = ref([]);
+  const articleCategories: Ref<ArticleCategory[]> = ref([]);
+  const courseCategories: Ref<CourseCategory[]> = ref([]);
 
   const isMobile = () => {
     if (window) {
@@ -16,6 +19,8 @@ export const useUtilStore = defineStore("utils", () => {
   return {
     isMobile,
     questionCategories,
-    popularArticles
+    popularArticles,
+    articleCategories,
+    courseCategories
   };
 });

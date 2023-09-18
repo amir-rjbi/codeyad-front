@@ -1,8 +1,6 @@
 <template>
-    <div class="container py-[70px] sm:py-6">
+    <div class="container py-[10px] sm:py-6">
         <BaseSeoData :meta="articleData.article.seoData"></BaseSeoData>
-        <h1 class="text-center sm:text-h5 sm:!text-right">مقالات</h1>
-        <BlogCategories />
         <div class="flex relative justify-between sm:flex-wrap">
             <div class="w-[30%] sticky top-2 h-fit sm:w-full sm:relative sm:mb-11">
                 <BaseBreadCrumb class="mb-4" :items="[{
@@ -47,7 +45,7 @@
                     <div class="writer flex items-center gap-[11px]">
                         <base-img :src="GetUserAvatar(articleData.ownerUser.imageName)" class="rounded-full" alt="user"
                             width="30" height="30" />
-                        <nuxt-link :to="`/writers/${articleData.ownerUser.name}`" class="text-h8 font-bold text-black">{{
+                        <nuxt-link :to="`/writers/${articleData.ownerUser.userId}`" class="text-h8 font-bold text-black">{{
                             articleData.ownerUser.fullName }}</nuxt-link>
                     </div>
                     <p class="date">15 اردیبهشت 1402</p>

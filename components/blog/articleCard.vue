@@ -1,7 +1,7 @@
 
 <template>
     <article :class="['article-card', { 'row': row }]">
-        <base-img width="600px" :src="GetArticleImage(item.imageName)" :alt="item.title" />
+        <base-img width="900px" :src="GetArticleImage(item.imageName)" :alt="item.title" />
         <div class="article-conten">
             <p class="date-label">{{ getPersianDate(new Date(item.dateRelease), null) }}</p>
             <nuxt-link :to="`/mag/post/${item.slug}`" class="title">{{ item.title }}</nuxt-link>

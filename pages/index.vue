@@ -4,7 +4,8 @@
             <HomeLandingBanner />
             <HomeLinks />
             <div class="flex gap-[100px] flex-col">
-                <HomePopularCourses :data="data?.[1].data?.data ?? []" />
+                <HomePopularCourses :class="{ 'card-loading': loading }" @change-category="getCourseByCategory"
+                    :data="courses?.data?.data ?? []" />
                 <section class="description text-center flex flex-col justify-center items-center  ">
                     <h6 class="text-blue text-h2">برنامه نویسی رو از کجا شروع کنم؟</h6>
                     <p class="text-h4 text-center sm:text-[13px] mt-7 sm:mt-4 sm:font-bold ">
@@ -17,13 +18,12 @@
                         کدیاد،
                         رایگان بوده و شما می‌توانید نیمی از مسیر را بدون هیچ هزینه‌ای پیش بروید.
                     </p>
-                    <BaseButton class="sm:w-full shadow-sm sm:mt-4 mt-14" :render-button-tag="false" to="/">بزن بریم
-                    </BaseButton>
+                    <BaseButton class="sm:w-full shadow-sm sm:mt-4 mt-14" :render-button-tag="false" to="/">بزن بریم</BaseButton>
                 </section>
             </div>
         </div>
         <HomeSpecialComments />
-        <HomeArticles :data="data?.[0].data?.articles ?? []" />
+        <HomeArticles :data="data?.[0].data?.articleDtos ?? []" />
     </div>
 </template>
 <script setup lang="ts">
@@ -32,11 +32,23 @@ import { GetLatestArticles } from "~/services/article.service";
 import { GetCourseByFilter } from "~/services/course.service";
 const isOpenModal = ref(false);
 const authStore = useAuthStore();
+const loading = ref(false);
 const { data } = await useAsyncData("singlePage", () => Promise.all([
     GetLatestArticles(),
     GetCourseByFilter({
         pageId: 1,
         take: 8,
     })
-]))
+]));
+const courses = ref(data.value?.[1]);
+const getCourseByCategory = async (category: string) => {
+    loading.value = true;
+    var res = await GetCourseByFilter({
+        pageId: 1,
+        take: 8,
+        categorySlug: category
+    });
+    courses.value = res;
+    loading.value = false;
+}
 </script>

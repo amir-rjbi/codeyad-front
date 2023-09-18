@@ -1,5 +1,6 @@
 import {
   Article,
+  ArticleCategory,
   ArticleFilterResult,
   SinglePageArticle,
 } from "./../models/articles/Article";
@@ -22,4 +23,22 @@ export const GetLatestArticles = (): Promise<
       OrderBy: "dateRelease",
     },
   });
+};
+export const GetArticleByFilter = (
+  pageId: number,
+  take: number,
+  categorySlug: string | null = null
+): Promise<IApiResponse<ArticleFilterResult>> => {
+  return FetchApi("/article", {
+    query: {
+      pageId,
+      take,
+      categorySlug,
+    },
+  });
+};
+export const GetArticleCategories = (): Promise<
+  IApiResponse<ArticleCategory[]>
+> => {
+  return FetchApi("/article/categories");
 };

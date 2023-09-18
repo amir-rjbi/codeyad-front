@@ -30,7 +30,7 @@
 
                         </li>
                         <li>
-                            <NuxtLink to="/blog">بلاگ</NuxtLink>
+                            <NuxtLink to="/mag">بلاگ</NuxtLink>
 
                         </li>
                         <li class=" md:hidden">

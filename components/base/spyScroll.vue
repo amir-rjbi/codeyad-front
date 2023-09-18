@@ -1,9 +1,6 @@
 <template>
-    <div>
-        <div id="tabs" :class="tabClass">
-            <slot name="tabs" />
-        </div>
-        <slot />
+    <div id="tabs" :class="tabClass">
+        <slot name="tabs" />
     </div>
 </template>
 
@@ -24,7 +21,7 @@ onMounted(() => {
             section.forEach(function (e) {
                 Object.assign(sections, { [e.id]: [e.offsetTop] })
             });
-            console.log(sections);
+        console.log(sections);
 
         window.addEventListener('scroll', spy)
     }, 500);

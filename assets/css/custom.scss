@@ -149,6 +149,10 @@
   }
 }
 
+.dir-rtl {
+  direction: rtl !important;
+}
+
 .blog-content {
   margin-top: 11px;
   line-height: 22.131px;
@@ -163,6 +167,9 @@
     color: blue;
   }
 
+
+
+  h1,
   h2,
   h3,
   h4,

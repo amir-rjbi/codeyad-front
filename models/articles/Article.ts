@@ -15,12 +15,16 @@ export interface Article {
   seoData: SeoData;
 }
 export interface SinglePageArticle {
-  ownerUser: User;
+  ownerUser: {
+    userId:number,
+    imageName:string,
+    fullName:string,
+  };
   article: Article;
   relatedArticles: Article[];
 }
 export interface ArticleFilterResult extends BaseFilterResult {
-  articles: Article[];
+  articleDtos: Article[];
 }
 export interface ArticleCategory {
   id: number;

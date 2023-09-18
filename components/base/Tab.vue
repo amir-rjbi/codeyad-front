@@ -11,9 +11,11 @@ export interface TabData {
     value: any
 }
 const props = defineProps<{
-    items: TabData[]
+    items: TabData[],
+    modelValue?: string | null
 }>();
-const selectedTab = ref(props.items[0].value);
+
+const selectedTab = ref(props.modelValue ?? props.items[0].value);
 
 
 const emit = defineEmits(['changeTab']);
@@ -34,8 +36,9 @@ watch(selectedTab, (val) => {
         }
     }
 }
+
 @media screen and (max-width:768px) {
-    .tabs{
+    .tabs {
         flex-wrap: nowrap;
         gap: unset;
     }

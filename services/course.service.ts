@@ -1,3 +1,4 @@
+import { CourseCategory } from "~/models/courses/Course";
 import {
   CourseFilterData,
   CourseFilterParams,
@@ -22,4 +23,9 @@ export const GetCourseByFilter = (
   return FetchApi("/course/getByFilter", {
     query: filterParams,
   });
+};
+export const GetCourseCategories = (): Promise<
+  IApiResponse<CourseCategory[]>
+> => {
+  return FetchApi("/course/categories");
 };
