@@ -22,7 +22,7 @@ export const GetMasterByUserName = (
 export const GetMasterCourses = (
   userId: number
 ): Promise<IApiResponse<FilterResult<CourseFilterData>>> => {
-  return FetchApi("/Course/GetByFilterForUserPanel", {
+  return FetchApi("/Course/getByFilter", {
     query: {
       userId,
       pageId: 1,
