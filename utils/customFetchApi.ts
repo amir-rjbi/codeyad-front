@@ -62,11 +62,12 @@ export async function FetchApi<T>(
         });
       } else if (e.response?.status == 400) {
         var errMessage = "اطلاعات نامعتبر است";
+        console.log(e.response?._data);
         showError({
           isSuccess: false,
           data: undefined,
           metaData: {
-            message: e.response?._data?.MetaData?.Message ?? errMessage,
+            message: e.response?._data?.metaData?.message ?? errMessage,
             appStatusCode: ApiStatusCodes.BadRequest,
           },
         });
