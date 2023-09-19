@@ -7,23 +7,33 @@ export interface UserMessageFilterResult {
   startPage: number;
   endPage: number;
   take: number;
-  messages: UserMessage[];
+  messages: UserMessageFilterData[];
 }
-export interface UserMessage {
+export interface UserMessageFilterData {
   id: number;
+  senderId: number;
+  senderName: string;
+  reciverId: number;
+  reciverName: string;
+  createDate: Date;
+  subject: string;
+  status: boolean;
+  contentCount: number;
+}
+export interface UserMessageData {
+  messageId: number;
   senderId: number;
   reciverId: number;
   createDate: string;
   subject: string;
-  senderUser: User;
-  reciverUser: User;
   messageContents: MessageContent[];
 }
-interface MessageContent {
+export interface MessageContent {
   id: number;
   messageId: number;
   userId: number;
   text: string;
   createDate: string;
   isSeen: boolean;
+  senderUser: User;
 }
