@@ -91,6 +91,6 @@ const AddToWallet = async () => {
   formData.append("OwnerName", data.creator);
   formData.append("AccountNumber", data.hesab);
   formData.append("BankName", data.bank);
-  var res = await AddCard(formData);
+  await AddCard(formData);
 };
 </script>

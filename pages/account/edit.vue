@@ -70,7 +70,7 @@
         <div class="w-full p-2 sm:px-0">
           <BaseHtmlEditor
             placeholder="درباره من"
-            v-model="aboutMe"
+            v-model="data.about"
             id="aboutme"
             name="aboutme"
           />
@@ -92,6 +92,8 @@ import { Form } from "vee-validate";
 import * as Yup from "yup";
 import { useAccountStore } from "~/stores/account.store";
 import { EditUser } from "../../services/account.service";
+
+const toast = useToast();
 const accountStore = useAccountStore();
 const data = reactive({
   name: "",
@@ -120,11 +122,22 @@ onMounted(() => {
   data.phoneNumber = accountStore.currentUser!.phoneNumber;
 });
 const edit = async () => {
+  loading.value = true;
   var formData = new FormData();
   formData.append("Name", data.name);
   formData.append("Family", data.family);
   formData.append("PhoneNumber", data.phoneNumber);
   formData.append("Email", data.email);
-  await EditUser(formData);
+  formData.append("AboutMe", data.about);
+  //@ts-ignore
+  formData.append("Avatar", data.avatar);
+
+  var res = await EditUser(formData);
+  if (res.isSuccess) {
+    toast.showToast("تغییرات  شما با موفقیت انجام شد");
+
+    document.location.replace("/account/edit");
+  }
+  loading.value = false;
 };
 </script>

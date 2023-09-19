@@ -40,11 +40,11 @@
             </tr>
           </template>
           <template v-else>
-            <tr>
-              <td>1</td>
-              <td>1</td>
-              <td>آموزش جامع ویو جی اس (3 Vue.js) و Nuxt Js - پروژه محور</td>
-              <td>محمد اشرافی</td>
+            <tr v-for="item in data">
+              <td>{{ item }}</td>
+              <td>{{ data?.cardNumber }}</td>
+              <td>{{ data?.ownerName }}</td>
+              <td>{{ data?.isAccept }}</td>
               <td class="flex justify-center">
                 <BaseButton>نمایش</BaseButton>
               </td>
@@ -59,8 +59,23 @@
   </div>
 </template>
 <script setup lang="ts">
+import { card } from "~/models/account/card";
+import { GetUserCard } from "~/services/userCards.service";
+
 definePageMeta({
   layout: "account",
+});
+const data: Ref<card | null> = ref(null);
+
+onMounted(async () => {
+  loading.value = true;
+  var res = await GetUserCard();
+  if (res.isSuccess) {
+    data.value = res.data!;
+
+    console.log(data.value);
+  }
+  loading.value = false;
 });
 const loading = ref(false);
 const isOpenModal = ref(false);
