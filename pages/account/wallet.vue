@@ -3,14 +3,14 @@
     <div class="flex items-center gap-4 justify-between flex-wrap">
       <div class="flex items-center gap-4 sm:flex-wrap">
         <p class="text-h6 sm:!text-h7">
-          موجودی کیف پول : <b class="text-green-500">390,000 تومان</b>
+          موجودی کیف پول : <b class="text-green-500">{{ userWalletAmount.toLocaleString() }} تومان</b>
         </p>
         <label class="sm:hidden">|</label>
         <p class="text-h6 sm:!text-h7">
-          موجودی کیف پول ارزی : <b class="text-green-500">0$</b>
+          موجودی کیف پول ارزی : <b class="text-green-500">{{userCryptoWalletAmount}}$</b>
         </p>
       </div>
-      <BaseButton color="green" @click="(loading = !loading), (isOpenModal = true)">شارژ کیف پول</BaseButton>
+      <BaseButton color="green" @click="(isOpenModal = true)">شارژ کیف پول</BaseButton>
     </div>
     <div class="table-responsive mt-4 shadow-md">
       <table>
@@ -24,6 +24,7 @@
           </tr>
         </thead>
         <tbody>
+          <!-- Loading Skeleton -->
           <template v-if="loading">
             <tr c v-for="item in [1, 2, 3]">
               <td width="140">
@@ -43,32 +44,23 @@
               </td>
             </tr>
           </template>
-          <template v-else-if="wallets.length > 0">
-            <tr>
-              <td>390,000 تومان</td>
-              <td>$0.00</td>
+
+          <!-- Data Table -->
+          <template v-else-if="wallets?.length > 0">
+            <tr v-for="wallet in wallets">
+              <td>{{wallet.amount.toLocaleString()}} تومان</td>
+              <td>${{wallet.cryptoAmount}}</td>
               <td>
-                <b class="text-green">واریز</b>
+                <b class="text-green">{{ wallet.walletType }}</b>
               </td>
-              <td>1402/06/13</td>
+              <td v-if="wallet.isFinally">{{ wallet.paymentDate.toLocaleDateString('fa') }}</td>
               <td>
-                فروش دوره ' آموزش جامع ویو جی اس (3 Vue.js) و Nuxt Js - پروژه
-                محور ' با کسر 40% سود سایت
-              </td>
-            </tr>
-            <tr>
-              <td>390,000 تومان</td>
-              <td>$0.00</td>
-              <td>
-                <b class="text-red-700">برداشت</b>
-              </td>
-              <td>1402/06/13</td>
-              <td>
-                فروش دوره ' آموزش جامع ویو جی اس (3 Vue.js) و Nuxt Js - پروژه
-                محور ' با کسر 40% سود سایت
+                {{wallet.description}}
               </td>
             </tr>
           </template>
+
+          <!-- No Data -->
           <template v-else>
             <tr>
               <td colspan="5">اطلاعاتی وجود ندارد</td>
@@ -83,10 +75,35 @@
   </div>
 </template>
 <script setup lang="ts">
+import {GetWallets} from "../../services/wallet.service";
+import {WalletDto} from "../../models/wallets/WalletFilterResult";
+
 definePageMeta({
   layout: "account",
 });
 const loading = ref(false);
 const isOpenModal = ref(false);
-const wallets = ref([]);
+const wallets = ref<WalletDto[]>();
+const userWalletAmount = ref(0)
+const userCryptoWalletAmount = ref(0)
+
+const pageId = ref(1);
+watch(pageId,async (val)=>await getData())
+
+onMounted(async ()=>{
+  await getData();
+})
+
+const getData= async ()=>{
+  loading.value = true;
+  const fetchResult = await GetWallets(pageId.value);
+  if(fetchResult.isSuccess) {
+    wallets.value = fetchResult.data?.wallets;
+    userWalletAmount.value = fetchResult.data?.userWalletAmount;
+    userCryptoWalletAmount.value = fetchResult.data?.userCryptoWalletAmount;
+  }
+
+  console.log(fetchResult);
+  loading.value = false;
+}
 </script>
