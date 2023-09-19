@@ -44,21 +44,27 @@
               </td>
             </tr>
           </template>
-          <template v-else>
-            <tr>
-              <td>390,000 تومان</td>
-              <td>$0.00</td>
+          <template v-else-if="messages != null && messages.length > 0">
+            <tr v-for="(message,i) in messages" :key="messages">
+              <td>{{i + pageId}}</td>
+              <td>{{ message.subject }}</td>
               <td>
-                <b class="text-green">واریز</b>
+                <b class="text-green" v-if="message.status">پاسخ داده شده</b>
+                <b class="text-primary" v-else>در انتظار پاسخ</b>
               </td>
-              <td>1402/06/13</td>
-              <td>1402/06/13</td>
-              <td>1402/06/13</td>
+              <td>{{ new Date(message.createDate).toLocaleDateString('fa-IR') }}</td>
+              <td>{{ message.contentCount }}</td>
+              <td>{{message.reciverName}} / {{message.senderName}}</td>
               <td class="flex justify-center">
-                <BaseButton @click="router.push('/account/messages/edit')"
+                <BaseButton @click="router.push(`/account/messages/edit?messageId=${message.id}`)"
                   >نمایش</BaseButton
                 >
               </td>
+            </tr>
+          </template>
+          <template v-else>
+            <tr>
+              <td colspan="7">اطلاعاتی وجود ندارد</td>
             </tr>
           </template>
         </tbody>
@@ -67,9 +73,30 @@
   </div>
 </template>
 <script setup lang="ts">
+import {UserMessage} from "../../../models/account/UserMessage";
+import {getUserMessagesByFilter} from "../../../services/userMessages.service";
+
 const router = useRouter();
 definePageMeta({
   layout: "account",
 });
 const loading = ref(false);
+const pageId = ref(1);
+const messages = ref<UserMessage[]>();
+
+watch(pageId,async(val)=>await getData());
+
+onMounted(async ()=>{
+  await getData();
+})
+
+const getData = async ()=>{
+  loading.value = true;
+  const fetchResult = await getUserMessagesByFilter(pageId.value);
+  if(fetchResult.isSuccess){
+    messages.value = fetchResult.data?.messages;
+  }
+
+  loading.value = false;
+}
 </script>
