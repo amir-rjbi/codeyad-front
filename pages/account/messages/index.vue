@@ -52,7 +52,7 @@
                 <b class="text-green" v-if="message.status">پاسخ داده شده</b>
                 <b class="text-primary" v-else>در انتظار پاسخ</b>
               </td>
-              <td>{{ new Date(message.createDate).toLocaleDateString('fa-IR') }}</td>
+              <td>{{ toPersianDate(new Date(message.createDate)) }}</td>
               <td>{{ message.contentCount }}</td>
               <td>{{message.reciverName}} / {{message.senderName}}</td>
               <td class="flex justify-center">

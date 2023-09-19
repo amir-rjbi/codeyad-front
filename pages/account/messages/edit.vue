@@ -14,15 +14,15 @@
           <p>
             <p v-html="message.text"></p>
             <span>
-              {{getTwoDigits(new Date(message.createDate).toLocaleTimeString('fa-IR'))}}
+              {{TimeAgo(new Date(message.createDate))}}
               -
-              {{new Date(message.createDate).toLocaleDateString('fa-IR')}}
+              {{toPersianDate(new Date(message.createDate))}}
             </span>
           </p>
         </li>
       </ul>
     </div>
-    <div class="rounded-md bg-blue-300 p-4 mt-4">
+    <div class="rounded-md bg-indigo-200 p-4 mt-4">
       <Form @submit.prevent="sendMessage" class="flex items-center space-x-4 space-x-reverse">
         <base-input class="flex-1" required v-model="userMessage" name="userMessage" placeholder="پیام خود را وارد کنید" multiline/>
         <base-button size="sm" type="submit">
@@ -84,9 +84,6 @@ const sendMessage = async () => {
   else alert('اسال پیام با خطا مواجه شد');
 };
 
-const getTwoDigits = (num)=>{
-  return  (num < 10 ? '0' : '') + num;
-}
 </script>
 
 <style>

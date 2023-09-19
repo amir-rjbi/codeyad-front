@@ -1,119 +1,120 @@
 <template>
-  <div class="bg-blue-300 pt-5">
-    <main id="app">
-      <section ref="chatArea" class="chat-area">
-        <p
-          v-for="message in messages"
-          class="message"
-          :class="{
-            'message-out': message.author === 'you',
-            'message-in': message.author !== 'you',
-          }"
-        >
-          {{ message.body }}
-        </p>
-      </section>
-
-      <section class="chat-inputs">
-        <form @submit.prevent="sendMessage('in')" id="person1-form">
-          <label for="person1-input">mohammad</label>
-          <input v-model="bobMessage" id="person1-input" type="text" />
-          <BaseButton type="submit">Send</BaseButton>
-        </form>
-
-        <form @submit.prevent="sendMessage('out')" id="person2-form">
-          <label for="person2-input">amir</label>
-          <input v-model="youMessage" id="person2-input" type="text" />
-          <BaseButton type="submit">Send</BaseButton>
-        </form>
-      </section>
-    </main>
-  </div>
+  <main class="p-4">
+    <div class="flex items-center space-x-4 space-x-reverse">
+      <strong>موضوع تیکت:</strong>
+      <span v-if="ticket != null">{{ticket.ticketTitle}}</span>
+    </div>
+    <div ref="chatArea" class="bg-blue-200 border border-black rounded-lg p-5 mt-4 max-h-[70vh] overflow-y-auto"
+         v-if="ticket != null">
+      <ul>
+        <li class="me">
+          <p>
+          <p v-html="ticket.ticketBody"></p>
+          <span>
+              {{TimeAgo(new Date(ticket.createDate))}}
+              -
+              {{toPersianDate(new Date(ticket.createDate))}}
+            </span>
+          </p>
+        </li>
+        <li v-if="ticket.ticketMessages.length > 0" v-for="message in ticket.ticketMessages"
+            :class="[`${message.userId === userId ? 'me' : 'you'}`]">
+          <p>
+          <p v-html="message.messageBody"></p>
+          <span>
+              {{ TimeAgo(new Date(message.createDate)) }}
+              -
+              {{toPersianDate(new Date(message.createDate))}}
+            </span>
+          </p>
+        </li>
+      </ul>
+    </div>
+    <div class="rounded-md bg-indigo-200 p-4 mt-4">
+      <Form @submit.prevent="sendMessage" class="flex items-center space-x-4 space-x-reverse">
+        <base-input class="flex-1" required v-model="userMessage" name="userMessage" placeholder="پیام خود را وارد کنید" multiline/>
+        <base-button size="sm" type="submit">
+          <svg aria-hidden="true" class="w-6 h-6 -rotate-90" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path></svg>
+        </base-button>
+      </Form>
+    </div>
+  </main>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import {useAccountStore} from "~/stores/account.store";
+import {AddTicketMessage} from "~/services/ticket.service";
+import {Ticket} from "~/models/tickets/TicketDto";
+import {GetTicketById} from "~/services/ticket.service";
+import {toPersianDate,TimeAgo} from "~/utils/dateUtil";
+
 definePageMeta({
   layout: "account",
 });
-const bobMessage = ref("");
-const youMessage = ref("");
-const messages = reactive([
-  {
-    body: "سلام امیر",
-    author: "bob",
-  },
-  {
-    body: "سلام محمد",
-    author: "you",
-  },
-  {
-    body: "چخبر؟؟",
-    author: "bob",
-  },
-]);
 
-const sendMessage = (direction) => {
-  if (!youMessage.value && !bobMessage.value) {
+const userMessage = ref("");
+const chatArea = ref();
+const ticket = ref<Ticket>();
+const route = useRoute();
+const router = useRouter();
+const ticketId = ref(route.query?.ticketId ?? null);
+
+const accountStore = useAccountStore();
+const userId = accountStore.currentUser?.id;
+
+onMounted(async ()=>{
+  await getData();
+  setTimeout(()=>{
+    chatArea.value.scrollTo({left:0, top:chatArea.value.scrollHeight,behavior: "smooth" });
+  },200)
+})
+
+const getData = async ()=>{
+  if(ticketId.value === null) router.push("error");
+
+  const fetchResult= await GetTicketById(ticketId.value);
+  if((fetchResult).isSuccess){
+    ticket.value = fetchResult.data!;
+  }
+  else router.push("error");
+
+}
+
+const sendMessage = async () => {
+  if (!userMessage.value) {
     return;
   }
-  if (direction === "out") {
-    messages.push({ body: youMessage.value, author: "you" });
-    youMessage.value = "";
-  } else if (direction === "in") {
-    messages.push({ body: bobMessage.value, author: "bob" });
-    bobMessage.value = "";
-  } else {
-    alert("something went wrong");
+  const sendResult = await AddTicketMessage(ticketId.value,userMessage.value);
+  if(sendResult.isSuccess){
+    await getData();
   }
-  //   nextTick(() => {
-  //     let messageDisplay = this.$refs.chatArea;
-  //     messageDisplay.scrollTop = messageDisplay.scrollHeight;
-  //   });
+  else alert('اسال پیام با خطا مواجه شد');
 };
+
 </script>
 
 <style>
-.headline {
-  text-align: center;
-  font-weight: 100;
-  color: white;
-}
-.chat-area {
-  border: 9px solid #ccc;
-  background: white;
-  height: 50vh;
-  padding: 1em;
-  overflow: auto;
-  max-width: 450px;
-  margin: 0 auto 2em auto;
-  box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.3);
-}
 .message {
-  width: 45%;
-  border-radius: 10px;
-  padding: 0.5em;
-  margin-bottom: 0.5em;
-  font-size: 0.8em;
+  @apply w-1/2 p-4 mb-2;
 }
-.message-out {
-  background: #407fff;
-  color: white;
-  margin-right: 222px;
+
+.me {
+  @apply flex space-x-2 space-x-reverse;
 }
-.message-in {
-  background: #f1f0f0;
-  color: black;
+.you{
+  @apply flex flex-row-reverse space-x-2 mr-auto;
 }
-.chat-inputs {
-  display: flex;
-  justify-content: space-evenly;
+.me > p {
+  @apply message bg-blue-300 rounded-md rounded-br-none;
 }
-#person1-input {
-  padding: 5px;
-  margin: 5px;
+.you > p{
+  @apply message bg-gray-300 rounded-md rounded-bl-none mr-auto;
 }
-#person2-input {
-  padding: 5px;
-  margin: 5px;
+.me > img,.you > img {
+  @apply mt-1;
 }
+.me > p > span,.you > p > span{
+  @apply block text-left text-h8 opacity-70 -mb-2;
+}
+
 </style>
