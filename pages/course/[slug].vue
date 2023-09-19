@@ -9,7 +9,8 @@
             <div class="container">
                 <div class="flex justify-between gap-[60px] sm:flex-col-reverse sm:gap-[40px]">
                     <div class="info w-[50%] text-white flex flex-col gap-[17px] sm:!w-full sm:gap-[12.23px]">
-                        <nuxt-link to="/courses" class="category-tag  text-blue bg-secondary rounded-3xl w-fit p-2">
+                        <nuxt-link :to="`/courses/${courseData.courseDto.subCategory.slug}`"
+                            class="category-tag  text-blue bg-secondary rounded-3xl w-fit p-2">
                             {{ courseData.courseDto.subCategory.title }}
                         </nuxt-link>
                         <h1 class=" text-h3 sm:text-h7">{{ courseData.courseDto.courseTitle }}</h1>
@@ -36,9 +37,17 @@
                             <p class="text-h5 text-green-action font-semibold">قیمت دوره : <label
                                     v-if="courseData.courseDto.price == 0">رایگان</label><label v-else>{{
                                         courseData.courseDto.totalPrice.toLocaleString() }} تومان </label></p>
-                            <BaseButton :render-button-tag="false" to="/course/panel-test" class="sm:w-full" color-white>
-                                شروع
-                                دوره
+
+                            <BaseButton target="_blank" v-if="userHasCourse" :render-button-tag="false"
+                                :to="`/course/panel-${courseData.courseDto.id}`" class="sm:w-full" color-white>
+                                ادامه یادگیری
+                                <template #icon>
+                                    <IconsArrowLeft color="var(--primary-color)" />
+                                </template>
+                            </BaseButton>
+                            <BaseButton :loading="registerLoading" v-else class="sm:w-full" @click="registerCourse"
+                                color-white>
+                                ثبت نام و شروع یادگیری
                                 <template #icon>
                                     <IconsArrowLeft color="var(--primary-color)" />
                                 </template>
@@ -83,7 +92,8 @@
                 </div>
 
             </div>
-            <CourseLandingSections :data="courseData.courseDto.sections" @select-free-episode="showEpisodeVideo" />
+            <CourseLandingSections :data="courseData.courseDto.sections" @select-free-episode="showEpisodeVideo"
+                @click="setAgainTabs" />
             <div id="specification" class="section container pt-14">
                 <h3 class="text-h5 font-bold dark:text-white text-center mb-[50px]">ویژگی های دوره</h3>
                 <div class="flex justify-between sm:flex-wrap sm:gap-9">
@@ -125,12 +135,17 @@
     </div>
 </template>
 <script setup lang="ts">
-import { GetCourseLanding } from "@/services/course.service";
+import { GetCourseLanding, RegisterFreeCourse } from "@/services/course.service";
 import { IApiResponse } from "~/models/IApiResponse";
 import { CourseLanding } from "~/models/courses/CourseLanding";
+import { AddToShopCart } from "~/services/shopCart.service";
+import { useAccountStore } from "~/stores/account.store";
+import { useAuthStore } from "~/stores/auth.store";
 const route = useRoute();
 const router = useRouter();
 const toast = useToast();
+const accountStore = useAccountStore();
+
 const { data, pending } = await useAsyncData("CourseLanding", () => GetCourseLanding(route.params.slug.toString() ?? ''));
 if (!data.value?.data) {
     if (process.server) {
@@ -142,11 +157,13 @@ if (!data.value?.data) {
 }
 const courseData: Ref<CourseLanding> = ref(data.value!.data!);
 
+const registerLoading = ref(false);
 const selectedVideoTitle = ref('')
 const isOpenVideoModal = ref(false);
 const selectedVideo = ref('');
 const isShowMore = ref(false);
 const videoLoading = ref(false);
+const authStore = useAuthStore();
 
 const showDemo = () => {
     selectedVideo.value = `${DL_DOMAIN_URL}/videos/Courses/Demo/${courseData.value.courseDto.demoFileName}`
@@ -175,19 +192,52 @@ watch(isOpenVideoModal, () => {
         selectedVideoTitle.value = "";
     }
 
-})
+});
+const userHasCourse = computed(() => {
+    if (accountStore.currentUser?.id == courseData.value.courseDto.userId)
+        return true;
+
+    if (accountStore.currentUser?.courseIds.find(f => f == courseData.value.courseDto.id))
+        return true;
+
+    return false;
+});
+const registerCourse = async () => {
+    if(authStore.isLogin==false){
+        authStore.openLoginModal(registerCourse)
+        return;
+    }
+    registerLoading.value = true;
+    if (courseData.value.courseDto.price == 0) {
+        var res = await RegisterFreeCourse(courseData.value.courseDto.id);
+        if (res.isSuccess) {
+            document.location.replace('/course/panel-' + courseData.value.courseDto.id);
+        }
+    } else {
+        var res = await AddToShopCart(courseData.value.courseDto.id);
+        if (res.isSuccess) {
+            toast.showToast('دوره با موفقیت به سبد خرید اضافه شد')
+            router.push('/cart');
+        }
+    }
+    registerLoading.value = false;
+
+}
 definePageMeta({
     layout: 'un-category'
 });
 
 const loadAgainTabs = ref(false);
 watch(isShowMore, () => {
+    setAgainTabs()
+})
+const setAgainTabs = () => {
     loadAgainTabs.value = true;
 
     setTimeout(() => {
         loadAgainTabs.value = false
-    }, 1);
-})
+    }, 0.5);
+}
 </script>
 <style scoped lang="scss">
 @media screen and (max-width:768px) {

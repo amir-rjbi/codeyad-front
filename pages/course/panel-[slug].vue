@@ -108,7 +108,6 @@
                                 رابط‌های کاربری با سرعت بالا است.
                             </p>
                         </div>
-                        <Comments v-else-if="selectedTab == 'comments'" />
                         <div class="requireds" v-else-if="selectedTab == 'requireds'">
                             <div class="item flex justify-between gap-4 mb-4 items-center rounded-[12px] flex-wrap p-[19px] bg-white"
                                 v-for="item in ['الگوریتم و فلوچارت', 'سی شارپ']">
@@ -129,6 +128,7 @@
                             </BaseCollapse>
                         </div>
                     </Transition>
+                    <Comments v-show="selectedTab == 'comments'"  :comment-type="CommentType.course" :link-id="Number($route.params.slug)"/>
 
                 </div>
             </div>
@@ -136,6 +136,8 @@
     </div>
 </template>
 <script setup lang="ts">
+import { CommentType } from '~/models/comments/Comment';
+
 const selectedTab = ref('desc');
 
 definePageMeta({

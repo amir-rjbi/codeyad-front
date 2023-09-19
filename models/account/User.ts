@@ -8,4 +8,5 @@ export interface User {
   fullName: string;
   name: string;
   family: string;
+  walletAmount?: number;
 }
