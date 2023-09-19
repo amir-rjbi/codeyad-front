@@ -1,11 +1,11 @@
 <template>
     <div class="py-5 ">
         <div class="container">
-            <HomeLandingBanner />
+            <HomeLandingBanner :data="data?.data!"/>
             <HomeLinks />
             <div class="flex gap-[100px] flex-col">
                 <HomePopularCourses :class="{ 'card-loading': loading }" @change-category="getCourseByCategory"
-                    :data="courses?.data?.data ?? []" />
+                    :data="courses ?? []" />
                 <section class="description text-center flex flex-col justify-center items-center  ">
                     <h6 class="text-blue text-h2">برنامه نویسی رو از کجا شروع کنم؟</h6>
                     <p class="text-h4 text-center sm:text-[13px] mt-7 sm:mt-4 sm:font-bold ">
@@ -18,29 +18,26 @@
                         کدیاد،
                         رایگان بوده و شما می‌توانید نیمی از مسیر را بدون هیچ هزینه‌ای پیش بروید.
                     </p>
-                    <BaseButton class="sm:w-full shadow-sm sm:mt-4 mt-14" :render-button-tag="false" to="/">بزن بریم</BaseButton>
+                    <BaseButton class="sm:w-full shadow-sm sm:mt-4 mt-14" :render-button-tag="false" to="/">بزن بریم
+                    </BaseButton>
                 </section>
             </div>
         </div>
-        <HomeSpecialComments />
-        <HomeArticles :data="data?.[0].data?.articleDtos ?? []" />
+        <!-- <HomeSpecialComments /> -->
+        <HomeArticles :data="data?.data?.latestArticles ?? []" />
     </div>
 </template>
 <script setup lang="ts">
 import { useAuthStore } from "~~/stores/auth.store";
 import { GetLatestArticles } from "~/services/article.service";
 import { GetCourseByFilter } from "~/services/course.service";
+import { HomePageData } from "~/models/HomePageData";
+import { IApiResponse } from "~/models/IApiResponse";
 const isOpenModal = ref(false);
 const authStore = useAuthStore();
 const loading = ref(false);
-const { data } = await useAsyncData("singlePage", () => Promise.all([
-    GetLatestArticles(),
-    GetCourseByFilter({
-        pageId: 1,
-        take: 8,
-    })
-]));
-const courses = ref(data.value?.[1]);
+const { data } = await useAsyncData("singlePage", () => $fetch<IApiResponse<HomePageData>>(`${BASE_URL}/home`));
+const courses = ref(data.value?.data?.latestCourses);
 const getCourseByCategory = async (category: string) => {
     loading.value = true;
     var res = await GetCourseByFilter({
@@ -48,7 +45,7 @@ const getCourseByCategory = async (category: string) => {
         take: 8,
         categorySlug: category
     });
-    courses.value = res;
+    courses.value = res.data?.data ?? [];
     loading.value = false;
 }
 </script>
