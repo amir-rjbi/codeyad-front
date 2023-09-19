@@ -1,3 +1,4 @@
+import { RoadMapPageData } from "./../models/roadMap/roadMap";
 import { CourseCategory } from "./../models/courses/Course";
 import { Article, ArticleCategory } from "./../models/articles/Article";
 import { QuestionCategory } from "./../models/Question";
@@ -8,6 +9,7 @@ export const useUtilStore = defineStore("utils", () => {
   const popularArticles: Ref<Article[]> = ref([]);
   const articleCategories: Ref<ArticleCategory[]> = ref([]);
   const courseCategories: Ref<CourseCategory[]> = ref([]);
+  const roadMapData: Ref<RoadMapPageData | null> = ref(null);
 
   const isMobile = () => {
     if (window) {
@@ -21,6 +23,7 @@ export const useUtilStore = defineStore("utils", () => {
     questionCategories,
     popularArticles,
     articleCategories,
-    courseCategories
+    courseCategories,
+    roadMapData,
   };
 });

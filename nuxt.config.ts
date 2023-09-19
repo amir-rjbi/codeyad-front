@@ -45,15 +45,12 @@ export default defineNuxtConfig({
       "https://api.codeyad.com",
       "http://localhost:3000",
       "https://codeyad.com",
-      "https://cdn.bama.ir",
       "http://127.0.0.1:3000",
     ],
     alias: {
       codeyad: "https://codeyad.com",
-      test: "https://cdn.bama.ir",
-      hamcar: "http://dl.test13.ir",
-      //static: "http://127.0.0.1:3000",
-      static: "https://codeyad-front.vercel.app",
+      static: "http://127.0.0.1:3000",
+      //static: "https://codeyad-front.vercel.app",
     },
   },
 });

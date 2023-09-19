@@ -1,86 +1,110 @@
 <template>
     <div class="py-5">
+        <BaseSeoData v-if="roadMapData.seoData" :meta="roadMapData.seoData" />
         <div class="container">
             <div class="flex justify-between sm:flex-col sm:gap-[55px] relative ">
-                <div class="side-bar w-[35%] sm:!w-full sticky top-0 h-fit sm:!relative">
+                <div class="side-bar w-[35%] sm:!w-full sticky top-2 h-fit sm:!relative">
+                    <BaseBreadCrumb class="mb-4" :items="[
+                        {
+                            title: 'خانه',
+                            isActive: false,
+                            link: '/'
+                        },
+                        {
+                            title: 'نقشه راه',
+                            isActive: false,
+                            link: '/roadmap'
+                        },
+                        {
+                            title: roadMapData.title,
+                            isActive: true,
+
+                        },
+                    ]" />
                     <h2 class="text-h4 sm:text-h5">موضوعات ویژه</h2>
                     <p class="text-h5 sm:text-h7 mt-1">موضوع موردعلاقه تو انتخاب کن</p>
                     <div class="mt-7">
-                        <nuxt-link v-for="item in [1, 2, 3, 4]" :key="item" :to="`/roadmap/${item}`"
-                            class="bg-white items-center rounded-[12px] py-[0.70rem] px-[18px] flex gap-3 mb-2">
-                            <BaseImg class="w-[55px] h-[55px] rounded-full" alt="test" src="static/images/article.jpg" />
-                            <div class="content">
-                                <p class="text-[16px] font-semibold">مسیر یادگیری برنامه نویسی موبایل </p>
-                                <p class="text-[14px]">مدرس: ساسان صفری</p>
+                        <template v-if="loading">
+                            <div v-for="item in [1, 2, 3, 4]" :key="item"
+                                class="bg-white items-center rounded-[12px] py-[0.70rem] px-[18px] flex gap-3 mb-2">
+                                <BaseSkeletonLoaidng parentClass="w-[50px] h-[50px] rounded-full sm:w-[33px] sm:h-[33px]"
+                                    style="border-radius: 50%;" height="100%" class=" w-full" />
+                                <div class="content">
+                                    <BaseSkeletonLoaidng height="8px" width="200px" class=" w-full" />
+                                    <BaseSkeletonLoaidng height="8px" width="120px" class=" w-full mt-2" />
+                                </div>
                             </div>
-                        </nuxt-link>
+                        </template>
+                        <template v-else>
+                            <nuxt-link
+                                v-for="item in utilStore.roadMapData?.roadMapCards.filter(f => f.roadMapType == RoadMapType.special)"
+                                :key="item.slug" :to="`/roadmap/${item.slug}`"
+                                class="bg-white items-center rounded-[12px] py-[0.70rem] px-[18px] flex gap-3 mb-2">
+                                <BaseImg class="w-[55px] h-[55px] rounded-full" :alt="item.title"
+                                    :src="GetRoadMapImageThumbnal(item.thumbnailName)" width="100px" />
+                                <div class="content">
+                                    <p class="text-[16px] font-semibold">{{ item.title }}</p>
+                                    <p class="text-[14px]">مدرس: {{ item.teacherName }}</p>
+                                </div>
+                            </nuxt-link>
+                        </template>
                     </div>
                 </div>
                 <div class="content w-[60%] sm:!w-full  md:w-[62%]">
-                    <BaseVideoPlayer class="h-[450px] w-full" poster="/images/html.png" style="object-fit: cover;" />
+                    <BaseVideoPlayer :src="GetRoadMapVideo(roadMapData.videoName)" class="h-[450px] w-full"
+                        :poster="GetRoadMapImage(roadMapData.imageName)" style="object-fit: cover;" />
                     <div class="video-content mt-8 sm:mt-2">
                         <div class="header flex justify-between items-center">
                             <div class="teacher flex gap-4 items-center">
-                                <BaseImg class="w-[60px] h-[60px] rounded-full sm:w-[33px] sm:h-[33px]"
-                                    src="static/images/users/avatar.png" alt="teacher" />
-                                <p class="font-bold text-h6 sm:">میلاد دهیامی</p>
+                                <BaseImg width="100px" class="w-[60px] h-[60px] rounded-full sm:w-[33px] sm:h-[33px]"
+                                    :src="GetUserAvatar(roadMapData.teacher.imageName)"
+                                    :alt="roadMapData.teacher.fullName" />
+                                <p class="font-bold text-h6 sm:">{{ roadMapData.teacher.fullName }}</p>
                             </div>
-                            <p class="text-h6 sm:text-[14px]">4,948 بازدید</p>
+                            <p class="text-h6 sm:text-[14px]">{{ roadMapData.visit.toLocaleString() }} بازدید</p>
                         </div>
-                        <h1 class="text-h6 font-bold mt-3 mb-4 sm:mt-1 sm:mb-2">مسیر یادگیری برنامه نویسی</h1>
-                        <p class="text-h8">
-                            اگر شما هم علاقه‌مند به آشنایی با مسیر یادگیری برنامه‌نویسی هستید بدون شک این موضوع را شنیده‌اید
-                            که
-                            برنامه‌نویسی یک شغل بسیار پول‌ساز است که می‌تواند درآمد بالایی را برای شما به همراه داشته باشد.
-                            از
-                            طرفی دیگر برخی از افراد نیز هستند که پس از ورود به این
+                        <h1 class="text-h6 font-bold mt-3 mb-4 sm:mt-1 sm:mb-2">{{ roadMapData.title }}</h1>
+                        <p class="text-h8" v-if="roadMapData.seoData?.metaDescription">
+                            {{ roadMapData.seoData.metaDescription }}
                         </p>
                     </div>
-                    <div class="read-map-content">
-                        <h2>یک نکته کلیدی و مهم برای یادگیری برنامه‌نویسی</h2>
-                        <p>
-                            ر خصوص مسیر یادگیری برنامه‌نویسی باید به این نکته دقت داشته باشید که یادگیری برنامه‌نویسی کار
-                            ساده‌ای نیست. البته تمامی افراد که از نظر بهره هوشی در سطح نرمال جامعه هستند می‌توانند یادگیری
-                            آن را آغاز کنند و موفق شوند به شرطی که هر روز تمرین کنند. شما باید به‌عنوان یک برنامه‌نویس هر
-                            روز در حال آموزش و یادگیری باشید. بزرگ‌ترین چالش شما در این مسیر صرف زمان زیاد برای یادگیری است.
-                            بسیاری از افراد صبر و حوصله کافی برای تمرین هرروزه ندارند و به همین علت نیز برنامه‌نویس موفقی
-                            نمی‌شوند. چالش دوم مشکلاتی است که در انجام پروژه‌ها ممکن است برای شما به وجود بیاید. گاهی اوقات
-                            برای برطرف‌کردن یک مشکل کوچک باید زمان زیادی را صرف پروژه خود کنید. پس باید برای این مسیر سخت
-                            آماده باشید.
-                            نکته دیگری که باید درباره نقشه راه یادگیری برنامه‌نویسی بدانید این است که پس از یادگیری یک زبان
-                            برنامه‌نویسی را به طور کامل آموختید و آماده ورود به بازار کار شدید سه گزینه پیش روی شما خواهد
-                            بود. این سه گزینه به ترتیب استخدام شدن و تبدیل‌شدن به یک کارمند، فعالیت به‌صورت فریلنسری و
-                            راه‌اندازی استارت‌آپ هستند. کارمند شدن در یک شرکت برای شروع کار می‌تواند بسیار مناسب باشد و به
-                            شما کمک کند تا با چرخه و سازوکار راه‌اندازی یک پروژه و تعریف آن آشنا شوید. بااین‌حال نباید
-                            فراموش کنید که با کارمند شدن نمی‌توانید به درآمد فوق‌العاده‌ای که در برنامه‌نویسی از آن صحبت
-                            می‌شود دست پیدا کنید.
-                        </p>
-                        <h3>یک نکته کلیدی و مهم برای یادگیری برنامه‌نویسی</h3>
-                        <p>
-                            ر خصوص مسیر یادگیری برنامه‌نویسی باید به این نکته دقت داشته باشید که یادگیری برنامه‌نویسی کار
-                            ساده‌ای نیست. البته تمامی افراد که از نظر بهره هوشی در سطح نرمال جامعه هستند می‌توانند یادگیری
-                            آن را آغاز کنند و موفق شوند به شرطی که هر روز تمرین کنند. شما باید به‌عنوان یک برنامه‌نویس هر
-                            روز در حال آموزش و یادگیری باشید. بزرگ‌ترین چالش شما در این مسیر صرف زمان زیاد برای یادگیری است.
-                            بسیاری از افراد صبر و حوصله کافی برای تمرین هرروزه ندارند و به همین علت نیز برنامه‌نویس موفقی
-                            نمی‌شوند. چالش دوم مشکلاتی است که در انجام پروژه‌ها ممکن است برای شما به وجود بیاید. گاهی اوقات
-                            برای برطرف‌کردن یک مشکل کوچک باید زمان زیادی را صرف پروژه خود کنید. پس باید برای این مسیر سخت
-                            آماده باشید.
-                            نکته دیگری که باید درباره نقشه راه یادگیری برنامه‌نویسی بدانید این است که پس از یادگیری یک زبان
-                            برنامه‌نویسی را به طور کامل آموختید و آماده ورود به بازار کار شدید سه گزینه پیش روی شما خواهد
-                            بود. این سه گزینه به ترتیب استخدام شدن و تبدیل‌شدن به یک کارمند، فعالیت به‌صورت فریلنسری و
-                            راه‌اندازی استارت‌آپ هستند. کارمند شدن در یک شرکت برای شروع کار می‌تواند بسیار مناسب باشد و به
-                            شما کمک کند تا با چرخه و سازوکار راه‌اندازی یک پروژه و تعریف آن آشنا شوید. بااین‌حال نباید
-                            فراموش کنید که با کارمند شدن نمی‌توانید به درآمد فوق‌العاده‌ای که در برنامه‌نویسی از آن صحبت
-                            می‌شود دست پیدا کنید.
-                        </p>
+                    <div class="read-map-content" v-html="roadMapData.description">
                     </div>
+                    <section class="comments mt-12">
+                        <Comments :linkId="roadMapData.id" :commentType="CommentType.roadMap" />
+                    </section>
                 </div>
             </div>
         </div>
     </div>
 </template>
-
-<style scoped lang="scss">
+<script setup lang="ts">
+import { CommentType } from '~/models/comments/Comment';
+import { RoadMapType } from '~/models/roadMap/roadMap';
+import { GetRoadMapBySlug, GetRoadMapData } from '~/services/roadmap.service';
+import { useAuthStore } from '~/stores/auth.store';
+import { useUtilStore } from '~/stores/util.store';
+const loading = ref(true);
+const utilStore = useUtilStore();
+const route = useRoute();
+const { data } = await useAsyncData('singleRoadMap', () => GetRoadMapBySlug(route.params.slug.toString()));
+if (!data.value?.data) {
+    throw createError({ statusCode: 404, message: 'not found' })
+}
+const roadMapData = ref(data.value.data)
+console.log(roadMapData.value.seoData);
+onMounted(async () => {
+    loading.value = true;
+    if (utilStore.roadMapData == null) {
+        var res = await GetRoadMapData();
+        if (res.isSuccess) {
+            utilStore.roadMapData = res.data ?? null;
+        }
+    }
+    loading.value = false;
+})
+</script>
+<style  lang="scss">
 @media screen and (max-width:768px) {
     .read-map-content {
         padding-right: 1.5rem;
@@ -111,6 +135,10 @@
     position: relative;
     height: fit-content;
 
+    a {
+        display: inline-block;
+    }
+
     &::after {
         position: absolute;
         right: -1.70rem;
@@ -135,7 +163,7 @@
         color: var(--primary-color) !important;
         font-size: 20px;
         margin-bottom: 11px;
-        margin-top: 11px;
+        margin-top: 50px;
         font-weight: 700;
         position: relative;
 
