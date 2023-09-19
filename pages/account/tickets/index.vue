@@ -4,9 +4,7 @@
       <div class="flex items-center gap-4 sm:flex-wrap">
         <p class="text-h6 sm:!text-h7">تیکت ها</p>
       </div>
-      <BaseButton color="green" @click="isOpenModal = true"
-        >ثبت تیکت جدید</BaseButton
-      >
+      <BaseButton color="green" @click="isOpenModal = true">ثبت تیکت جدید</BaseButton>
     </div>
     <div class="table-responsive mt-4 shadow-md">
       <table>
@@ -21,7 +19,7 @@
         </thead>
         <tbody>
           <template v-if="loading">
-            <tr c v-for="item in [1, 2, 3]">
+            <tr v-for="item in [1, 2, 3]">
               <td width="140">
                 <BaseSkeletonLoaidng type="box" height="8px" />
               </td>
@@ -42,24 +40,23 @@
               </td>
             </tr>
           </template>
-          <template v-else-if="tickets != undefined && tickets.length > 0">
-            <tr v-for="ticket in tickets" :key="ticket">
-              <td>{{ticket.id}}</td>
-              <td>{{ticket.ticketTitle}}</td>
-              <td v-if="ticket.status === 'close'">
+          <template v-else-if="tickets.length > 0">
+            <tr v-for="ticket in tickets" :key="ticket.id">
+              <td>{{ ticket.id }}</td>
+              <td>{{ ticket.ticketTitle }}</td>
+              <td v-if="ticket.status === TicketStatus.close">
                 <span>بسته شده</span>
               </td>
-              <td v-else-if="ticket.status === 'replied'">
+              <td v-else-if="ticket.status === TicketStatus.replied">
                 <span>پاسخ داده شده</span>
               </td>
-              <td v-else-if="ticket.status === 'waiting_For_Reply'">
+              <td v-else-if="ticket.status === TicketStatus.waiting_For_Reply">
                 <span>در انتظار پاسخ</span>
               </td>
               <td>{{ toPersianDate(new Date(ticket.createDate)) }}</td>
               <td class="flex justify-center">
-                <BaseButton @click="router.push(`/account/tickets/edit?ticketId=${ticket.id}`)"
-                  >نمایش</BaseButton
-                >
+                <BaseButton :render-button-tag="false" :to="`/account/tickets/show?ticketId=${ticket.id}`">نمایش
+                </BaseButton>
               </td>
             </tr>
           </template>
@@ -77,8 +74,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import {TicketFilterData} from "~/models/tickets/TicketDto";
-import {GetUserTickets} from "~/services/ticket.service";
+import { TicketFilterData, TicketStatus } from "~/models/tickets/TicketDto";
+import { GetUserTickets } from "~/services/ticket.service";
 
 const router = useRouter();
 definePageMeta({
@@ -87,21 +84,20 @@ definePageMeta({
 const loading = ref(false);
 const isOpenModal = ref(false);
 const pageId = ref(1);
-const tickets = ref<TicketFilterData[]>();
+const tickets: Ref<TicketFilterData[]> = ref([]);
 
-watch(pageId,async(val)=>await getData());
+watch(pageId, async (val) => await getData());
 
-onMounted(async ()=>{
+onMounted(async () => {
   await getData();
 })
 
-const getData = async ()=>{
+const getData = async () => {
   loading.value = true;
   const fetchResult = await GetUserTickets(pageId.value);
-  if(fetchResult.isSuccess){
-    tickets.value = fetchResult.data?.tickets;
+  if (fetchResult.isSuccess) {
+    tickets.value = fetchResult.data?.tickets ?? [];
   }
-
   loading.value = false;
 }
 </script>

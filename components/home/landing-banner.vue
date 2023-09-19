@@ -65,7 +65,7 @@
             </div>
             <div class="courses">
                 <IconsCourses />
-                <p>{{ data.courseCount }}</p>
+                <p>{{ data.coursesCount }}</p>
                 <p>دوره ها</p>
             </div>
             <base-img class="brand lg:w-[550px] md:!w-[450px]" src="static/images/landing.png" alt="banner" />

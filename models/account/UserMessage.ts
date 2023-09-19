@@ -17,7 +17,7 @@ export interface UserMessageFilterData {
   reciverName: string;
   createDate: Date;
   subject: string;
-  status: boolean;
+  hasNewMessage: boolean;
   contentCount: number;
 }
 export interface UserMessageData {

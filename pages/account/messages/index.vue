@@ -20,7 +20,7 @@
         </thead>
         <tbody>
           <template v-if="loading">
-            <tr c v-for="item in [1, 2, 3]">
+            <tr c v-for="item in [1, 2, 3]" :key="item">
               <td width="140">
                 <BaseSkeletonLoaidng type="box" height="8px" />
               </td>
@@ -45,20 +45,19 @@
             </tr>
           </template>
           <template v-else-if="messages != null && messages.length > 0">
-            <tr v-for="(message,i) in messages" :key="messages">
-              <td>{{i + pageId}}</td>
+            <tr v-for="(message, i) in messages" :key="message.id">
+              <td>{{ i + pageId }}</td>
               <td>{{ message.subject }}</td>
               <td>
-                <b class="text-green" v-if="message.status">پاسخ داده شده</b>
-                <b class="text-primary" v-else>در انتظار پاسخ</b>
+                <b class="text-primary" v-if="message.hasNewMessage">در انتظار پاسخ</b>
+                <b class="text-green" v-else>پاسخ داده شده</b>
               </td>
               <td>{{ toPersianDate(new Date(message.createDate)) }}</td>
               <td>{{ message.contentCount }}</td>
-              <td>{{message.reciverName}} / {{message.senderName}}</td>
+              <td>{{ message.reciverName }} / {{ message.senderName }}</td>
               <td class="flex justify-center">
-                <BaseButton @click="router.push(`/account/messages/edit?messageId=${message.id}`)"
-                  >نمایش</BaseButton
-                >
+                <BaseButton :render-button-tag="false" :to="`/account/messages/show?messageId=${message.id}`">نمایش
+                </BaseButton>
               </td>
             </tr>
           </template>
@@ -73,8 +72,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import {UserMessage} from "../../../models/account/UserMessage";
-import {getUserMessagesByFilter} from "../../../services/userMessages.service";
+import { UserMessageFilterData } from "~~/models/account/UserMessage";
+import { getUserMessagesByFilter } from "~~/services/userMessages.service";
 
 const router = useRouter();
 definePageMeta({
@@ -82,19 +81,19 @@ definePageMeta({
 });
 const loading = ref(false);
 const pageId = ref(1);
-const messages = ref<UserMessage[]>();
+const messages: Ref<UserMessageFilterData[]> = ref([]);
 
-watch(pageId,async(val)=>await getData());
+watch(pageId, async (val) => await getData());
 
-onMounted(async ()=>{
+onMounted(async () => {
   await getData();
 })
 
-const getData = async ()=>{
+const getData = async () => {
   loading.value = true;
   const fetchResult = await getUserMessagesByFilter(pageId.value);
-  if(fetchResult.isSuccess){
-    messages.value = fetchResult.data?.messages;
+  if (fetchResult.isSuccess) {
+    messages.value = fetchResult.data?.messages ?? [];
   }
 
   loading.value = false;

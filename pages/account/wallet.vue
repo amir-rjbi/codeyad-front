@@ -7,7 +7,7 @@
         </p>
         <label class="sm:hidden">|</label>
         <p class="text-h6 sm:!text-h7">
-          موجودی کیف پول ارزی : <b class="text-green-500">{{userCryptoWalletAmount}}$</b>
+          موجودی کیف پول ارزی : <b class="text-green-500">{{ userCryptoWalletAmount }}$</b>
         </p>
       </div>
       <BaseButton color="green" @click="(isOpenModal = true)">شارژ کیف پول</BaseButton>
@@ -46,16 +46,16 @@
           </template>
 
           <!-- Data Table -->
-          <template v-else-if="wallets?.length > 0">
+          <template v-else-if="wallets.length > 0">
             <tr v-for="wallet in wallets">
-              <td>{{wallet.amount.toLocaleString()}} تومان</td>
-              <td>${{wallet.cryptoAmount}}</td>
+              <td>{{ wallet.amount.toLocaleString() }} تومان</td>
+              <td>${{ wallet.cryptoAmount }}</td>
               <td>
                 <b class="text-green">{{ wallet.walletType }}</b>
               </td>
-              <td v-if="wallet.isFinally">{{ wallet.paymentDate.toLocaleDateString('fa') }}</td>
+              <td v-if="wallet.isFinally">{{ toPersianDate(new Date(wallet.paymentDate)) }}</td>
               <td>
-                {{wallet.description}}
+                {{ wallet.description }}
               </td>
             </tr>
           </template>
@@ -75,32 +75,32 @@
   </div>
 </template>
 <script setup lang="ts">
-import {GetWallets} from "../../services/wallet.service";
-import {WalletDto} from "../../models/wallets/WalletFilterResult";
+import { GetWallets } from "../../services/wallet.service";
+import { WalletDto } from "../../models/wallets/WalletFilterResult";
 
 definePageMeta({
   layout: "account",
 });
 const loading = ref(false);
 const isOpenModal = ref(false);
-const wallets = ref<WalletDto[]>();
+const wallets: Ref<WalletDto[]> = ref([]);
 const userWalletAmount = ref(0)
 const userCryptoWalletAmount = ref(0)
 
 const pageId = ref(1);
-watch(pageId,async (val)=>await getData())
+watch(pageId, async (val) => await getData())
 
-onMounted(async ()=>{
+onMounted(async () => {
   await getData();
 })
 
-const getData= async ()=>{
+const getData = async () => {
   loading.value = true;
   const fetchResult = await GetWallets(pageId.value);
-  if(fetchResult.isSuccess) {
-    wallets.value = fetchResult.data?.wallets;
-    userWalletAmount.value = fetchResult.data?.userWalletAmount;
-    userCryptoWalletAmount.value = fetchResult.data?.userCryptoWalletAmount;
+  if (fetchResult.isSuccess) {
+    wallets.value = fetchResult.data!.wallets;
+    userWalletAmount.value = fetchResult.data!.userWalletAmount;
+    userCryptoWalletAmount.value = fetchResult.data!.userCryptoWalletAmount;
   }
 
   console.log(fetchResult);
