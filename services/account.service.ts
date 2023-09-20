@@ -54,3 +54,15 @@ export const VerifyUserPhoneNumber = (code: string) => {
     },
   });
 };
+export const ChangePassword = (data: FormData) => {
+  return FetchApi("/user/ChangePassword", {
+    method: "POST",
+    body: data,
+  });
+};
+export const EditUser = (data: FormData) => {
+  return FetchApi("/user", {
+    method: "PUT",
+    body: data,
+  });
+};
