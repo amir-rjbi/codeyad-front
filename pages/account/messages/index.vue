@@ -69,11 +69,15 @@
         </tbody>
       </table>
     </div>
+    <div class="w-full flex items-center justify-center mt-4">
+      <base-pagination v-if="!loading" v-model="pageId" :filter-result="messageResult"></base-pagination>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
 import { UserMessageFilterData } from "~~/models/account/UserMessage";
 import { getUserMessagesByFilter } from "~~/services/userMessages.service";
+import {BaseFilterResult} from "~~/models/IApiResponse";
 
 const router = useRouter();
 definePageMeta({
@@ -81,6 +85,7 @@ definePageMeta({
 });
 const loading = ref(false);
 const pageId = ref(1);
+const messageResult: Ref<BaseFilterResult> = ref();
 const messages: Ref<UserMessageFilterData[]> = ref([]);
 
 watch(pageId, async (val) => await getData());
@@ -94,6 +99,7 @@ const getData = async () => {
   const fetchResult = await getUserMessagesByFilter(pageId.value);
   if (fetchResult.isSuccess) {
     messages.value = fetchResult.data?.messages ?? [];
+    messageResult.value = fetchResult.data! as BaseFilterResult;
   }
 
   loading.value = false;

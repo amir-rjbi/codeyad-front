@@ -1,13 +1,13 @@
 <template>
   <div class="mt-3">
     <div class="flex items-center gap-4 justify-between flex-wrap">
-      <div class="flex items-center gap-4 sm:flex-wrap">
+      <div class="flex items-center gap-4 sm:flex-wrap" v-if="walletsResult">
         <p class="text-h6 sm:!text-h7">
-          موجودی کیف پول : <b class="text-green-500">{{ userWalletAmount.toLocaleString() }} تومان</b>
+          موجودی کیف پول : <b class="text-green-500">{{ walletsResult.userWalletAmount.toLocaleString() }} تومان</b>
         </p>
         <label class="sm:hidden">|</label>
         <p class="text-h6 sm:!text-h7">
-          موجودی کیف پول ارزی : <b class="text-green-500">{{ userCryptoWalletAmount }}$</b>
+          موجودی کیف پول ارزی : <b class="text-green-500">{{ walletsResult.userCryptoWalletAmount }}$</b>
         </p>
       </div>
       <BaseButton color="green" @click="(isOpenModal = true)">شارژ کیف پول</BaseButton>
@@ -69,6 +69,9 @@
         </tbody>
       </table>
     </div>
+    <div class="w-full flex items-center justify-center mt-4">
+      <base-pagination v-if="!loading" v-model="pageId" :filter-result="walletsResult"></base-pagination>
+    </div>
     <BaseModal title="شارژ کیف پول" v-model="isOpenModal" :mobile-header="true" size="sm">
       <account-wallet-add />
     </BaseModal>
@@ -76,7 +79,7 @@
 </template>
 <script setup lang="ts">
 import { GetWallets } from "../../services/wallet.service";
-import { WalletDto } from "../../models/wallets/WalletFilterResult";
+import {WalletDto, WalletFilterResult} from "../../models/wallets/WalletFilterResult";
 
 definePageMeta({
   layout: "account",
@@ -84,8 +87,7 @@ definePageMeta({
 const loading = ref(false);
 const isOpenModal = ref(false);
 const wallets: Ref<WalletDto[]> = ref([]);
-const userWalletAmount = ref(0)
-const userCryptoWalletAmount = ref(0)
+const walletsResult:Ref<WalletFilterResult> = ref();
 
 const pageId = ref(1);
 watch(pageId, async (val) => await getData())
@@ -99,11 +101,9 @@ const getData = async () => {
   const fetchResult = await GetWallets(pageId.value);
   if (fetchResult.isSuccess) {
     wallets.value = fetchResult.data!.wallets;
-    userWalletAmount.value = fetchResult.data!.userWalletAmount;
-    userCryptoWalletAmount.value = fetchResult.data!.userCryptoWalletAmount;
+    walletsResult.value = fetchResult.data ?? null;
   }
 
-  console.log(fetchResult);
   loading.value = false;
 }
 </script>

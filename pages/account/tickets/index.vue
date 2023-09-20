@@ -68,6 +68,9 @@
         </tbody>
       </table>
     </div>
+    <div class="w-full flex items-center justify-center mt-4">
+      <base-pagination v-if="!loading" v-model="pageId" :filter-result="ticketsResult"></base-pagination>
+    </div>
     <BaseModal title="ثبت تیکت جدید" v-model="isOpenModal">
       <account-tickets-add />
     </BaseModal>
@@ -76,6 +79,7 @@
 <script setup lang="ts">
 import { TicketFilterData, TicketStatus } from "~/models/tickets/TicketDto";
 import { GetUserTickets } from "~/services/ticket.service";
+import {BaseFilterResult} from "~/models/IApiResponse";
 
 const router = useRouter();
 definePageMeta({
@@ -85,6 +89,7 @@ const loading = ref(false);
 const isOpenModal = ref(false);
 const pageId = ref(1);
 const tickets: Ref<TicketFilterData[]> = ref([]);
+const ticketsResult: Ref<BaseFilterResult> = ref();
 
 watch(pageId, async (val) => await getData());
 
@@ -97,6 +102,7 @@ const getData = async () => {
   const fetchResult = await GetUserTickets(pageId.value);
   if (fetchResult.isSuccess) {
     tickets.value = fetchResult.data?.tickets ?? [];
+    ticketsResult.value = fetchResult.data ?? null;
   }
   loading.value = false;
 }
