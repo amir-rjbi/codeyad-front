@@ -1,4 +1,7 @@
-import {UserMessageData, UserMessageFilterResult} from "./../models/account/UserMessage";
+import {
+  UserMessageData,
+  UserMessageFilterResult,
+} from "./../models/account/UserMessage";
 import { IApiResponse } from "./../models/IApiResponse";
 export const getUserMessagesByFilter = (
   pageId: number
@@ -6,6 +9,21 @@ export const getUserMessagesByFilter = (
   return FetchApi("/UserMessages", {
     query: {
       pageId,
+    },
+  });
+};
+
+export const CreateMessage = (
+  userName: string,
+  title: string,
+  message: string
+): Promise<IApiResponse<number>> => {
+  return FetchApi("/userMessages/CreateMessage", {
+    method: "POST",
+    body: {
+      userName,
+      title,
+      message,
     },
   });
 };
@@ -18,16 +36,13 @@ export const getUserMessage = (
 
 export const SendMessage = (
   messageId: number,
-  message:string
+  message: string
 ): Promise<IApiResponse<number>> => {
-  return FetchApi(`/UserMessages`,
-{
-    method:'POST',
-    body:{
-        messageId,
-        message
-        }
-    }
-  );
+  return FetchApi(`/UserMessages`, {
+    method: "POST",
+    body: {
+      messageId,
+      message,
+    },
+  });
 };
-

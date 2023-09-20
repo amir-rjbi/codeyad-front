@@ -6,6 +6,16 @@
         </Head>
 
         <div class="bg-blue text-white w-full py-[80px] sm:py-[40px]">
+            <BaseModal v-model="isOpenModal" :title="`ارسال پیام به ${teacherData.teacher.fullName}`">
+                <Form @submit="sendMessage" :validation-schema="schema" v-slot="{ meta }"
+                    class="min-w-[500px] sm:min-w-fit">
+                    <BaseInput out-line name="title" label="عنوان گفتوگو" />
+                    <BaseTextArea out-line class="mt-4 mb-4" name="description" label="متن پیام" />
+                    <div class="flex justify-end">
+                        <BaseButton :loading="sendMessageLoading" :disabled="!meta.valid">ثبت</BaseButton>
+                    </div>
+                </Form>
+            </BaseModal>
             <div class="container">
                 <div class="flex gap-10 sm:flex-wrap sm:gap-5 items-end">
                     <div class="w-[40%] h-[370px] sm:h-[280px] sm:w-[100%]">
@@ -49,8 +59,17 @@
                             </div>
                         </div>
                         <div class="flex gap-5 mt-2 sm:gap-3">
-                            <BaseButton color="green" class="flex-grow text-[18px] sm:text-[14px]">دنبال کردن</BaseButton>
-                            <BaseButton :color-white="true" class="flex-grow text-[18px] sm:text-[14px]">ارسال پیام
+                            <BaseButton :loading="buttonLoading" v-if="teacherData.isFollow == false"
+                                :disabled="teacherData.teacher.userId == accountStore.currentUser?.id" color="green"
+                                class="flex-grow text-[18px] sm:text-[14px]" @click="toggleFollow">دنبال کردن</BaseButton>
+                            <BaseButton :loading="buttonLoading" v-else
+                                :disabled="teacherData.teacher.userId == accountStore.currentUser?.id" color="red"
+                                class="flex-grow text-[18px] sm:text-[14px]" @click="toggleFollow">لغو دنبال
+                                کردن
+                            </BaseButton>
+                            <BaseButton  @click="() => isOpenModal = true"
+                                :disabled="teacherData.teacher.userId == accountStore.currentUser?.id" :color-white="true"
+                                class="flex-grow text-[18px] sm:text-[14px]">ارسال پیام
                             </BaseButton>
                         </div>
                     </div>
@@ -71,24 +90,51 @@
 
             </div>
         </div>
+
     </div>
 </template>
 <script setup lang="ts">
 import { FilterResult } from '~/models/IApiResponse';
 import { CourseFilterData } from '~/models/courses/CourseFilterData';
-import { GetMasterByUserName, GetMasterCourses } from '~/services/master.service';
+import { FollowTeacher, GetMasterByUserName, GetMasterCourses, UnFollowTeacher } from '~/services/master.service';
+import { useAccountStore } from '~/stores/account.store';
+import { useAuthStore } from '~/stores/auth.store';
+import * as Yup from 'yup'
+import { Form } from 'vee-validate';
+import { CreateMessage } from '~/services/userMessages.service';
 
+const schema = Yup.object().shape({
+    title: Yup.string().required().label('عنوان گفتوگو'),
+    description: Yup.string().required().min(10).label("متن پیام")
+})
+const accountStore = useAccountStore();
+const authStore = useAuthStore();
+
+const isOpenModal = ref(false);
+const toast = useToast();
 const route = useRoute();
+const router = useRouter();
 var userName = route.params.slug.toString();
 const courseFilterData: Ref<FilterResult<CourseFilterData> | null> = ref(null);
 const loading = ref(false);
+const buttonLoading = ref(false);
 const { data } = await useAsyncData("singleMaster", () => GetMasterByUserName(userName));
 if (!data.value?.data) {
     throw createError({ statusCode: 404, statusMessage: 'Page Not Found' })
 }
 const teacherData = ref(data.value.data);
+const sendMessageLoading = ref(false);
+const sendMessage = async (fData: any, ev: any) => {
+    sendMessageLoading.value = true;
+    var res = await CreateMessage(teacherData.value.teacher.userName, fData.title, fData.description);
+    if (res.isSuccess) {
+        toast.showToast("پیام با موفقیت برای " + teacherData.value.teacher.fullName + " ارسال شد")
+        router.push('/account/messages/show?messageId=' + res.data)
 
-
+    }
+    isOpenModal.value = false;
+    sendMessageLoading.value = false;
+}
 onMounted(async () => {
     loading.value = true;
     var res = await GetMasterCourses(teacherData.value.teacher.userId);
@@ -97,7 +143,29 @@ onMounted(async () => {
     }
     loading.value = false;
 
-})
+});
+const toggleFollow = async () => {
+    if (authStore.isLogin == false) {
+        authStore.openLoginModal(toggleFollow);
+        return;
+    }
+    buttonLoading.value = true;
+    if (teacherData.value.isFollow) {
+        var res = await UnFollowTeacher(userName);
+        if (res.isSuccess) {
+            toast.showToast("عملیات با موفقیت انجام شد")
+            teacherData.value.isFollow = false;
+        }
+    } else {
+        var res = await FollowTeacher(userName);
+        if (res.isSuccess) {
+            toast.showToast("عملیات با موفقیت انجام شد")
+            teacherData.value.isFollow = true;
+        }
+    }
+    buttonLoading.value = false;
+
+}
 </script>
 <style >
 .t-about a:hover {

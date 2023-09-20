@@ -234,6 +234,10 @@ body.modal-open {
         align-items: center;
         justify-content: center;
         direction: ltr;
+
+        h5 {
+            @apply text-black
+        }
     }
 }
 
@@ -303,7 +307,7 @@ body.modal-open {
 }
 
 .modal__body {
-    padding: 3rem 3rem 2rem 3rem;
+    padding: 2rem 3rem 1rem 3rem;
     overflow-x: inherit;
 }
 

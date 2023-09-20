@@ -69,7 +69,7 @@
         </tbody>
       </table>
     </div>
-    <div class="w-full flex items-center justify-center mt-4">
+    <div class="w-full flex items-center justify-center mt-4" v-if="walletsResult">
       <base-pagination v-if="!loading" v-model="pageId" :filter-result="walletsResult"></base-pagination>
     </div>
     <BaseModal title="شارژ کیف پول" v-model="isOpenModal" :mobile-header="true" size="sm">
@@ -79,7 +79,7 @@
 </template>
 <script setup lang="ts">
 import { GetWallets } from "../../services/wallet.service";
-import {WalletDto, WalletFilterResult} from "../../models/wallets/WalletFilterResult";
+import { WalletDto, WalletFilterResult } from "../../models/wallets/WalletFilterResult";
 
 definePageMeta({
   layout: "account",
@@ -87,7 +87,7 @@ definePageMeta({
 const loading = ref(false);
 const isOpenModal = ref(false);
 const wallets: Ref<WalletDto[]> = ref([]);
-const walletsResult:Ref<WalletFilterResult> = ref();
+const walletsResult: Ref<WalletFilterResult | null> = ref(null);
 
 const pageId = ref(1);
 watch(pageId, async (val) => await getData())
