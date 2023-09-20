@@ -1,10 +1,5 @@
 <template>
-  <Form
-    :validation-schema="schema"
-    v-slot="{ meta }"
-    @submit="edit"
-    :class="{ 'card-loading': loading }"
-  >
+  <Form :validation-schema="schema" v-slot="{ meta }" @submit="edit">
     <base-card :loading="loading">
       <template #header>
         <h5>ویرایش اطلاعات</h5>
@@ -68,21 +63,12 @@
           />
         </div>
         <div class="w-full p-2 sm:px-0">
-          <BaseHtmlEditor
-            placeholder="درباره من"
-            v-model="data.about"
-            id="aboutme"
-            name="aboutme"
-          />
+          <BaseHtmlEditor placeholder="درباره من" v-model="data.about" id="aboutme" name="aboutme" />
         </div>
       </div>
       <template #actions>
-        <base-button
-          @click="loading = !loading"
-          type="submit"
-          :disabled="!meta.valid"
-          >ثبت اطلاعات</base-button
-        >
+        <base-button type="submit" :loading="loading" :disabled="!meta.valid">ثبت
+          اطلاعات</base-button>
       </template>
     </base-card>
   </Form>
@@ -90,9 +76,11 @@
 <script setup lang="ts">
 import { Form } from "vee-validate";
 import * as Yup from "yup";
+import { EditProfile } from "~/services/account.service";
 import { useAccountStore } from "~/stores/account.store";
 import { EditUser } from "../../services/account.service";
 
+const router = useRouter();
 const toast = useToast();
 const accountStore = useAccountStore();
 const data = reactive({
@@ -111,7 +99,6 @@ const schema = Yup.object().shape({
   phoneNumber: Yup.string().phoneNumber().required().label("شماره تماس"),
   email: Yup.string().required().email().label("ایمیل"),
 });
-const aboutMe = ref("");
 definePageMeta({
   layout: "account",
 });
@@ -120,24 +107,25 @@ onMounted(() => {
   data.name = accountStore.currentUser!.name;
   data.email = accountStore.currentUser!.email;
   data.phoneNumber = accountStore.currentUser!.phoneNumber;
-});
+  data.about = accountStore.currentUser!.aboutMe;
+})
 const edit = async () => {
   loading.value = true;
-  var formData = new FormData();
-  formData.append("Name", data.name);
-  formData.append("Family", data.family);
-  formData.append("PhoneNumber", data.phoneNumber);
-  formData.append("Email", data.email);
-  formData.append("AboutMe", data.about);
-  //@ts-ignore
-  formData.append("Avatar", data.avatar);
-
-  var res = await EditUser(formData);
+  var res = await EditProfile(data.name, data.family, data.phoneNumber, data.email, data.about, data.avatar)
   if (res.isSuccess) {
-    toast.showToast("تغییرات  شما با موفقیت انجام شد");
-
-    document.location.replace("/account/edit");
+    toast.showToast('اطلاعات با موفقیت ویرایش شد');
+    if (data.avatar != null) {
+      await accountStore.initData()
+    } else {
+      accountStore.currentUser!.fullName = data.name + " " + data.family;
+      accountStore.currentUser!.name = data.name;
+      accountStore.currentUser!.family = data.family;
+      accountStore.currentUser!.email = data.email;
+      accountStore.currentUser!.phoneNumber = data.phoneNumber;
+      accountStore.currentUser!.aboutMe = data.about;
+      accountStore.currentUser!.isCompleteProfile = true;
+    }
+    router.push('/account')
   }
   loading.value = false;
-};
 </script>

@@ -52,26 +52,33 @@
                 </defs>
             </svg>
             <div class="users">
-                <p>40k+</p>
+                <p>{{ data.usersCount }}k+</p>
                 <label class="block mb-1">دانش جویان</label>
                 <label class="line"></label>
                 <div class="images">
                     <div class="add">
                         +
                     </div>
-                    <img :class="`i-${item}`" v-for="item in [1, 2, 3, 4, 5, 6, 7]" :key="item"
-                        src="/images/users/avatar.png" />
+                    <base-img width="50px" :class="`i-${index + 1}`" v-for="(item, index) in data.userAvatars" :key="item"
+                        :src="GetUserAvatar(item)" :alt="`avatar-${index}`" />
                 </div>
             </div>
             <div class="courses">
                 <IconsCourses />
-                <p>2435</p>
+                <p>{{ data.coursesCount }}</p>
                 <p>دوره ها</p>
             </div>
-            <base-img class="brand lg:w-[550px] md:!w-[450px]"  src="static/images/landing.png" alt="banner" />
+            <base-img class="brand lg:w-[550px] md:!w-[450px]" src="static/images/landing.png" alt="banner" />
         </div>
     </section>
 </template>
+<script setup lang="ts">
+import { HomePageData } from '~/models/HomePageData';
+
+defineProps<{
+    data: HomePageData
+}>();
+</script>
 <style scoped lang="scss">
 .banner {
     display: flex;
@@ -81,6 +88,7 @@
         display: flex;
         justify-content: flex-end;
         position: relative;
+
         svg.absolute-svg {
             position: absolute;
             right: -14rem;

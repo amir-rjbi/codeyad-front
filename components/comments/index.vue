@@ -14,7 +14,6 @@
                         <BaseButton type="button" @click="authStore.openLoginModal(sendComment)" v-else
                             :disabled="commentText.length < 3" size="sm" rounded>
                             ورود و <span v-if="selectedReplyCommentId == 0">ثبت نظر</span><span v-else>ثبت پاسخ</span>
-
                         </BaseButton>
                     </div>
                 </div>
@@ -68,9 +67,12 @@
                 </div>
             </template>
 
-            <div class="w-full flex justify-center">
+            <div class="w-full flex justify-center" v-if="loading == false">
                 <BasePagination :class="{ 'card-loading': loading }" v-if="comments" :filter-result="comments"
                     v-model="pageId" />
+            </div>
+            <div class="w-full flex justify-center" v-else-if="comments?.pageCount ?? 0 > 1">
+                <BaseSkeletonLoaidng height="40px" parent-class="w-[40%]" class="!rounded-lg" width="100%" />
             </div>
         </div>
         <BaseConfirmPopup :confirm-function="deleteComment" v-model="isOpenDeletePopup"

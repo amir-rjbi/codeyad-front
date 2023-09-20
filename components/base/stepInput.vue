@@ -127,8 +127,8 @@ input {
     border: 2px solid var(--color-gray-300);
     background: var(--color-white);
     border-radius: 8px;
-    width: 72px;
-    height: 72px;
+    width: 52px;
+    height: 52px;
     text-align: center;
     color: var(--color-black);
 

@@ -18,7 +18,22 @@ export const GetMasterByUserName = (
   var url = `/Masters/GetByUserName/${userName}`;
   return FetchApi(url);
 };
-
+export const FollowTeacher = (userName: string) => {
+  return FetchApi("/masters/Follow", {
+    method: "POST",
+    query: {
+      userName,
+    },
+  });
+};
+export const UnFollowTeacher = (userName: string) => {
+  return FetchApi("/masters/unFollow", {
+    method: "POST",
+    query: {
+      userName,
+    },
+  });
+};
 export const GetMasterCourses = (
   userId: number
 ): Promise<IApiResponse<FilterResult<CourseFilterData>>> => {

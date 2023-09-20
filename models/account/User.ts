@@ -8,4 +8,8 @@ export interface User {
   fullName: string;
   name: string;
   family: string;
+  aboutMe: string;
+  walletAmount?: number;
+  isCompleteProfile: boolean;
+  isVerifyPhoneNumber: boolean;
 }

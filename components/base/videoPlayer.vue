@@ -18,7 +18,8 @@
                     </svg>
 
                 </button>
-                <video @click="togglePlayStatus" :src="src" preload="metadata" ref="player" :poster="poster" />
+                <video @click="togglePlayStatus" :src="src" preload="metadata" ref="player"
+                    :poster="poster.replace('codeyad', 'https://codeyad.com')" />
             </div>
             <div class="controls flex items-center gap-5 justify-end mt-4" ref="controls">
                 <div class="flex gap-4">
@@ -369,6 +370,7 @@ function formatTime(timeInSeconds: number) {
         position: relative;
         cursor: pointer;
         height: 100%;
+
         &:hover {
             button {
                 display: block !important;

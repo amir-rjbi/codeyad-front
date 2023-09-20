@@ -22,11 +22,17 @@ export interface CourseFilterData {
 export enum CourseLevel {
   beginner = "beginner",
   intermediate = "intermediate",
-  expert  = "expert",
+  expert = "expert",
 }
 export interface CourseFilterParams {
   search?: string | null;
   pageId: number;
   take: number;
   categorySlug?: string | null;
+  filterBy?: CourseFilterBy | null;
+}
+export enum CourseFilterBy {
+  all = "all",
+  free = "free",
+  notFreeCourse = "notFreeCourse",
 }

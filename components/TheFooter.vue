@@ -13,24 +13,29 @@
         <hr />
         <div class="bottom-footer container items-center justify-between flex flex-wrap sm:justify-center sm:gap-7">
             <div class="social flex gap-7">
-                <a href="#">
+                <a :href="utilStore.siteSettings?.instagram" target="_blank" v-if="utilStore.siteSettings?.instagram">
                     <IconsSocialInstagram color="white" width="24" height="24" />
                 </a>
-                <a href="#">
+                <a :href="utilStore.siteSettings?.telegram" target="_blank" v-if="utilStore.siteSettings?.telegram">
                     <IconsSocialTelegram color="white" width="24" height="24" />
                 </a>
-                <a href="#">
+                <a :href="utilStore.siteSettings?.twitter" target="_blank" v-if="utilStore.siteSettings?.twitter">
                     <IconsSocialTwitter color="white" width="24" height="24" />
                 </a>
-                <a href="#">
+                <a :href="utilStore.siteSettings?.aparat" target="_blank" v-if="utilStore.siteSettings?.aparat">
                     <IconsSocialYouTube color="white" width="24" height="24" />
                 </a>
             </div>
-            <p class="text-white copy-right" dir="ltr">@ 2023 Copyright.codeyad</p>
+            <!-- <p class="text-white copy-right">{{ utilStore.siteSettings!.footerText }}</p> -->
         </div>
     </footer>
 </template>
+<script setup lang="ts">
+import { useUtilStore } from '~/stores/util.store';
 
+const utilStore = useUtilStore();
+
+</script>
 <style scoped lang="scss">
 @media screen and (max-width:768px) {
     input {
@@ -114,4 +119,5 @@ footer {
         line-height: normal;
         letter-spacing: 1.04px;
     }
-}</style>
+}
+</style>

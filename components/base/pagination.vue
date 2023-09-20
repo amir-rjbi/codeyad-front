@@ -5,7 +5,7 @@
                 <button
                     class="flex items-center justify-center px-3 h-10 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">قبلی</button>
             </li>
-            <li v-for="item in RangeNumber(filterPaginationResult.startPage, filterPaginationResult.endPage)">
+            <li v-for="item in RangeNumber(filterPaginationResult?.startPage, filterPaginationResult?.endPage)">
                 <button @click="changePage(item)" aria-current="page" :class="[`flex items-center justify-center px-3 h-10
                      border border-gray-300  
                       dark:border-gray-700  dark:text-white`,
@@ -22,7 +22,7 @@
                 </button>
             </li>
 
-            <li @click="nextPage()" :class="{ 'card-loading': modelValue == filterPaginationResult.pageCount }">
+            <li @click="nextPage()" :class="{ 'card-loading': modelValue == filterPaginationResult?.pageCount }">
                 <button
                     class="flex items-center justify-center px-3 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">بعدی</button>
             </li>
@@ -41,7 +41,7 @@ const props = defineProps({
         type: Object
     }
 })
-var filterPaginationResult = props.filterResult as BaseFilterResult || null
+const filterPaginationResult = props.filterResult as BaseFilterResult;
 
 const prevPage = () => {
     if (props.modelValue > 1)

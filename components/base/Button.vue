@@ -1,13 +1,13 @@
 <template>
     <button v-if="renderButtonTag == true" :class="[
-        'btn ',
+        'btn relative',
         { 'btn-white': colorWhite },
         { '!rounded-full': rounded },
         { 'btn-transparent': transparent },
         outline ? `text-${color}  !border-${color} hover:bg-${color}-250 dark:hover:bg-transparent dark:hover:opacity-80` : `text-white bg-${color} hover:bg-${color}-950`,
         size ? `btn-${size}` : null,
         { 'loading': loading }
-    ]" :disabled="loading">
+    ]" :disabled="loading || disabled">
         <div :class="{ 'opacity-0': loading }">
             <template v-if="$slots.icon">
                 <div class="flex items-center gap-[6px] justify-center ">
@@ -29,7 +29,7 @@
         outline ? `text-${color}  !border-${color} hover:bg-${color}-250 dark:hover:bg-transparent dark:hover:opacity-80` : `!text-white bg-${color} hover:bg-${color}-950`,
         size ? `btn-${size}` : null,
         { 'loading': loading }
-    ]" :disabled="loading">
+    ]" :disabled="loading || disabled">
         <div :class="{ 'opacity-0': loading }">
             <template v-if="$slots.icon">
                 <div class="flex items-center gap-[6px] justify-center ">
@@ -52,6 +52,10 @@ const props = defineProps({
         default: "blue",
     },
     loading: {
+        type: Boolean,
+        default: false,
+    },
+    disabled: {
         type: Boolean,
         default: false,
     },
@@ -89,13 +93,11 @@ const props = defineProps({
         height: 8px !important;
 
         &::after {
-            top: -280% !important;
             width: 8px !important;
             height: 8px !important;
         }
 
         &::before {
-            top: -50% !important;
             width: 8px !important;
             height: 8px !important;
         }
@@ -159,14 +161,16 @@ const props = defineProps({
 
 .sp-3balls:before {
     left: 18px;
-    top: -50%;
+    position: absolute;
+    top: 0;
     -webkit-animation: spScaleAlphaBefore 1s infinite linear;
     animation: spScaleAlphaBefore 1s infinite linear;
 }
 
 .sp-3balls:after {
     left: -18px;
-    top: -250%;
+    position: absolute;
+    top: 0;
     -webkit-animation: spScaleAlphaAfter 1s infinite linear;
     animation: spScaleAlphaAfter 1s infinite linear;
 }

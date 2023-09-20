@@ -29,3 +29,8 @@ export const GetCourseCategories = (): Promise<
 > => {
   return FetchApi("/course/categories");
 };
+export const RegisterFreeCourse = (courseId: number) => {
+  return FetchApi("/course/registerFreeCourse?courseId=" + courseId,{
+    method:"POST"
+  });
+};
