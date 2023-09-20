@@ -14,7 +14,6 @@
                         <BaseButton type="button" @click="authStore.openLoginModal(sendComment)" v-else
                             :disabled="commentText.length < 3" size="sm" rounded>
                             ورود و <span v-if="selectedReplyCommentId == 0">ثبت نظر</span><span v-else>ثبت پاسخ</span>
-
                         </BaseButton>
                     </div>
                 </div>

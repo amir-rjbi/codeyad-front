@@ -1,7 +1,12 @@
 <template>
     <div class="py-5 ">
+        <BaseSeoData :meta="{
+            indexPage: true,
+            metaTitle: utilStore.siteSettings?.siteTitle,
+            metaDescription:utilStore.siteSettings?.metaDescription,
+        }" />
         <div class="container">
-            <HomeLandingBanner :data="data?.data!"/>
+            <HomeLandingBanner :data="data?.data!" />
             <HomeLinks />
             <div class="flex gap-[100px] flex-col">
                 <HomePopularCourses :class="{ 'card-loading': loading }" @change-category="getCourseByCategory"
@@ -28,13 +33,11 @@
     </div>
 </template>
 <script setup lang="ts">
-import { useAuthStore } from "~~/stores/auth.store";
-import { GetLatestArticles } from "~/services/article.service";
 import { GetCourseByFilter } from "~/services/course.service";
 import { HomePageData } from "~/models/HomePageData";
 import { IApiResponse } from "~/models/IApiResponse";
-const isOpenModal = ref(false);
-const authStore = useAuthStore();
+import { useUtilStore } from "~/stores/util.store";
+const utilStore = useUtilStore();
 const loading = ref(false);
 const { data } = await useAsyncData("singlePage", () => $fetch<IApiResponse<HomePageData>>(`${BASE_URL}/home`));
 const courses = ref(data.value?.data?.latestCourses);

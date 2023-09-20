@@ -1,5 +1,6 @@
 <template>
     <div class="pb-[84px]">
+        <BaseSeoData :meta="courseData.courseDto.seoData" />
         <div class="course-banner py-[68px] bg-blue sm:py-[48px]">
             <BaseModal size="lg" v-model="isOpenVideoModal" mobile-header :title="selectedVideoTitle"
                 header-class="dir-rtl">
@@ -166,7 +167,7 @@ const videoLoading = ref(false);
 const authStore = useAuthStore();
 
 const showDemo = () => {
-    selectedVideo.value = `${DL_DOMAIN_URL}/videos/Courses/Demo/${courseData.value.courseDto.demoFileName}`
+    selectedVideo.value = GetCourseDemo(courseData.value.courseDto.demoFileName)
     isOpenVideoModal.value = true;
     selectedVideoTitle.value = 'ویدئو معرفی'
 }
@@ -203,7 +204,7 @@ const userHasCourse = computed(() => {
     return false;
 });
 const registerCourse = async () => {
-    if(authStore.isLogin==false){
+    if (authStore.isLogin == false) {
         authStore.openLoginModal(registerCourse)
         return;
     }

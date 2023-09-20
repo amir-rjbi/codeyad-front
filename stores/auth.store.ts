@@ -11,6 +11,10 @@ export const useAuthStore = defineStore("auth", () => {
 
   const registerData: Ref<RegisterCommand | null> = ref(null);
 
+  const getAccessToken = () => {
+    var cookie = useCookie("c-access-token");
+    return cookie.value;
+  };
   const isLogin = computed(() => {
     var cookie = useCookie("c-access-token");
     return cookie.value != null && cookie.value != "";
@@ -66,5 +70,6 @@ export const useAuthStore = defineStore("auth", () => {
     openRegisterModal,
     setToken,
     logOut,
+    getAccessToken
   };
 });

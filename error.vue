@@ -108,6 +108,14 @@
             </div>
         </div>
     </div>
+    <div class="container" v-else-if="error?.statusCode == 403">
+        <the-header />
+        <h1 class="text-center mt-12">دسترسی غیر مجاز</h1>
+        <div class="mb-5">
+            <nuxt-link to="/" class="btn btn-primary">برو به صفحه اصلی <i
+                    class="ri-arrow-go-forward-line ms-2"></i></nuxt-link>
+        </div>
+    </div>
     <div class="text-center" v-else>
         <h1>Server Error</h1>
         <div class="mb-5">

@@ -35,23 +35,22 @@ const tabData: Ref<TabData[]> = ref([{
     value: 'all'
 }]);
 const router = useRouter();
-
-const { data, pending, refresh } = useAsyncData('courses', () => GetCourseByFilter({
+const { data, pending, refresh } = await useAsyncData('courses', () => GetCourseByFilter({
     pageId: pageId.value,
     take: 12,
     search: search.value,
     categorySlug: categorySlug.value,
     filterBy: (filterBy.value as CourseFilterBy)
 }));
-const courses: Ref<CourseFilterData[]> = ref([]);
+const courses: Ref<CourseFilterData[]> = ref(data.value?.data?.data ?? []);
 
 
-const getNewCourses = (value: string) => {
-    console.log(value)
+const getNewCourses = async (value: string) => {
+    courses.value = []
     if (value == 'all') {
-        router.push('/courses');
+        await router.push('/courses');
     } else {
-        router.push('/courses/' + value)
+        await router.push('/courses/' + value)
     }
 }
 watch(data, (val) => {
@@ -63,13 +62,6 @@ watch(pageId, (val) => {
     if (val > 1)
         refresh();
 })
-watch(() => route.query, (val) => {
-    search.value = val.q?.toString();
-    filterBy.value = val.filter?.toString();
-    pageId.value = 1;
-    courses.value = []
-    refresh();
-});
 
 onMounted(async () => {
     if (utilStore.courseCategories.length == 0) {

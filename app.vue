@@ -5,7 +5,10 @@
       <Link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
     </Head>
     <NuxtLayout>
-      <NuxtLoadingIndicator dir="rtl" :height="5"/>
+      <div v-if="utilStore.globalLoading" class="global-loading flex justify-center items-center w-full h-full fixed top-0 right-0">
+        <p>loading</p>
+      </div>
+      <NuxtLoadingIndicator dir="rtl" :height="5" />
       <NuxtPage />
     </NuxtLayout>
     <ClientOnly>
@@ -19,9 +22,13 @@
 <script setup lang="ts">
 import { useAuthStore } from "~~/stores/auth.store";
 import { useAccountStore } from "~~/stores/account.store";
+import { useUtilStore } from "./stores/util.store";
 
 const authStore = useAuthStore();
 const accountStore = useAccountStore();
+const utilStore = useUtilStore();
+
+await utilStore.setSiteSettings();
 
 onMounted(async () => {
   if (authStore.isLogin) {

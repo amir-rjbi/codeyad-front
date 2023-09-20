@@ -1,3 +1,4 @@
+import { SiteSettings } from "./../models/SiteSettings";
 import { RoadMapPageData } from "./../models/roadMap/roadMap";
 import { CourseCategory } from "./../models/courses/Course";
 import { Article, ArticleCategory } from "./../models/articles/Article";
@@ -10,12 +11,21 @@ export const useUtilStore = defineStore("utils", () => {
   const articleCategories: Ref<ArticleCategory[]> = ref([]);
   const courseCategories: Ref<CourseCategory[]> = ref([]);
   const roadMapData: Ref<RoadMapPageData | null> = ref(null);
-
+  const siteSettings: Ref<SiteSettings | null> = ref(null);
+  const globalLoading = ref(false);
   const isMobile = () => {
     if (window) {
       return window.innerWidth <= 768;
     }
     return false;
+  };
+  const setSiteSettings = async () => {
+    if (!siteSettings.value) {
+      var res = await FetchApi<SiteSettings>("/siteSettings");
+      if (res.isSuccess) {
+        siteSettings.value = res.data ?? null;
+      }
+    }
   };
 
   return {
@@ -25,5 +35,8 @@ export const useUtilStore = defineStore("utils", () => {
     articleCategories,
     courseCategories,
     roadMapData,
+    siteSettings,
+    setSiteSettings,
+    globalLoading
   };
 });
