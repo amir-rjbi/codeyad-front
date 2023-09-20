@@ -1,10 +1,10 @@
 <template>
-    <div :class="['alert rounded shadow-2xl', alertType]">
+    <div :class="['alert rounded shadow-2xl items-center', alertType]">
         <IconsCheck v-if="alertType == 'success'" color="white" width="25px" height="25" />
         <IconsWarning v-if="alertType == 'warning'" color="white" width="25px" height="25"/>
         <IconsClose v-if="alertType == 'error'" color="white" width="25px" height="25"/>
         <IconsInfo v-if="alertType == 'info'" color="white" width="25px" height="25"/>
-        <div>
+        <div class="w-full">
             <slot />
         </div>
     </div>
@@ -19,7 +19,7 @@ withDefaults(defineProps<{
 </script>
 <style scoped lang="scss">
 .alert {
-    @apply text-white p-4 flex gap-3 items-start;
+    @apply text-white p-4 flex gap-3;
 
     &.warning {
         @apply bg-orange

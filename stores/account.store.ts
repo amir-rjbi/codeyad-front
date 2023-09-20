@@ -1,4 +1,5 @@
-import { NotificationDto } from './../models/account/Notification';
+import { useUtilStore } from "./util.store";
+import { NotificationDto } from "./../models/account/Notification";
 import {
   GetCurrentUserData,
   GetNotifications,
@@ -6,11 +7,11 @@ import {
 import { User } from "./../models/account/User";
 import { defineStore } from "pinia";
 import { ApiStatusCodes } from "~/models/ApiStatusCodes";
-import Loading from "~/components/icons/loading.vue";
 
 export const useAccountStore = defineStore("account", () => {
   const currentUser: Ref<User | null> = ref(null);
   const notifications: Ref<NotificationDto[]> = ref([]);
+  const newNotifications = ref(0);
   const initLoading = ref(true);
 
   const initData = async () => {
@@ -18,7 +19,8 @@ export const useAccountStore = defineStore("account", () => {
     var promise = await Promise.all([GetCurrentUserData(), GetNotifications()]);
     if (promise[0].isSuccess) {
       currentUser.value = promise[0].data!;
-      notifications.value = promise[1].data!;
+      notifications.value = promise[1].data?.data ?? [];
+      newNotifications.value = promise[1].data?.newNotifications ?? 0;
     } else if (
       promise[0].metaData.appStatusCode == ApiStatusCodes.UnAuthorize
     ) {

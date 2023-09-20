@@ -1,3 +1,4 @@
+import { useUtilStore } from './util.store';
 import { useAccountStore } from "./account.store";
 import { LogoutUser, RegisterCommand } from "./../services/auth.service";
 import { LoginResult } from "./../models/account/LoginResult";
@@ -8,6 +9,7 @@ export const useAuthStore = defineStore("auth", () => {
   const currentStep = ref("login");
   const loading = ref(false);
   const callBackFunctionAfterLogin: Ref<Function | null> = ref(null);
+  const utilStore = useUtilStore();
 
   const registerData: Ref<RegisterCommand | null> = ref(null);
 
@@ -35,7 +37,7 @@ export const useAuthStore = defineStore("auth", () => {
     }, 300);
   };
   const logOut = async () => {
-    loading.value = true;
+    utilStore.globalLoading = true;
     var res = await LogoutUser();
     if (res.isSuccess) {
       var cookie = useCookie("c-access-token");
@@ -43,7 +45,7 @@ export const useAuthStore = defineStore("auth", () => {
       cookie.value = null;
       refreshCookie.value = null;
     }
-    loading.value = false;
+    utilStore.globalLoading = false;
   };
   const changeStep = (
     step: "login" | "register" | "forgotPassword" | "activate"
