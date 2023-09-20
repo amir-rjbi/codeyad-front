@@ -1,12 +1,7 @@
 import { User } from "./User";
+import {BaseFilterResult} from "~/models/IApiResponse";
 
-export interface UserMessageFilterResult {
-  entityCount: number;
-  currentPage: number;
-  pageCount: number;
-  startPage: number;
-  endPage: number;
-  take: number;
+export interface UserMessageFilterResult extends BaseFilterResult{
   messages: UserMessageFilterData[];
 }
 export interface UserMessageFilterData {
