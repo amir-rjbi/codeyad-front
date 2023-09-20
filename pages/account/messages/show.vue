@@ -1,11 +1,10 @@
 <template>
-  <main class="p-4">
-    <div class="flex items-center space-x-4 space-x-reverse">
+  <main class="chat-bg">
+    <div class="flex items-center p-4 bg-white space-x-reverse">
       <strong>موضوع گفتگو:</strong>
       <span v-if="messages != null">{{ messages.subject }}</span>
     </div>
-    <div ref="chatArea" class="shadow-lg rounded-lg p-5 mt-4 max-h-[70vh] overflow-y-auto chat-bg"
-      v-if="messages != null">
+    <div ref="chatArea" class="shadow-lg rounded-lg p-5 mt-4 h-[55vh] overflow-y-auto" v-if="messages != null">
       <ul v-if="messages.messageContents.length > 0">
         <li v-for="message in messages.messageContents" :class="[`${message.senderUser.id === userId ? 'me' : 'you'}`]">
           <base-img :src="GetUserAvatar(message.senderUser.imageName)" class="w-[30px] h-[30px]  rounded" width="60px"
@@ -20,22 +19,24 @@
           </p>
         </li>
       </ul>
-      <div class="rounded-md  mt-4">
-        <Form @submit.prevent="sendMessage" class="flex items-center space-x-4 space-x-reverse">
-          <base-input class="flex-1" required v-model="userMessage" name="userMessage" placeholder="پیام خود را وارد کنید"
-            multiline />
-          <base-button size="sm" type="submit">
+    </div>
+    <div class="bg-white p-3 w-full">
+      <Form @submit.prevent="sendMessage" class="flex items-center gap-2">
+        <base-input class="flex-1" out-line required v-model="userMessage" name="userMessage"
+          placeholder="پیام خود را وارد کنید" multiline />
+        <base-button type="submit">
+          <div class="flex gap-2">
+            ارسال
             <svg aria-hidden="true" class="w-6 h-6 -rotate-90" fill="currentColor" viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z">
               </path>
             </svg>
-          </base-button>
-        </Form>
-      </div>
+          </div>
+        </base-button>
+      </Form>
     </div>
-
   </main>
 </template>
 
