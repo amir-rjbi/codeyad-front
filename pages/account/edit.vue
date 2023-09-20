@@ -70,6 +70,7 @@ onMounted(() => {
   data.name = accountStore.currentUser!.name;
   data.email = accountStore.currentUser!.email;
   data.phoneNumber = accountStore.currentUser!.phoneNumber;
+  data.about = accountStore.currentUser!.aboutMe;
 })
 const edit = () => {
   var formData = new FormData();

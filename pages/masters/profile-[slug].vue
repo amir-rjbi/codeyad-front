@@ -9,10 +9,14 @@
             <BaseModal v-model="isOpenModal" :title="`ارسال پیام به ${teacherData.teacher.fullName}`">
                 <Form @submit="sendMessage" :validation-schema="schema" v-slot="{ meta }"
                     class="min-w-[500px] sm:min-w-fit">
-                    <BaseInput out-line name="title" label="عنوان گفتوگو" />
-                    <BaseTextArea out-line class="mt-4 mb-4" name="description" label="متن پیام" />
+                    <BaseInput v-model="sendMessageData.title" out-line name="title" label="عنوان گفتوگو" />
+                    <BaseTextArea v-model="sendMessageData.message" out-line class="mt-4 mb-4" name="description"
+                        label="متن پیام" />
                     <div class="flex justify-end">
-                        <BaseButton :loading="sendMessageLoading" :disabled="!meta.valid">ثبت</BaseButton>
+                        <BaseButton :loading="sendMessageLoading" :disabled="!meta.valid">
+                            <span v-if="authStore.isLogin">ارسال پیام</span>
+                            <span v-else>ورود به حساب و ارسال پیام</span>
+                        </BaseButton>
                     </div>
                 </Form>
             </BaseModal>
@@ -67,7 +71,7 @@
                                 class="flex-grow text-[18px] sm:text-[14px]" @click="toggleFollow">لغو دنبال
                                 کردن
                             </BaseButton>
-                            <BaseButton  @click="() => isOpenModal = true"
+                            <BaseButton @click="() => isOpenModal = true"
                                 :disabled="teacherData.teacher.userId == accountStore.currentUser?.id" :color-white="true"
                                 class="flex-grow text-[18px] sm:text-[14px]">ارسال پیام
                             </BaseButton>
@@ -114,6 +118,10 @@ const isOpenModal = ref(false);
 const toast = useToast();
 const route = useRoute();
 const router = useRouter();
+const sendMessageData = reactive({
+    title: "",
+    message: ""
+})
 var userName = route.params.slug.toString();
 const courseFilterData: Ref<FilterResult<CourseFilterData> | null> = ref(null);
 const loading = ref(false);
@@ -124,9 +132,13 @@ if (!data.value?.data) {
 }
 const teacherData = ref(data.value.data);
 const sendMessageLoading = ref(false);
-const sendMessage = async (fData: any, ev: any) => {
+const sendMessage = async () => {
+    if (authStore.isLogin == false) {
+        authStore.openLoginModal(sendMessage);
+        return;
+    }
     sendMessageLoading.value = true;
-    var res = await CreateMessage(teacherData.value.teacher.userName, fData.title, fData.description);
+    var res = await CreateMessage(teacherData.value.teacher.userName, sendMessageData.title, sendMessageData.message);
     if (res.isSuccess) {
         toast.showToast("پیام با موفقیت برای " + teacherData.value.teacher.fullName + " ارسال شد")
         router.push('/account/messages/show?messageId=' + res.data)
