@@ -2,6 +2,7 @@ import { setLocale, addMethod, string, number } from "yup";
 import {
   phoneNumberValidator,
   verifyIranianNationalId,
+  verifyCardNumber,
 } from "@persian-tools/persian-tools";
 import { ErrorMessage } from "vee-validate";
 
@@ -28,6 +29,12 @@ export default defineNuxtPlugin(() => {
         return phoneNumberValidator(value?.toString()!);
       }
     );
+  });
+  addMethod(string, "cardNumber", function cardNumber(cardNumber: string) {
+    return this.test("cardNumber", " شماره کارت نامعتبر است", function (value) {
+      if (value === undefined) return true;
+      return verifyCardNumber(Number(value?.toString()!));
+    });
   });
   addMethod(
     string,
