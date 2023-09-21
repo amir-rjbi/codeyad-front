@@ -1,4 +1,5 @@
 import {BaseFilterResult,FilterParams} from "~/models/IApiResponse";
+import {SearchOnType} from "../IApiResponse";
 
 export interface ConsultationFilterParams extends FilterParams{
     teacherId:number | null | undefined;
@@ -6,11 +7,6 @@ export interface ConsultationFilterParams extends FilterParams{
     StartDate:Date | null | undefined;
     EndDate:Date | null | undefined;
     SearchOn:SearchOnType | null | undefined;
-}
-export enum SearchOnType{
-    deleted,
-    active,
-    all
 }
 
 export interface ConsultationFilterResult extends BaseFilterResult{

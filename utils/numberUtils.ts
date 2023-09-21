@@ -25,3 +25,7 @@ export const IsNumberData = (data: any): boolean => {
   return !isNaN(data);
   
 };
+
+export const toTomanPrice = (rawNumber:number):string =>{
+  return rawNumber.toLocaleString();
+}
