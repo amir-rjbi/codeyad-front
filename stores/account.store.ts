@@ -2,25 +2,33 @@ import { useUtilStore } from "./util.store";
 import { NotificationDto } from "./../models/account/Notification";
 import {
   GetCurrentUserData,
-  GetNotifications,
+  GetUserAlertsCount,
 } from "./../services/account.service";
-import { User } from "./../models/account/User";
+import { User, UserAlertsCount } from "./../models/account/User";
 import { defineStore } from "pinia";
 import { ApiStatusCodes } from "~/models/ApiStatusCodes";
 
 export const useAccountStore = defineStore("account", () => {
   const currentUser: Ref<User | null> = ref(null);
-  const notifications: Ref<NotificationDto[]> = ref([]);
-  const newNotifications = ref(0);
+  const newAlertsCount: Ref<UserAlertsCount | null> = ref(null);
   const initLoading = ref(true);
 
+  const haveNewAlert = computed(() => {
+    return (
+      newAlertsCount.value?.newMessagesCount ??
+      (0 > 0 || newAlertsCount.value?.newNotificationsCount) ??
+      0 > 0
+    );
+  });
   const initData = async () => {
     initLoading.value = true;
-    var promise = await Promise.all([GetCurrentUserData(), GetNotifications()]);
+    var promise = await Promise.all([
+      GetCurrentUserData(),
+      GetUserAlertsCount(),
+    ]);
     if (promise[0].isSuccess) {
       currentUser.value = promise[0].data!;
-      notifications.value = promise[1].data?.data ?? [];
-      newNotifications.value = promise[1].data?.newNotifications ?? 0;
+      newAlertsCount.value = promise[1].data ?? null;
     } else if (
       promise[0].metaData.appStatusCode == ApiStatusCodes.UnAuthorize
     ) {
@@ -29,9 +37,9 @@ export const useAccountStore = defineStore("account", () => {
       cookie.value = null;
       refreshCookie.value = null;
       currentUser.value = null;
-      notifications.value = [];
+      newAlertsCount.value = null;
     }
     initLoading.value = false;
   };
-  return { initData, currentUser, notifications, initLoading };
+  return { initData,haveNewAlert, currentUser, newAlertsCount, initLoading };
 });

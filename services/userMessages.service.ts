@@ -31,7 +31,13 @@ export const CreateMessage = (
 export const getUserMessage = (
   messageId: number
 ): Promise<IApiResponse<UserMessageData>> => {
-  return FetchApi(`/UserMessages/GetById/${messageId}`);
+  return FetchApi(
+    `/UserMessages/GetById/${messageId}`,
+    {},
+    {
+      ignoreErrors: true,
+    }
+  );
 };
 
 export const SendMessage = (

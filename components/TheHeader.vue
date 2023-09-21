@@ -57,8 +57,16 @@
 
                     </template>
                     <template v-else>
-                        <nuxt-link to="/account/notifications" class="notification bg-secondary rounded-[3px] p-[7px]">
+                        <nuxt-link to="/account/notifications" :class="['notification bg-secondary rounded-[3px] p-[7px] notification',
+                            { 'border border-red-400': accountStore.haveNewAlert }]">
                             <IconsNotification color="var(--primary-color)" />
+                            <div class="dot" v-if="accountStore.haveNewAlert">
+                                <span class="relative flex h-3 w-3">
+                                    <span
+                                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-3 w-3 bg-red"></span>
+                                </span>
+                            </div>
                         </nuxt-link>
                         <div class="flex relative items-center gap-2 cursor-pointer"
                             v-click-outside="() => showMenu = false" @click="showMenu = !showMenu">

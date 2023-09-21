@@ -1,20 +1,14 @@
 import { NotificationFilterResult } from "./../models/account/Notification";
-import { User } from "./../models/account/User";
+import { User, UserAlertsCount } from "./../models/account/User";
 import { IApiResponse } from "~~/models/IApiResponse";
 
 export const GetCurrentUserData = (): Promise<IApiResponse<User>> => {
   return FetchApi("/user/current");
 };
-export const GetNotifications = (
-  pageId: number = 1,
-  take: number = 5
-): Promise<IApiResponse<NotificationFilterResult>> => {
-  return FetchApi("/notification", {
-    query: {
-      pageId,
-      take,
-    },
-  });
+export const GetUserAlertsCount = (): Promise<
+  IApiResponse<UserAlertsCount>
+> => {
+  return FetchApi("/user/current/alertsCount");
 };
 export const EditProfile = (
   name: string,
@@ -42,8 +36,8 @@ export const EditProfile = (
 };
 
 export const SendVerifyPhoneNumber = () => {
-  return FetchApi("/user/activate-phone",{
-    method:"POST"
+  return FetchApi("/user/activate-phone", {
+    method: "POST",
   });
 };
 export const VerifyUserPhoneNumber = (code: string) => {

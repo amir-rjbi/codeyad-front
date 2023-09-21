@@ -14,10 +14,18 @@
         <nuxt-link to="/account/wallet"> کیف پول </nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/account/notifications"> اعلانات </nuxt-link>
+        <nuxt-link to="/account/notifications"> اعلانات
+          <span class="text-white font-bold text-h9 px-2 rounded-[4px] bg-red"
+            v-if="accountStore.newAlertsCount?.newNotificationsCount ?? 0 > 0">{{
+              accountStore.newAlertsCount?.newNotificationsCount }}</span>
+        </nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/account/messages"> گفتوگو ها </nuxt-link>
+        <nuxt-link to="/account/messages"> گفتوگو ها
+          <span class="text-white font-bold text-h9 px-2 rounded-[4px] bg-red"
+            v-if="accountStore.newAlertsCount?.newMessagesCount ?? 0 > 0">{{
+              accountStore.newAlertsCount?.newMessagesCount }}</span>
+        </nuxt-link>
       </li>
       <li>
         <nuxt-link to="/account/tickets"> تیکت ها </nuxt-link>
@@ -54,7 +62,11 @@
     </ul>
   </aside>
 </template>
+<script setup lang="ts">
+import { useAccountStore } from '~/stores/account.store';
 
+const accountStore = useAccountStore();
+</script>
 <style scoped lang="scss">
 @media screen and (max-width: 768px) {
   aside {

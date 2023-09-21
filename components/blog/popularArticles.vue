@@ -6,7 +6,7 @@
                 class="bg-white mb-5 p-3 rounded-[12px] pt-4 text-h7" />
         </template>
         <template v-else>
-            <nuxt-link :key="index" :to="`/mag/post/${item.slug}`" class="bg-white mb-5 p-3 rounded-[12px] pt-4 text-h7"
+            <nuxt-link :key="index" :to="`/mag/post/${item.slug}`" class="bg-white block mb-5 p-3 rounded-[12px] pt-4 text-h7"
                 v-for="(item, index) in 
             utilStore.popularArticles">
                 {{ item.title }}</nuxt-link>

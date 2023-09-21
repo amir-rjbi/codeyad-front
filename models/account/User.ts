@@ -13,3 +13,7 @@ export interface User {
   isCompleteProfile: boolean;
   isVerifyPhoneNumber: boolean;
 }
+export interface UserAlertsCount {
+  newNotificationsCount: number;
+  newMessagesCount: number;
+}
