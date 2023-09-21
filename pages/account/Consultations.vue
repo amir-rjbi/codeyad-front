@@ -43,9 +43,6 @@
               <td v-else-if="c.status === ConsultationStatus.rejected">رد شده</td>
               <td v-else-if="c.status === ConsultationStatus.new">در حال بررسی</td>
               <td>{{c.teacherNote}}</td>
-              <td class="flex justify-center">
-                <BaseButton>نمایش</BaseButton>
-              </td>
             </tr>
           </template>
           <template v-else>
@@ -89,6 +86,8 @@ const filterParams:ConsultationFilterParams = reactive({
   SearchOn:undefined,
   StartDate:undefined
 });
+
+watch(pageId,async()=>getData());
 
 onMounted(async ()=>{
   await getData();
