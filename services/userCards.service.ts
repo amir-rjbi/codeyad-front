@@ -1,8 +1,10 @@
 import { IApiResponse } from "~~/models/IApiResponse";
 import { Card } from "../models/account/card";
 
-export const GetUserCard = (): Promise<IApiResponse<Card[]>> => {
-  return FetchApi("/UserCards");
+export const GetUserCards = (): Promise<IApiResponse<Card[]>> => {
+  return FetchApi("/UserCards",{},{
+    ignoreErrors:true
+  });
 };
 export const GetUserCardById = (id: string): Promise<IApiResponse<Card>> => {
   return FetchApi(`/UserCards/GetById/${id}`);

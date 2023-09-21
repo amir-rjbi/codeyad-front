@@ -66,7 +66,7 @@
 </template>
 <script setup lang="ts">
 import { Card } from "~/models/account/card";
-import { DeleteCard, GetUserCard } from "~/services/userCards.service";
+import { DeleteCard, GetUserCards } from "~/services/userCards.service";
 import { SplitCardNumber } from "~/utils/stringUtil";
 
 definePageMeta({
@@ -108,7 +108,7 @@ onMounted(async () => {
 });
 const getCards = async () => {
   loading.value = true;
-  var res = await GetUserCard();
+  var res = await GetUserCards();
   if (res.isSuccess) {
     data.value = res.data ?? [];
   }

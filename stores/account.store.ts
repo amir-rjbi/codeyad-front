@@ -14,11 +14,11 @@ export const useAccountStore = defineStore("account", () => {
   const initLoading = ref(true);
 
   const haveNewAlert = computed(() => {
-    return (
-      newAlertsCount.value?.newMessagesCount ??
-      (0 > 0 || newAlertsCount.value?.newNotificationsCount) ??
-      0 > 0
-    );
+    if ((newAlertsCount.value?.newMessagesCount ?? 0) > 0) return true;
+    if ((newAlertsCount.value?.newNotificationsCount ?? 0) > 0) return true;
+
+
+    return false;
   });
   const initData = async () => {
     initLoading.value = true;
@@ -41,5 +41,5 @@ export const useAccountStore = defineStore("account", () => {
     }
     initLoading.value = false;
   };
-  return { initData,haveNewAlert, currentUser, newAlertsCount, initLoading };
+  return { initData, haveNewAlert, currentUser, newAlertsCount, initLoading };
 });
