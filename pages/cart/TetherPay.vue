@@ -4,6 +4,10 @@
         <Head>
             <Title>سبد خرید</Title>
         </Head>
+        <BaseAlert alert-type="warning" class="mb-4" v-if="data?.data?.wallet">
+            <h5>{{ data?.data?.wallet.title }}</h5>
+            <p>{{ data?.data?.wallet.description }}</p>
+        </BaseAlert>
         <h1 class="mb-4 text-h3">سبد خرید شما</h1>
         <div class="flex gap-4 flex-wrap justify-between mt-5">
             <div class=" sm:bg-transparent flex-grow flex gap-2 flex-col h-fit">
@@ -29,41 +33,27 @@
             </div>
             <div class="card p-4 w-[30%] flex gap-2 flex-col md:w-[60%] md:m-auto sm:!w-full" v-if="pending">
                 <BaseSkeletonLoaidng />
-                <BaseSkeletonLoaidng class="mt-4" type="three-line"/>
-
+                <BaseSkeletonLoaidng class="mt-4" type="three-line" />
             </div>
             <template v-else>
-                <div class="card p-4 w-[30%] flex gap-2 flex-col md:w-[60%] md:m-auto sm:!w-full"
+                <div class="card p-4 w-[40%] flex gap-2 flex-col md:w-[60%] md:m-auto sm:!w-full"
                     v-if="(data?.data?.courseOrder.totalPrice ?? 0) > 0">
-                    <form @submit.prevent="applyCode"
-                        :class="['flex gap-2 flex-col', { 'card-loading': discountCodeLoading }]">
-                        <BaseInput v-model="disCountCode" name="discount" out-line
-                            placeholder="اگر کد تخفیفی دارید اینجا وارد کنید" label="کدتخفیف" />
-                        <BaseButton :loading="discountCodeLoading" class="w-full">اعمال کد تخفیف</BaseButton>
-                    </form>
+                    <p>آدرس کیف پول : {{ data?.data?.wallet.wallet }}</p>
+                    <BaseImg :src="GetWalletQRcodeImage(data?.data?.wallet.walletQRCodeImage ?? '')"
+                        style="height: 250px;object-fit: contain;" alt="wallet" />
                     <hr />
                     <p><span>مبلغ کل</span> :{{ data?.data?.courseOrder.price.toLocaleString() }} تومان </p>
                     <p><span>تخفیف</span> : {{ data?.data?.courseOrder.discount.toLocaleString() }} تومان</p>
                     <p><span>قابل پرداخت </span> : {{ data?.data?.courseOrder.totalPrice.toLocaleString() }} تومان</p>
-                    <p><span>قابل پرداخت ارزی (تتر) </span> : {{ data?.data?.orderPriceWithTether }}</p>
+                    <p><span>قابل پرداخت ارزی (تتر) </span> : <label dir="ltr">{{ data?.data?.orderPriceWithTether
+                    }}</label></p>
                     <hr />
-                    <b>نحوه پرداخت</b>
-                    <div class="my-3 flex gap-4 flex-col">
-                        <label
-                            :class="['flex items-center gap-4  font-semibold cursor-pointer', { 'card-loading': isAccessPayWithWallet }]">
-                            <input type="radio" value="wallet" name="wallet" :disabled="isAccessPayWithWallet" />
-                            کیف پول - <small>موجودی : {{ accountStore.currentUser?.walletAmount?.toLocaleString() }}
-                                تومان</small>
-                        </label>
-                        <label class="flex items-center gap-4 font-semibold cursor-pointer">
-                            <input type="radio" value="wallet" name="gateway" />
-                            درگاه پرداخت
-                        </label>
-                    </div>
-                    <BaseButton class="w-full" color="green">پرداخت
-                    </BaseButton>
-                    <BaseButton class="w-full" color="orange">پرداخت با ارز
-                        دیجیتال</BaseButton>
+                    <Form @submit="createRequest">
+                        <BaseInput name="txtId" v-model="txtId" label="کد پیگیری (TxID)" required out-line
+                            placeholder="کد پیگیری پرداخت خود را وارد کنید" />
+                        <BaseButton :loading="payLoading" :disabled="txtId.length < 5" class="w-full mt-2" color="green">ثبت
+                            درخواست</BaseButton>
+                    </Form>
                 </div>
             </template>
         </div>
@@ -71,34 +61,40 @@
     </div>
 </template>
 <script setup lang="ts">
+import { Form } from "vee-validate";
 import { useAccountStore } from "~/stores/account.store";
 import { useAuthStore } from "~/stores/auth.store";
-import { GetCurrentCart, DeleteShopCartItem, ApplyDiscount } from "~~/services/shopCart.service"
+import { useUtilStore } from "~/stores/util.store";
+import { GetCurrentCart, DeleteShopCartItem, TetherPayPageData, CreateTetherPayRequest } from "~~/services/shopCart.service"
+
+const txtId = ref('');
 const toast = useToast();
-const { data, pending, refresh } = useAsyncData("shopCart", () => GetCurrentCart());
+const { data, pending, refresh } = useAsyncData("tetherPay", () => TetherPayPageData());
 const isOpenDeletePoup = ref(false);
 const selectedItem = ref(0);
 const authStore = useAuthStore();
 const accountStore = useAccountStore();
-const discountCodeLoading = ref(false);
+const utilStore = useUtilStore();
+const payLoading = ref(false);
+const router = useRouter();
 
-const disCountCode = ref('');
 const openDeletePopup = (id: number) => {
     selectedItem.value = id;
     isOpenDeletePoup.value = true;
 }
-const isAccessPayWithWallet = computed(() => {
-    return (accountStore.currentUser?.walletAmount ?? 0) < (data.value?.data?.courseOrder.totalPrice ?? 0)
-})
 
-const applyCode = async () => {
-    discountCodeLoading.value = true;
-    var result = await ApplyDiscount(disCountCode.value);
-    if (result.isSuccess) {
-        toast.showToast("کد تخفیف با موفقیت اعمال شد");
-        refresh();
+const createRequest = async () => {
+    payLoading.value = true;
+    var res = await CreateTetherPayRequest(txtId.value);
+    if (res.isSuccess) {
+        router.push('/account/orders');
+        toast.showToast('سفارش شما با موفقیت ثبت شد ، بعد از تایید پرداخت توسط ادمین ، دوره به حساب کاربری شما اضافه می شود', ToastType.success, 10000)
+        setTimeout(() => {
+            toast.showToast('توجه ! تا وقتی که درخواست شما تایید نشده است سبد خرید خود را تغییر ندهدید ، در صورت مغایرت مبلغ سبد خرید و مبلغ پرداختی ، سفارش شما لغو میشود.', ToastType.warning, 200000)
+        }, 2000);
     }
-    discountCodeLoading.value = false;
+    payLoading.value = false;
+
 }
 const deleteItem = async () => {
     var res = await DeleteShopCartItem(selectedItem.value);

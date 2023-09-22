@@ -71,6 +71,17 @@ export async function FetchApi<T>(
             appStatusCode: ApiStatusCodes.BadRequest,
           },
         });
+      } else if (e.response?.status == 403) {
+        var errMessage = "دسترسی غیرمجاز";
+        console.log(e.response?._data);
+        showError({
+          isSuccess: false,
+          data: undefined,
+          metaData: {
+            message: e.response?._data?.metaData?.message ?? errMessage,
+            appStatusCode: ApiStatusCodes.BadRequest,
+          },
+        });
       } else if (e.response?.status == 429) {
         showError({
           isSuccess: false,

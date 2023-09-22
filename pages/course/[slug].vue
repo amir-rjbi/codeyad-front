@@ -29,8 +29,9 @@
                                 <IconsTime color="white" />
                             </div>
                             <div class="flex gap-2 items-center sm:w-full ">
-                                <nuxt-link :to="`/m/${courseData.courseDto.userId}`" class="hover:text-yellow-200">{{
-                                    courseData.courseDto.teacherFullName }} </nuxt-link>
+                                <nuxt-link :to="`/masters/profile-${courseData.courseDto.userId}`"
+                                    class="hover:text-yellow-200">{{
+                                        courseData.courseDto.teacherFullName }} </nuxt-link>
                                 <icons-user color="white" />
                             </div>
                         </div>
@@ -39,7 +40,7 @@
                                     v-if="courseData.courseDto.price == 0">رایگان</label><label v-else>{{
                                         courseData.courseDto.totalPrice.toLocaleString() }} تومان </label></p>
 
-                            <BaseButton target="_blank" v-if="userHasCourse" :render-button-tag="false"
+                            <BaseButton  v-if="userHasCourse" :render-button-tag="false"
                                 :to="`/course/panel-${courseData.courseDto.id}`" class="sm:w-full" color-white>
                                 ادامه یادگیری
                                 <template #icon>
@@ -206,6 +207,10 @@ const userHasCourse = computed(() => {
 const registerCourse = async () => {
     if (authStore.isLogin == false) {
         authStore.openLoginModal(registerCourse)
+        return;
+    }
+    if (userHasCourse.value == true) {
+        router.push(`/course/panel-${courseData.value.courseDto.id}`);
         return;
     }
     registerLoading.value = true;

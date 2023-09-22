@@ -37,7 +37,7 @@
                             </a>
                         </div>
                     </div>
-                    <baseButton :render-button-tag="false" :to="`/masters/profile-${item.userName}`"
+                    <baseButton :render-button-tag="false" :to="`/masters/profile/${item.userName}`"
                         class="w-full mt-[18px]">
                         مشاهده
                         پروفایل</baseButton>

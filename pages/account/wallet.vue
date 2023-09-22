@@ -60,7 +60,6 @@
               </td>
             </tr>
           </template>
-
           <!-- No Data -->
           <template v-else>
             <tr>
@@ -89,12 +88,21 @@ const loading = ref(false);
 const isOpenModal = ref(false);
 const wallets: Ref<WalletDto[]> = ref([]);
 const walletsResult: Ref<WalletFilterResult | null> = ref(null);
+const router = useRouter();
+const toast = useToast();
 
 const pageId = ref(1);
 watch(pageId, async (val) => await getData())
 
 onMounted(async () => {
   await getData();
+  var op = router.currentRoute.value.query.op;
+  if (op) {
+    if (op.toString() == 'success') {
+      router.push('/account/wallet')
+      toast.showToast('کیف پول با موفقیت شارژ شد');
+    }
+  }
 })
 
 const getData = async () => {

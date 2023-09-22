@@ -129,7 +129,8 @@ const selectedEpisode: Ref<PlayerEpisode | null> = ref(null);
 const { data, pending } = await useAsyncData("course-panel", () => GetCourseForPlayer(Number(route.params.slug.toString())));
 const videoUrl = ref(GetCourseDemo(data.value?.data?.demo ?? ''));
 if (!data.value?.data) {
-    toast.showToast("درحال حاظر دسترسی به دوره ندارید", ToastType.warning)
+    toast.showToast("درحال حاظر دسترسی به دوره ندارید", ToastType.warning);
+    console.log(route.params.slug);
     throw createError({ statusCode: 403, statusMessage: 'دسترسی غیرمجاز' })
 }
 const videoPlayerData = ref(data.value.data);
@@ -234,7 +235,6 @@ aside {
 
             &.active {
                 font-weight: 900;
-
                 &::after {
                     width: 100%;
                     position: absolute;
@@ -279,7 +279,9 @@ aside {
 
     &.active {
         color: var(--primary-color);
-
+        right: -10px;
+        position: relative;
+        transform: scale(1.1);
         p {
             font-weight: bolder;
 
