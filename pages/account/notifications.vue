@@ -45,7 +45,7 @@ const deleteNotifications = async () => {
   if (res.isSuccess) {
     notifications.value = null;
     toast.showToast("اعلانات با موفیت حذف شدند");
-    isOpenModal.value = true;
+    isOpenModal.value = false;
   }
   loading.value = false;
 

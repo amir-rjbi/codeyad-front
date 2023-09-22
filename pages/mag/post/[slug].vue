@@ -40,8 +40,9 @@
                     </div>
                 </template>
                 <div class="card" v-else-if="articleData">
-                    <base-img class="article-banner w-full mb-8" :src="GetArticleImage(articleData.article.imageName)"
-                        :alt="articleData.article.title" height="600px" />
+                    <base-img class="article-banner w-full mb-8 sm:!h-[300px]"
+                        :src="GetArticleImage(articleData.article.imageName)" :alt="articleData.article.title"
+                        height="600px" />
                     <div class="writer flex items-center gap-[11px]">
                         <base-img :src="GetUserAvatar(articleData.ownerUser.imageName)" class="rounded-full" alt="user"
                             width="30" height="30" />

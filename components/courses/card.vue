@@ -34,10 +34,10 @@
     </div>
 </template>
 <script setup lang="ts">
-import { CourseFilterData, CourseLevel } from '~/models/courses/CourseFilterData';
+import { CourseSearchData, CourseLevel } from '~/models/courses/CourseFilterData';
 
 defineProps<{
-    item: CourseFilterData
+    item: CourseSearchData
 }>();
 </script>
 <style scoped lang="scss">

@@ -1,6 +1,6 @@
 import { CourseCategory } from "~/models/courses/Course";
 import {
-  CourseFilterData,
+  CourseSearchData,
   CourseFilterParams,
 } from "./../models/courses/CourseFilterData";
 import { CourseLanding } from "./../models/courses/CourseLanding";
@@ -19,7 +19,7 @@ export const GetCourseLanding = (
 };
 export const GetCourseByFilter = (
   filterParams: CourseFilterParams
-): Promise<IApiResponse<FilterResult<CourseFilterData>>> => {
+): Promise<IApiResponse<FilterResult<CourseSearchData>>> => {
   return FetchApi("/course/getByFilter", {
     query: filterParams,
   });

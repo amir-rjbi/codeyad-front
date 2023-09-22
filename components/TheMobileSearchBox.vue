@@ -7,29 +7,61 @@
             </button>
         </form>
         <div class=" container my-6">
-            <p class="text-h8 mb-2">نتایج جستوجو در دوره ها</p>
-            <div class="flex gap-2 flex-col">
+            <p class="text-h8 mb-2">نتایج جستوجو در دوره ها <span v-if="data?.courses"> - {{ data?.courses.length }}
+                    دروه</span></p>
+            <div class="flex gap-2 flex-col" v-if="loading">
                 <BaseSkeletonLoaidng width="100%" height="10px" v-for="item in [1, 2, 3]" />
             </div>
+            <div v-else class="flex gap-4 flex-col my-5  pr-4">
+                <nuxt-link class="text-h9" @click="$emit('closeSideBar')" :to="`/course/${item.slug}`"
+                    v-for="item in data?.courses" :key="item.slug">
+                    {{ item.courseTitle }} -
+                    <span class="text-red" v-if="item.price > 0">{{ item.totalPrice.toLocaleString()
+                    }} تومان</span>
+                    <span class="text-green" v-else>رایگان</span>
+                </nuxt-link>
+            </div>
+
         </div>
         <div class=" container my-6">
             <hr class="mb-4" />
 
-            <p class="text-h8 mb-2">نتایج جستوجو در مقالات</p>
-            <div class="flex gap-2 flex-col">
+            <p class="text-h8 mb-2">نتایج جستوجو در مقالات <span v-if="data?.articles"> - {{ data?.articles.length }}
+                    مقاله</span></p>
+            <div class="flex gap-2 flex-col" v-if="loading">
                 <BaseSkeletonLoaidng width="100%" height="10px" v-for="item in [1, 2, 3]" />
+            </div>
+            <div class="flex gap-4 flex-col my-5  pr-4" v-else>
+                <nuxt-link class="text-h9" @click="$emit('closeSideBar')" :to="`/mag/post/${item.slug}`"
+                    v-for="item in data?.articles" :key="item.slug">
+                    {{ item.title }}
+                </nuxt-link>
             </div>
         </div>
     </div>
 </template>
 <script setup lang="ts">
+import { SearchFilterResult } from '~/models/SearchFilterResult';
+import { SearchAll } from '~/services/search.service';
+
 const emits = defineEmits(['closeSideBar']);
 const CloseSideBar = () => {
     emits('closeSideBar');
 }
 const searchValue = ref('');
-const search = () => {
-
+const loading = ref(false);
+const toast = useToast();
+const data: Ref<SearchFilterResult | null> = ref(null);
+const search = async () => {
+    if (searchValue.value.length < 3) {
+        toast.showToast('متن جستوجوی کامل تری وارد کنید', ToastType.warning)
+        return;
+    }
+    loading.value = true;
+    var res = await SearchAll(searchValue.value);
+    if (res.isSuccess)
+        data.value = res.data ?? null
+    loading.value = false;
 }
 </script>
 <style scoped lang="scss">
@@ -42,6 +74,7 @@ div.relative {
     z-index: 1001;
     background: var(--color-white);
     font-size: 16px;
+    overflow: auto;
 
     .search {
         flex-grow: 2;

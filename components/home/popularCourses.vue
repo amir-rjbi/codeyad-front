@@ -5,13 +5,13 @@
             <BaseTab :items="tabData" @change-tab="getNewCourses" />
         </div>
         <div class="course-wrapper mt-9  flex gap-[18px] xl:gap-[15px] md:!gap-3  flex-wrap md:justify-between">
-            <CoursesCard class="w-[24%]  lg:!w-[31.6%] " v-for="item in data" :key="item.id" :item="item" />
+            <CoursesCard class="w-[24%]  lg:!w-[31.6%] " v-for="item in data" :key="item.slug" :item="item" />
 
         </div>
     </section>
 </template>
 <script setup lang="ts">
-import { CourseFilterData } from '~/models/courses/CourseFilterData';
+import { CourseSearchData } from '~/models/courses/CourseFilterData';
 import { useUtilStore } from '~/stores/util.store';
 import { TabData } from '../base/Tab.vue';
 import { GetCourseCategories } from '~/services/course.service';
@@ -31,7 +31,7 @@ const getNewCourses = (category: string) => {
 }
 const loading = ref(false);
 defineProps<{
-    data: CourseFilterData[] | null
+    data: CourseSearchData[] | null
 }>();
 
 onMounted(async () => {

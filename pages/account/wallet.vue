@@ -51,7 +51,8 @@
               <td>{{ wallet.amount.toLocaleString() }} تومان</td>
               <td>${{ wallet.cryptoAmount }}</td>
               <td>
-                <b class="text-green">{{ wallet.walletType }}</b>
+                <b class="text-red" v-if="wallet.walletType == WalletType.برداشت">برداشت</b>
+                <b class="text-green" v-else>واریز</b>
               </td>
               <td v-if="wallet.isFinally">{{ toPersianDate(new Date(wallet.paymentDate)) }}</td>
               <td>
@@ -79,7 +80,7 @@
 </template>
 <script setup lang="ts">
 import { GetWallets } from "../../services/wallet.service";
-import { WalletDto, WalletFilterResult } from "../../models/wallets/WalletFilterResult";
+import { WalletDto, WalletFilterResult, WalletType } from "../../models/wallets/WalletFilterResult";
 
 definePageMeta({
   layout: "account",

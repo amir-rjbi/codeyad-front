@@ -1,10 +1,13 @@
 <template>
     <div class="py-5 ">
+        <Head>
+            <Title>جستجو میان همه دوره های سایت</Title>
+        </Head>
         <div :class="['container', { 'card-loading': loading || pending }]">
             <BaseTab v-model="categorySlug" :items="tabData" @change-tab="getNewCourses" />
 
             <div class="course-wrapper mt-4  flex gap-[18px] xl:gap-[15px] md:!gap-3  flex-wrap md:justify-between">
-                <CoursesCard class="w-[24%]  lg:!w-[31.6%] " v-for="item in courses" :key="item.id" :item="item" />
+                <CoursesCard class="w-[24%]  lg:!w-[31.6%] " v-for="item in courses" :key="item.slug" :item="item" />
                 <template v-if="pending">
                     <BaseSkeletonLoaidng parentClass="w-[24%]" height="280px" width="100%" class="  lg:!w-[31.6%] "
                         v-for="item in [1, 2, 3, 4]" :key="item" />
@@ -19,7 +22,7 @@
 </template>
 <script setup lang="ts">
 import { TabData } from '~/components/base/Tab.vue';
-import { CourseFilterBy, CourseFilterData } from '~/models/courses/CourseFilterData';
+import { CourseFilterBy, CourseSearchData } from '~/models/courses/CourseFilterData';
 import { GetCourseByFilter, GetCourseCategories } from '~/services/course.service';
 import { useUtilStore } from '~/stores/util.store';
 
@@ -42,7 +45,7 @@ const { data, pending, refresh } = await useAsyncData('courses', () => GetCourse
     categorySlug: categorySlug.value,
     filterBy: (filterBy.value as CourseFilterBy)
 }));
-const courses: Ref<CourseFilterData[]> = ref(data.value?.data?.data ?? []);
+const courses: Ref<CourseSearchData[]> = ref(data.value?.data?.data ?? []);
 
 
 const getNewCourses = async (value: string) => {

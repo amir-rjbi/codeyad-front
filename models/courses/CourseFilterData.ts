@@ -1,5 +1,16 @@
 import { SeoData } from "./../SeoData";
 
+export interface CourseSearchData {
+  courseTitle: string;
+  slug: string;
+  imageName: string;
+  duration: string;
+  courseLevel: CourseLevel;
+  episodeCount: number;
+  price: number;
+  discountPercentage: number;
+  totalPrice: number;
+}
 export interface CourseFilterData {
   teacherUserId: number;
   courseTitle: string;
