@@ -54,7 +54,7 @@
                 <span class="text-orange">در انتظار پاسخ</span>
               </td>
               <td>{{ toPersianDate(new Date(ticket.createDate)) }}</td>
-              <td class="flex justify-center">
+              <td>
                 <BaseButton :render-button-tag="false" :to="`/account/tickets/show?ticketId=${ticket.id}`">نمایش
                 </BaseButton>
               </td>

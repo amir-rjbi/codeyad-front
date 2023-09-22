@@ -12,7 +12,7 @@
                     <span v-if="item.courseLevel == CourseLevel.expert">پیشرفته</span>
                 </label>
                 <div class="flex gap-[6px] items-center">
-                    <label>{{ item.duration }}</label>
+                    <label dir="ltr">{{ item.duration }}</label>
                     <IconsTime width="15" color="var(--color-gray-300)" />
                 </div>
                 <div class="flex gap-[6px] items-center">

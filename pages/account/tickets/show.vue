@@ -53,7 +53,7 @@
           <base-input class="flex-1" out-line required v-model="userMessage" name="userMessage"
             placeholder="پیام خود را وارد کنید" multiline />
           <base-button :loading="loading" type="submit">
-            <div class="flex gap-2">
+            <div class="flex gap-2 items-center">
               ارسال
               <svg aria-hidden="true" class="w-6 h-6 -rotate-90" fill="currentColor" viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg">
