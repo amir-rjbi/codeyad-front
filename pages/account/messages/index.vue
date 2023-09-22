@@ -4,7 +4,6 @@
       <table>
         <thead>
           <tr>
-            <th>#</th>
             <th>عنوان</th>
             <th>وضعیت</th>
             <th>تاریخ ثبت</th>
@@ -40,8 +39,7 @@
             </tr>
           </template>
           <template v-else-if="messageResult">
-            <tr v-for="(message, i) in messageResult.messages" :key="message.id">
-              <td>{{ i + pageId }}</td>
+            <tr v-for="(message) in messageResult.messages" :key="message.id">
               <td>{{ message.subject }}</td>
               <td>
                 <b class="text-red" v-if="message.hasNewMessage">در انتظار پاسخ</b>
@@ -50,7 +48,7 @@
               <td>{{ toPersianDate(new Date(message.createDate)) }}</td>
               <td>{{ message.contentCount }}</td>
               <td>{{ message.reciverName }} / {{ message.senderName }}</td>
-              <td class="flex justify-center">
+              <td>
                 <BaseButton @click="goToChat(message)">نمایش
                 </BaseButton>
               </td>
