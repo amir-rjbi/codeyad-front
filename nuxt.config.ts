@@ -42,8 +42,8 @@ export default defineNuxtConfig({
     ],
     alias: {
       codeyad: "https://codeyad.com",
-      static: "http://127.0.0.1:3000",
-      //static: "https://codeyad-front.vercel.app",
+      //static: "http://127.0.0.1:3000",
+      static: "https://codeyad-front.vercel.app",
     },
   },
 });

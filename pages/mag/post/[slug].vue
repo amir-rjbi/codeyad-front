@@ -49,7 +49,7 @@
                         <nuxt-link :to="`/writers/${articleData.ownerUser.userId}`" class="text-h8 font-bold text-black">{{
                             articleData.ownerUser.fullName }}</nuxt-link>
                     </div>
-                    <p class="date">15 اردیبهشت 1402</p>
+                    <p class="date">{{ getPersianDate(new Date(articleData.article.dateRelease)) }}</p>
                     <h1 class="text-black text-h4">{{ articleData.article.title }}</h1>
                     <div class="blog-content" v-html="articleData.article.body">
 
