@@ -124,11 +124,11 @@ const data = reactive({
   slug: "",
   description: "",
   shortDescription: "",
-  demoFile: null,
-  imageFile: null,
+  demoFile: Object,
+  imageFile: Object,
   courseLevel:"",
   requirements:"",
-  DemoDuration:null
+  DemoDuration:''
 });
 const schema = Yup.object().shape({
   title: Yup.string().required().label("عنوان دوره"),

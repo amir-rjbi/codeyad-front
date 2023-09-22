@@ -22,7 +22,7 @@
         </thead>
         <tbody >
           <template v-if="loading">
-            <tr c v-for="item in [1, 2, 3]">
+            <tr c v-for="item in 5">
               <td width="140">
                 <BaseSkeletonLoaidng type="box" height="8px" />
               </td>
@@ -50,7 +50,7 @@
             <tr v-for="course in courses" :key="course.id" @click="setSelected(course)">
               <td>{{course.id}}</td>
               <td>
-                <base-button class="mx-auto" :render-button-tag="false" :to="`/course/${course.slug}`" color-white>
+                <base-button class="mx-auto" :render-button-tag="false" :to="`/account/courses/show/${course.id}`" color-white>
                   {{course.courseTitle}}
                 </base-button>
               </td>
@@ -62,7 +62,7 @@
               <td>{{toPersianDate(new Date(course.creationDate))}}</td>
               <td>{{course.studentCount}}</td>
               <td class="flex justify-center">
-                <div class="flex absolute overflow-y-visible items-center gap-2 cursor-pointer" v-click-outside="() => showMenu = false"
+                <div class="flex relative overflow-y-visible items-center gap-2 cursor-pointer" v-click-outside="() => showMenu = false"
                   @click="showMenu = !showMenu">
                   <IconsArrowLeft class="transition-all" :style="{ rotate: showMenu ? '90deg' : '-90deg' }" />
                   <Transition name="layout">
@@ -70,6 +70,8 @@
                       <BaseButton color-white @click="isOpenModal_e = true">ویرایش</BaseButton>
                       <NuxtLink :to="`/account/courses/AddNote?courseId=${course.id}`">ثبت یادداشت</NuxtLink>
                       <NuxtLink :to="`/account/courses/SpecialComments?courseId=${course.id}`">کامنت های ویژه</NuxtLink>
+                      <hr>
+                      <BaseButton :render-button-tag="false" :to="`/account/courses/show/${course.id}`">سرفصل ها</BaseButton>
                     </div>
                   </Transition>
                 </div>
@@ -151,11 +153,14 @@ onMounted(async ()=>{
 })
 
 const getData = async ()=>{
+  loading.value = true;
   const fetchResult = await GetTeacherCourses(filterParams);
   if(fetchResult.isSuccess){
     courses.value = fetchResult.data?.data ?? [];
     coursesResult.value = fetchResult.data!;
   }
+
+  loading.value = false;
 }
 
 const setSelected = (course:CourseFilterData)=>{

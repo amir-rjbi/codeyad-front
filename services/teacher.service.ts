@@ -1,8 +1,9 @@
 import {FilterResult,IApiResponse} from "~/models/IApiResponse";
 import {TeacherCourseFilterParams,CourseFilterData} from "~/models/courses/CourseFilterData";
-import {SpecialComment} from "~/models/teachers/specialComment";
 import {OrderDetailsFilterResult} from "~/models/teachers/orderDetails";
 import {TeacherComment, TeacherCommentsFilterParams} from "~/models/teachers/teacherComments";
+import {CourseLanding} from "~/models/courses/CourseLanding";
+import {CourseSpecialComment} from "~/models/courses/CourseLanding";
 
 export const GetTeacherCourses = (
     params: TeacherCourseFilterParams
@@ -10,6 +11,12 @@ export const GetTeacherCourses = (
     return FetchApi("/Teacher/Courses", {
         params
     });
+};
+
+export const GetTeacherCourseById = (
+    courseId:number
+): Promise<IApiResponse<CourseLanding>> => {
+    return FetchApi(`/Teacher/Courses/${courseId}`);
 };
 
 export const CreateCourse = (
@@ -66,13 +73,13 @@ export const AddEpisode = (
 
 export const GetSpecialComments = (
     courseId: number
-): Promise<IApiResponse<FilterResult<SpecialComment>>> => {
+): Promise<IApiResponse<FilterResult<CourseSpecialComment>>> => {
     return FetchApi(`/Teacher/SpecialComments?courseId=${courseId}`);
 };
 
 export const SetSpecialComments = (
     courseId:number,
-    comments:[]
+    comments:number[]
 )=>{
     return FetchApi(`/Teacher/SetSpecialComments?courseId=${courseId}`,{
         method:'POST',

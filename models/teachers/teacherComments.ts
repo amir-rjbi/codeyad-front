@@ -2,7 +2,7 @@ import {FilterParams} from "~/models/IApiResponse";
 
 export interface TeacherCommentsFilterParams extends FilterParams{
     courseId:number;
-    search:number;
+    search:string;
 }
 
 export interface TeacherComment {

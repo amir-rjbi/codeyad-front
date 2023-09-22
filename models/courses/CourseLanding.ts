@@ -4,6 +4,7 @@ export interface CourseLanding {
   specialComment: CourseSpecialComment[];
 }
 export interface CourseSpecialComment {
+  id:number;
   userFullName: string;
   userAvatar: string;
   text: string;
