@@ -15,6 +15,7 @@ export default defineNuxtPlugin(() => {
     string: {
       email: "ایمیل نامعتبر است",
       min: " حداقل مقدار ${path} ${min} کاراکتر است",
+      url: "آدرس اینترنتی اشتباه است",
     },
     number: {
       min: " حداقل مقدار ${path} ${min} است",
@@ -35,6 +36,20 @@ export default defineNuxtPlugin(() => {
       if (value === undefined) return true;
       return verifyCardNumber(Number(value?.toString()!));
     });
+  });
+  addMethod(string, "slug", function slug(slug: string) {
+    return this.test(
+      "slug",
+      "این فیلد باید با کاراکتر های انگلیسی وارد شود",
+      function (value) {
+        if (value === undefined) return true;
+        var res = /[^\u0000-\u00ff]/.test(value?.toString()!);
+        if (res == true) {
+          return false;
+        }
+        return true;
+      }
+    );
   });
   addMethod(
     string,

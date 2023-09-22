@@ -60,3 +60,12 @@ export const EditUser = (data: FormData) => {
     body: data,
   });
 };
+export const IsAccessRegisterTeacherPage = () => {
+  return FetchApi("/user/TeacherRequest");
+};
+export const RegisterTeacherRequest = (formData: FormData) => {
+  return FetchApi("/user/TeacherRequest", {
+    method: "POST",
+    body: formData,
+  });
+};
