@@ -1,9 +1,9 @@
 import { Article } from "./articles/Article";
-import { CourseFilterData } from "./courses/CourseFilterData";
+import { CourseSearchData } from "./courses/CourseFilterData";
 export interface HomePageData {
   usersCount: number;
   coursesCount: number;
   userAvatars: string[];
-  latestCourses: CourseFilterData[];
+  latestCourses: CourseSearchData[];
   latestArticles: Article[];
 }

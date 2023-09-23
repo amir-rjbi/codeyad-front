@@ -2,6 +2,7 @@ import { setLocale, addMethod, string, number } from "yup";
 import {
   phoneNumberValidator,
   verifyIranianNationalId,
+  verifyCardNumber,
 } from "@persian-tools/persian-tools";
 import { ErrorMessage } from "vee-validate";
 
@@ -14,6 +15,7 @@ export default defineNuxtPlugin(() => {
     string: {
       email: "ایمیل نامعتبر است",
       min: " حداقل مقدار ${path} ${min} کاراکتر است",
+      url: "آدرس اینترنتی اشتباه است",
     },
     number: {
       min: " حداقل مقدار ${path} ${min} است",
@@ -26,6 +28,26 @@ export default defineNuxtPlugin(() => {
       function (value) {
         if (value === undefined) return true;
         return phoneNumberValidator(value?.toString()!);
+      }
+    );
+  });
+  addMethod(string, "cardNumber", function cardNumber(cardNumber: string) {
+    return this.test("cardNumber", " شماره کارت نامعتبر است", function (value) {
+      if (value === undefined) return true;
+      return verifyCardNumber(Number(value?.toString()!));
+    });
+  });
+  addMethod(string, "slug", function slug(slug: string) {
+    return this.test(
+      "slug",
+      "این فیلد باید با کاراکتر های انگلیسی وارد شود",
+      function (value) {
+        if (value === undefined) return true;
+        var res = /[^\u0000-\u00ff]/.test(value?.toString()!);
+        if (res == true) {
+          return false;
+        }
+        return true;
       }
     );
   });

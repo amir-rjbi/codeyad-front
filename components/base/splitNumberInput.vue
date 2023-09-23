@@ -23,6 +23,7 @@
   
 <script setup lang="ts">
 import { useField } from "vee-validate";
+import { SplitCardNumber } from "~/utils/stringUtil";
 
 const emit = defineEmits(["update:modelValue"]);
 const props = defineProps({
@@ -74,7 +75,10 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
-
+    cardNumber: {
+        type: Boolean,
+        default: false,
+    }
 });
 
 const displayValue = ref('');
@@ -101,30 +105,51 @@ watch(
 );
 const modelValueChanged = ($event: any) => {
 
-
     if (!$event.target.value) {
         $event.target.value = '';
         emit("update:modelValue", '');
-
         return;
     }
+    if (props.cardNumber) {
+        var value = $event.target.value.toString().replaceAll("-", "");
+        if (value.length > 16) {
+            $event.target.value = value;
+            emit("update:modelValue", value);
+            return;
+        }
+        if (isNaN(Number(value))) {
+            $event.target.value = props.modelValue;
+            displayValue.value = SplitCardNumber(props.modelValue);
+            return;
+        }
 
-    var value = $event.target.value.toString().replaceAll(",", "");
+        displayValue.value = SplitCardNumber(value);
+        emit("update:modelValue", $event.target.value.toString().replaceAll("-", ""));
+        $event.target.value = $event.target.value.toString().replaceAll("-", "");
+        handleChange($event);
+    } else {
+        var value = $event.target.value.toString().replaceAll(",", "");
+        if (isNaN(Number(value))) {
+            $event.target.value = props.modelValue;
+            displayValue.value = splitNumber(props.modelValue);
+            return;
+        }
 
-    if (isNaN(Number(value))) {
-        $event.target.value = props.modelValue;
-        displayValue.value = splitNumber(props.modelValue);
-        return;
+        displayValue.value = splitNumber(value);
+        emit("update:modelValue", $event.target.value.toString().replaceAll(",", ""));
+        $event.target.value = $event.target.value.toString().replaceAll(",", "");
+        handleChange($event);
     }
 
-    displayValue.value = splitNumber(value);
-    emit("update:modelValue", $event.target.value.toString().replaceAll(",", ""));
-    $event.target.value = $event.target.value.toString().replaceAll(",", "");
-    handleChange($event);
 };
 
 onMounted(() => {
-    if (inputValue.value)
-        displayValue.value = splitNumber(inputValue.value);
+    if (inputValue.value) {
+        if(props.cardNumber){
+            displayValue.value=SplitCardNumber(inputValue.value);
+        }else{
+            displayValue.value = splitNumber(inputValue.value);
+        }
+    }
 });
 </script>

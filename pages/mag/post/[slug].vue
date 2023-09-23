@@ -40,15 +40,16 @@
                     </div>
                 </template>
                 <div class="card" v-else-if="articleData">
-                    <base-img class="article-banner w-full mb-8" :src="GetArticleImage(articleData.article.imageName)"
-                        :alt="articleData.article.title" height="600px" />
+                    <base-img class="article-banner w-full mb-8 sm:!h-[300px]"
+                        :src="GetArticleImage(articleData.article.imageName)" :alt="articleData.article.title"
+                        height="600px" />
                     <div class="writer flex items-center gap-[11px]">
                         <base-img :src="GetUserAvatar(articleData.ownerUser.imageName)" class="rounded-full" alt="user"
                             width="30" height="30" />
                         <nuxt-link :to="`/writers/${articleData.ownerUser.userId}`" class="text-h8 font-bold text-black">{{
                             articleData.ownerUser.fullName }}</nuxt-link>
                     </div>
-                    <p class="date">15 اردیبهشت 1402</p>
+                    <p class="date">{{ getPersianDate(new Date(articleData.article.dateRelease)) }}</p>
                     <h1 class="text-black text-h4">{{ articleData.article.title }}</h1>
                     <div class="blog-content" v-html="articleData.article.body">
 

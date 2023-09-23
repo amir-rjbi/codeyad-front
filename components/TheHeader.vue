@@ -16,12 +16,12 @@
                 <IconsHamburger class="hidden sm:block" @click="isOpenSidebar = true" />
                 <div class="flex items-center gap-9 w-fit justify-center">
                     <NuxtLink to="/"><img class="logo" src="/logo.png" alt="logo" /></NuxtLink>
-                    <div class="search flex lg:!hidden " role="search">
-                        <input type="text" placeholder="هرچی میخوای جست و جو کن" />
+                    <form @submit.prevent="search" class="search flex lg:!hidden " role="search">
+                        <input v-model="searchData" type="text" placeholder="هرچی میخوای جست و جو کن" />
                         <button name="search">
                             <IconsSearch color="var(--color-white)" />
                         </button>
-                    </div>
+                    </form>
                 </div>
                 <nav class="categories sm:hidden ">
                     <ul class="gap-6">
@@ -57,8 +57,16 @@
 
                     </template>
                     <template v-else>
-                        <nuxt-link to="/account/notifications" class="notification bg-secondary rounded-[3px] p-[7px]">
+                        <nuxt-link to="/account/notifications" :class="['notification bg-secondary rounded-[3px] p-[7px] notification',
+                            { 'border border-red-400': accountStore.haveNewAlert }]">
                             <IconsNotification color="var(--primary-color)" />
+                            <div class="dot" v-if="accountStore.haveNewAlert">
+                                <span class="relative flex h-3 w-3">
+                                    <span
+                                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-3 w-3 bg-red"></span>
+                                </span>
+                            </div>
                         </nuxt-link>
                         <div class="flex relative items-center gap-2 cursor-pointer"
                             v-click-outside="() => showMenu = false" @click="showMenu = !showMenu">
@@ -147,6 +155,9 @@ const utilStore = useUtilStore();
 const authStore = useAuthStore();
 const accountStore = useAccountStore();
 const authToken = useCookie("c-access-token");
+const searchData = ref('');
+const router = useRouter();
+const toast = useToast();
 
 const closeSideBars = () => {
     isOpenSearchBar.value = false;
@@ -157,6 +168,14 @@ onMounted(() => {
         itemToShow.value = 3;
     }
 })
+const search = () => {
+    if (searchData.value.length < 3) {
+        toast.showToast('متن جستوجوی کامل تری وارد کنید',ToastType.warning)
+        return;
+    }
+    router.push('/search/' + searchData.value);
+    searchData.value='';
+}
 </script>
 <style  lang="scss">
 @media screen and (max-width:768px) {

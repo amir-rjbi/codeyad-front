@@ -18,6 +18,12 @@ export const GetMasterByUserName = (
   var url = `/Masters/GetByUserName/${userName}`;
   return FetchApi(url);
 };
+export const GetMasterByUserId = (
+  userId: string
+): Promise<IApiResponse<SingeMasterData>> => {
+  var url = `/Masters/GetByUserId/${userId}`;
+  return FetchApi(url);
+};
 export const FollowTeacher = (userName: string) => {
   return FetchApi("/masters/Follow", {
     method: "POST",

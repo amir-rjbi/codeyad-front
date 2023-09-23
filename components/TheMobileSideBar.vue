@@ -27,7 +27,11 @@
                 </li>
             </ul>
         </div>
-        <div class="p-3 absolute bottom-2 w-full">
+        <div class="p-3 absolute bottom-2 w-full" v-if="authStore.isLogin">
+            <BaseButton :render-button-tag="false" to="/account" class="w-full mb-2">ورود به حساب کاربری</BaseButton>
+            <BaseButton @click="authStore.logOut" class="w-full font-bold" color="red" outline>خروج از جساب</BaseButton>
+        </div>
+        <div class="p-3 absolute bottom-2 w-full" v-else>
             <BaseButton @click="register" class="w-full mb-2">ثبت نام</BaseButton>
             <BaseButton @click="login" class="w-full font-bold" outline>ورود</BaseButton>
         </div>

@@ -1,10 +1,15 @@
 <template>
     <div>
+
+        <Head>
+            <Title>{{ $route.meta.title ?? 'پنل کاربری' }}</Title>
+        </Head>
         <TheHeader :show-categories="false" />
         <div class="flex relative sm:flex-col">
             <AccountThetSideBar />
-            <div class="container pt-4 pb-4 sm:!pt-1">
+            <div class="container pt-4 pb-4 sm:!pt-1" id="a_content">
                 <template v-if="accountStore.currentUser != null">
+                    <p class="text-h5 sm:!text-h6 mb-4">{{ $route.meta.title }}</p>
                     <slot />
                 </template>
                 <div v-else>

@@ -3,8 +3,12 @@
         { 'top-4': currentIndex == swiper.activeIndex - 1 }]" @click="swiper.slideTo(currentIndex)">
         <div class="header justify-between w-full items-center">
             <div class="flex items-end gap-[6px]">
-                <base-img :src="GetUserAvatar(item.userAvatar)" width="50px" height="50px" :alt="item.userFullName"/>
-                    <p class="">{{ item.userFullName }}</p>
+                <base-img :src="GetUserAvatar(item.userImageName)" v-if="item.userImageName" width="50px" height="50px"
+                    :alt="item.userFullName" />
+                <base-img :src="GetUserAvatar(item.userAvatar)" v-else width="50px" height="50px"
+                    :alt="item.userFullName" />
+                <p class="">{{ item.userFullName }}</p>
+
             </div>
             <IconsQuote color="var(--primary-color)" />
         </div>
@@ -48,6 +52,7 @@ onMounted(() => {
     height: 350px;
     overflow: auto;
     cursor: auto;
+
     p {
         font-size: 17.64px;
         text-align: right;

@@ -18,3 +18,6 @@ export const GetRoadMapImageThumbnal = (imageName: string): string => {
 export const GetRoadMapImage = (imageName: string): string => {
   return `codeyad/assets/images/RoadMap/${imageName}`;
 };
+export const GetWalletQRcodeImage = (imageName: string): string => {
+  return `codeyad/assets/img/QrCodes/${imageName}`;
+};

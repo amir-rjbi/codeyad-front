@@ -168,7 +168,6 @@ const setSelected = (course:CourseFilterData)=>{
 
 const showOptions = (e)=>{
   const optionsMenu = e.target.querySelector('.account-menu');
-
   if(optionsMenu.style.display == 'none')
     optionsMenu.style.display='flex';
   else

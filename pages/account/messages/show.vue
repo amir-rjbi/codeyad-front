@@ -2,13 +2,21 @@
   <main class="chat-bg">
     <div class="flex items-center p-4 bg-white space-x-reverse">
       <strong>موضوع گفتگو:</strong>
-      <span v-if="messages != null">{{ messages.subject }}</span>
+      <BaseSkeletonLoaidng width="80px" height="20px" v-if="loading" />
+      <span v-else-if="messages != null">{{ messages.subject }}</span>
     </div>
-    <div ref="chatArea" class="shadow-lg rounded-lg p-5 mt-4 h-[55vh] overflow-y-auto" v-if="messages != null">
+    <div class="shadow-lg rounded-lg p-5 mt-4 h-[55vh] overflow-y-auto" v-if="loading">
+      <ul>
+        <li v-for="message in [1, 2]" :class="[`${message === 1 ? 'me' : 'you'}`]">
+          <BaseSkeletonLoaidng width="180px" height="50px" />
+        </li>
+      </ul>
+    </div>
+    <div ref="chatArea" class="shadow-lg rounded-lg p-5 mt-4 h-[55vh] overflow-y-auto" v-else-if="messages != null">
       <ul v-if="messages.messageContents.length > 0">
         <li v-for="message in messages.messageContents" :class="[`${message.senderUser.id === userId ? 'me' : 'you'}`]">
           <base-img :src="GetUserAvatar(message.senderUser.imageName)" class="w-[30px] h-[30px]  rounded" width="60px"
-            alt="mohammad" />
+            alt="avatar" />
           <p>
           <p v-html="message.text"></p>
           <span>
@@ -20,12 +28,12 @@
         </li>
       </ul>
     </div>
-    <div class="bg-white p-3 w-full">
+    <div :class="['bg-white p-3 w-full', { 'card-loading': loading }]">
       <Form @submit.prevent="sendMessage" class="flex items-center gap-2">
         <base-input class="flex-1" out-line required v-model="userMessage" name="userMessage"
           placeholder="پیام خود را وارد کنید" multiline />
-        <base-button type="submit">
-          <div class="flex gap-2">
+        <base-button :loading="loading" type="submit">
+          <div class="flex gap-2 items-center">
             ارسال
             <svg aria-hidden="true" class="w-6 h-6 -rotate-90" fill="currentColor" viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg">
@@ -52,13 +60,14 @@ definePageMeta({
   layout: "account",
 });
 
+const toast = useToast();
 const userMessage = ref("");
 const chatArea = ref();
 const messages = ref<UserMessageData>();
 const route = useRoute();
 const router = useRouter();
 const messageId = ref(route.query?.messageId ?? null);
-
+const loading = ref(false);
 const accountStore = useAccountStore();
 const userId = accountStore.currentUser?.id;
 
@@ -70,13 +79,16 @@ onMounted(async () => {
 })
 
 const getData = async () => {
-  if (messageId.value === null) router.push("error");
-
+  loading.value = true;
   const fetchResult = await getUserMessage(Number(messageId.value));
-  if ((fetchResult).isSuccess) {
+  if (fetchResult.isSuccess) {
     messages.value = fetchResult.data;
   }
-  else router.push("error");
+  else {
+    router.push("/account/messages")
+    toast.showToast('پیام مورد نظر یافت نشد', ToastType.warning);
+  }
+  loading.value = false;
 
 }
 
@@ -84,11 +96,15 @@ const sendMessage = async () => {
   if (!userMessage.value) {
     return;
   }
+  loading.value = true;
   const sendResult = await SendMessage(Number(messageId.value), userMessage.value);
   if (sendResult.isSuccess) {
+    toast.showToast('پیام با موفقیت ارسال شد')
+    userMessage.value = "";
     await getData();
   }
-  else alert('اسال پیام با خطا مواجه شد');
+  loading.value = false;
+
 };
 
 </script>

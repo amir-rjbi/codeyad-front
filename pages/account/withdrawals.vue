@@ -55,13 +55,14 @@
             <tr v-for="item in data?.withdrawals">
               <td>{{ item.amount.toLocaleString() }} تومان </td>
               <td>{{ item.cryptoAmount }}</td>
-              <td>{{ item.cardNumber }}</td>
+              <td>{{ SplitCardNumber(item.cardNumber) }}</td>
               <td>{{ toPersianDate(new Date(item.createDate)) }}</td>
-              <td>{{ toPersianDate(new Date(item.paymentDate)) }}</td>
               <td>
                 <b class="text-green" v-if="item.isPay">پرداخت شده</b>
                 <b class="text-blue" v-else>در انتظار پرداخت</b>
               </td>
+              <td>{{ toPersianDate(new Date(item.paymentDate)) }}</td>
+
             </tr>
           </template>
         </tbody>
@@ -70,8 +71,8 @@
     <div class="flex justify-center" v-if="data">
       <BasePagination :filter-result="data!" class="mt-2" v-model="pageId" />
     </div>
-    <BaseModal title="درخواست  مشاوره  " v-model="isOpenModal">
-      <account-withdrawals-add />
+    <BaseModal title="درخواست  برداشت از حساب  " v-model="isOpenModal">
+      <account-withdrawals-add @close-modal="() => isOpenModal = false" @close-and-refresh="closeModalAndRefreshData" />
     </BaseModal>
   </div>
 </template>
@@ -93,6 +94,10 @@ onMounted(async () => {
 watch(pageId, async (val) => {
   await getData();
 })
+const closeModalAndRefreshData = () => {
+  isOpenModal.value = false;
+  getData();
+}
 const getData = async () => {
   loading.value = true;
   var res = await GetWithdrawals(pageId.value);

@@ -1,21 +1,20 @@
 import { NotificationFilterResult } from "./../models/account/Notification";
-import { User } from "./../models/account/User";
+import { User, UserAlertsCount, UserCourse } from "./../models/account/User";
 import { IApiResponse } from "~~/models/IApiResponse";
 
 export const GetCurrentUserData = (): Promise<IApiResponse<User>> => {
   return FetchApi("/user/current");
 };
-export const GetNotifications = (
-  pageId: number = 1,
-  take: number = 5
-): Promise<IApiResponse<NotificationFilterResult>> => {
-  return FetchApi("/notification", {
-    query: {
-      pageId,
-      take,
-    },
-  });
+export const GetUserAlertsCount = (): Promise<
+  IApiResponse<UserAlertsCount>
+> => {
+  return FetchApi("/user/current/alertsCount");
 };
+
+export const GetUserCourses = (): Promise<IApiResponse<UserCourse[]>> => {
+  return FetchApi("/user/UserCourses");
+};
+
 export const EditProfile = (
   name: string,
   family: string,
@@ -42,8 +41,8 @@ export const EditProfile = (
 };
 
 export const SendVerifyPhoneNumber = () => {
-  return FetchApi("/user/activate-phone",{
-    method:"POST"
+  return FetchApi("/user/activate-phone", {
+    method: "POST",
   });
 };
 export const VerifyUserPhoneNumber = (code: string) => {
@@ -64,5 +63,14 @@ export const EditUser = (data: FormData) => {
   return FetchApi("/user", {
     method: "PUT",
     body: data,
+  });
+};
+export const IsAccessRegisterTeacherPage = () => {
+  return FetchApi("/user/TeacherRequest");
+};
+export const RegisterTeacherRequest = (formData: FormData) => {
+  return FetchApi("/user/TeacherRequest", {
+    method: "POST",
+    body: formData,
   });
 };

@@ -1,3 +1,5 @@
+import { CourseFilterData } from "./../courses/CourseFilterData";
+import { Course } from "./../courses/Course";
 export interface User {
   id: number;
   email: string;
@@ -12,4 +14,14 @@ export interface User {
   walletAmount?: number;
   isCompleteProfile: boolean;
   isVerifyPhoneNumber: boolean;
+}
+export interface UserAlertsCount {
+  newNotificationsCount: number;
+  newMessagesCount: number;
+}
+export interface UserCourse {
+  course: CourseFilterData;
+  isBought: boolean;
+  watchPercentage: number;
+  createDate: Date;
 }

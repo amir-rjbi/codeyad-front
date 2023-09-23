@@ -1,5 +1,6 @@
 <template>
     <div class="container py-12">
+
         <Head>
             <Title>تماس باما</Title>
         </Head>
@@ -7,8 +8,8 @@
         <div class="flex flex-wrap justify-between gap-2">
             <div class="flex card w-[35%] h-fit mt-8 md:mt-4 md:w-full">
                 <div class="card-body flex flex-col gap-4">
-                    <p>آدرس : اصفهان نظر شرقی ، کنار شیرینی فروشی عمو قناد</p>
-                    <p>شماره تماس : 09309057504</p>
+                    <p>آدرس : {{ utilStore.siteSettings?.address }}</p>
+                    <p>شماره تماس : {{utilStore.siteSettings?.phoneNumber}}</p>
                     <p>ایمیل : info@codeyad.com</p>
                 </div>
             </div>
@@ -38,4 +39,8 @@
     </div>
 </template>
 <script setup lang="ts">
+import { useUtilStore } from '~/stores/util.store';
+
+const utilStore = useUtilStore();
+
 </script>

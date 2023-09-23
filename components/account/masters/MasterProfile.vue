@@ -1,10 +1,5 @@
 <template>
     <div class="mb-[70px]">
-
-        <Head>
-            <Title>پروفایل {{ teacherData.teacher.fullName }}</Title>
-        </Head>
-
         <div class="bg-blue text-white w-full py-[80px] sm:py-[40px]">
             <BaseModal v-model="isOpenModal" :title="`ارسال پیام به ${teacherData.teacher.fullName}`">
                 <Form @submit="sendMessage" :validation-schema="schema" v-slot="{ meta }"
@@ -106,6 +101,7 @@ import { useAuthStore } from '~/stores/auth.store';
 import * as Yup from 'yup'
 import { Form } from 'vee-validate';
 import { CreateMessage } from '~/services/userMessages.service';
+import { SingeMasterData } from '~/models/masters/Master';
 
 const schema = Yup.object().shape({
     title: Yup.string().required().label('عنوان گفتوگو'),
@@ -122,15 +118,12 @@ const sendMessageData = reactive({
     title: "",
     message: ""
 })
-var userName = route.params.slug.toString();
 const courseFilterData: Ref<FilterResult<CourseFilterData> | null> = ref(null);
 const loading = ref(false);
 const buttonLoading = ref(false);
-const { data } = await useAsyncData("singleMaster", () => GetMasterByUserName(userName));
-if (!data.value?.data) {
-    throw createError({ statusCode: 404, statusMessage: 'Page Not Found' })
-}
-const teacherData = ref(data.value.data);
+const { teacherData } = defineProps<{
+    teacherData: SingeMasterData
+}>();
 const sendMessageLoading = ref(false);
 const sendMessage = async () => {
     if (authStore.isLogin == false) {
@@ -138,9 +131,9 @@ const sendMessage = async () => {
         return;
     }
     sendMessageLoading.value = true;
-    var res = await CreateMessage(teacherData.value.teacher.userName, sendMessageData.title, sendMessageData.message);
+    var res = await CreateMessage(teacherData.teacher.userName, sendMessageData.title, sendMessageData.message);
     if (res.isSuccess) {
-        toast.showToast("پیام با موفقیت برای " + teacherData.value.teacher.fullName + " ارسال شد")
+        toast.showToast("پیام با موفقیت برای " + teacherData.teacher.fullName + " ارسال شد")
         router.push('/account/messages/show?messageId=' + res.data)
 
     }
@@ -149,7 +142,7 @@ const sendMessage = async () => {
 }
 onMounted(async () => {
     loading.value = true;
-    var res = await GetMasterCourses(teacherData.value.teacher.userId);
+    var res = await GetMasterCourses(teacherData.teacher.userId);
     if (res.isSuccess && res.data) {
         courseFilterData.value = res.data!;
     }
@@ -162,17 +155,17 @@ const toggleFollow = async () => {
         return;
     }
     buttonLoading.value = true;
-    if (teacherData.value.isFollow) {
-        var res = await UnFollowTeacher(userName);
+    if (teacherData.isFollow) {
+        var res = await UnFollowTeacher(teacherData.teacher.userName);
         if (res.isSuccess) {
             toast.showToast("عملیات با موفقیت انجام شد")
-            teacherData.value.isFollow = false;
+            teacherData.isFollow = false;
         }
     } else {
-        var res = await FollowTeacher(userName);
+        var res = await FollowTeacher(teacherData.teacher.userName);
         if (res.isSuccess) {
             toast.showToast("عملیات با موفقیت انجام شد")
-            teacherData.value.isFollow = true;
+            teacherData.isFollow = true;
         }
     }
     buttonLoading.value = false;

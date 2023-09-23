@@ -2,59 +2,62 @@
   <aside class="account-aside sm:!w-full">
     <ul class="sm:flex sm:overflow-auto sm:hide-scroll-track sm:h-fit">
       <li>
-        <nuxt-link to="/account">داشبورد</nuxt-link>
+        <nuxt-link to="/account#a_content">داشبورد</nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/account/edit">ویرایش حساب</nuxt-link>
+        <nuxt-link to="/account/edit#a_content">ویرایش حساب</nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/account/change-password"> تغییرکلمه عبور </nuxt-link>
+        <nuxt-link to="/account/change-password#a_content"> تغییرکلمه عبور </nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/account/wallet"> کیف پول </nuxt-link>
+        <nuxt-link to="/account/wallet#a_content"> کیف پول </nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/account/notifications"> اعلانات </nuxt-link>
+        <nuxt-link to="/account/notifications#a_content"> اعلانات
+          <span class="text-white font-bold text-h9 px-2 rounded-[4px] bg-red"
+            v-if="accountStore.newAlertsCount?.newNotificationsCount ?? 0 > 0">{{
+              accountStore.newAlertsCount?.newNotificationsCount }}</span>
+        </nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/account/messages"> گفتوگو ها </nuxt-link>
+        <nuxt-link to="/account/messages#a_content"> گفتوگو ها
+          <span class="text-white font-bold text-h9 px-2 rounded-[4px] bg-red"
+            v-if="accountStore.newAlertsCount?.newMessagesCount ?? 0 > 0">{{
+              accountStore.newAlertsCount?.newMessagesCount }}</span>
+        </nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/account/tickets"> تیکت ها </nuxt-link>
+        <nuxt-link to="/account/tickets#a_content"> تیکت ها </nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/account/Consultations"> مشاوره ها </nuxt-link>
-      </li>
-      <li>
-        <nuxt-link to="/account/orders"> فاکتور ها </nuxt-link>
+        <nuxt-link to="/account/orders#a_content"> فاکتور ها </nuxt-link>
       </li>
       <li>
         <nuxt-link to="/account/my-courses"> دوره های من </nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/account/my-bootcamps"> بوتکمپ های من </nuxt-link>
+        <nuxt-link to="/account/my-bootcamps#a_content"> بوتکمپ های من </nuxt-link>
       </li>
-      <li>
-        <nuxt-link to="/account/cards"> کارت های بانکی </nuxt-link>
-      </li>
-      <li>
-        <nuxt-link to="/account/withdrawals"> برداشت از حساب </nuxt-link>
-      </li>
-      <li>
-        <nuxt-link to="/account/courses"> دوره های مدرس </nuxt-link>
-      </li>
-      <li>
-        <nuxt-link to="/account/tvEpisode"> کدیاد TV </nuxt-link>
-      </li>
-      <li>
-        <nuxt-link to="/account/t-consultations">
-          درخواست های مشاوره
-        </nuxt-link>
-      </li>
+      <template v-if="accountStore.userHasTeacherRole">
+        <li>
+          <nuxt-link to="/account/cards#a_content"> کارت های بانکی </nuxt-link>
+        </li>
+        <li>
+          <nuxt-link to="/account/withdrawals#a_content"> برداشت از حساب </nuxt-link>
+        </li>
+        <li>
+          <nuxt-link to="/account/courses#a_content"> دوره های مدرس </nuxt-link>
+        </li>
+      </template>
     </ul>
   </aside>
 </template>
+<script setup lang="ts">
+import { useAccountStore } from '~/stores/account.store';
 
+const accountStore = useAccountStore();
+</script>
 <style scoped lang="scss">
 @media screen and (max-width: 768px) {
   aside {

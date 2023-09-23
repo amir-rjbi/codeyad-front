@@ -1,5 +1,7 @@
-import { CourseFilterData } from "./courses/CourseFilterData";
+import { Article } from "./articles/Article";
+import { CourseSearchData } from "./courses/CourseFilterData";
+
 export interface SearchFilterResult {
-  courses: CourseFilterData[];
-  articles: [];
+  courses: CourseSearchData[];
+  articles: Article[];
 }

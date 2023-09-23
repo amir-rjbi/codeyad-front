@@ -12,7 +12,7 @@
                     <span v-if="item.courseLevel == CourseLevel.expert">پیشرفته</span>
                 </label>
                 <div class="flex gap-[6px] items-center">
-                    <label>{{ item.duration }}</label>
+                    <label dir="ltr">{{ item.duration }}</label>
                     <IconsTime width="15" color="var(--color-gray-300)" />
                 </div>
                 <div class="flex gap-[6px] items-center">
@@ -23,7 +23,7 @@
             <div class="footer flex justify-between items-center">
                 <p v-if="item.totalPrice > 0">{{ item.totalPrice.toLocaleString() }} تومان</p>
                 <p class="text-green font-bold" v-else>رایگان</p>
-                <BaseButton :render-button-tag="false" size="md" :to="`/course/${item.slug}`">
+                <BaseButton :render-button-tag="false" size="md" :to="userHasCourse ? `/course/panel-${item.id}` : courseLink">
                     <div class="flex items-center gap-[6px]">
                         شروع دوره
                         <IconsArrowLeft color="#fff" />
@@ -34,11 +34,17 @@
     </div>
 </template>
 <script setup lang="ts">
-import { CourseFilterData, CourseLevel } from '~/models/courses/CourseFilterData';
+import { CourseSearchData, CourseLevel } from '~/models/courses/CourseFilterData';
+import { useAccountStore } from '~/stores/account.store';
 
-defineProps<{
-    item: CourseFilterData
+const accountStore = useAccountStore();
+const props = defineProps<{
+    item: CourseSearchData
 }>();
+const courseLink = `/course/${props.item.slug}`;
+const userHasCourse = computed(() => {
+    return accountStore.currentUser?.courseIds.includes(props.item.id);
+})
 </script>
 <style scoped lang="scss">
 @media screen and (max-width:768px) {

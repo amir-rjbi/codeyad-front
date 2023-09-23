@@ -5,7 +5,19 @@ export const IsImageFile = (imageName: string): boolean => {
     imageName.endsWith(".jpeg")
   );
 };
-
+export const SplitCardNumber = (cardNumber: string) => {
+  if (cardNumber.length > 4 && cardNumber.length <= 8) {
+    return cardNumber.replace(/(\d{0,4})/, "$1-");
+  } else if (cardNumber.length > 8 && cardNumber.length <= 12) {
+    return cardNumber.replace(/(\d{0,4})(\d{0,4})(\d{0,4})/, "$1-$2-$3");
+  } else if (cardNumber.length > 12) {
+    return cardNumber.replace(
+      /(\d{0,4})(\d{0,4})(\d{0,4})(\d{0,4})/,
+      "$1-$2-$3-$4"
+    );
+  }
+  return cardNumber;
+};
 export const getFileType = (file: string): string => {
   var items = file.split(".");
   return file[items.length - 1];
@@ -44,8 +56,8 @@ export function replaceAt(
 }
 export const removeHtmlTagsFromString = (input: string) => {
   return input
-    .replace( /<.*?>/ig, ' ')
+    .replace(/<.*?>/gi, " ")
     .replace("&zwnj;", " ")
     .replace(";&zwnj", " ")
-    .replace("&nbsp;", " ")
+    .replace("&nbsp;", " ");
 };

@@ -1,6 +1,18 @@
 import { SeoData } from "./../SeoData";
 import {SearchOnType} from "../IApiResponse";
 
+export interface CourseSearchData {
+  id:number;
+  courseTitle: string;
+  slug: string;
+  imageName: string;
+  duration: string;
+  courseLevel: CourseLevel;
+  episodeCount: number;
+  price: number;
+  discountPercentage: number;
+  totalPrice: number;
+}
 export interface CourseFilterData {
   teacherUserId: number;
   courseTitle: string;
