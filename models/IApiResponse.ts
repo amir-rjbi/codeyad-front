@@ -24,3 +24,9 @@ export interface FilterParams {
   pageId: number;
   take: number;
 }
+
+export enum SearchOnType{
+  deleted,
+  active,
+  all
+}
