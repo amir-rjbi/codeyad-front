@@ -61,7 +61,7 @@
               <td v-if="course.status === CourseStatus.pending" class="text-indigo-500">در حال بررسی</td>
               <td>{{ toPersianDate(new Date(course.creationDate)) }}</td>
               <td>{{ course.studentCount }}</td>
-              <td class="flex lg:inherit sm:relative justify-center border-none">
+              <td  class="flex lg:inherit sm:relative justify-center border-none">
                 <div class="w-16 h-12 flex absolute overflow-y-visible items-center gap-2 cursor-pointer"
                   @click.self="showOptions" :data-selector="course.id">
                   <IconsArrowLeft class="w-full justify-self-start pointer-events-none transition-all"
@@ -69,7 +69,7 @@
                   <Transition name="layout">
                     <div :id="course.id.toString()" class="account-menu w-[438px] p-2"
                       style="width: max-content;right: -3rem; display: none">
-                      <BaseButton color-white :render-button-tag="false" :to="`/account/courses/show/${course.id}`">سرفصل
+                      <BaseButton color="orange" class="hover:!bg-orange-400" :render-button-tag="false" :to="`/account/courses/show/${course.id}`">سرفصل
                         ها</BaseButton>
                       <hr class="my-2">
                       <BaseButton class="w-full" color-white @click="openEditModal(course)">ویرایش</BaseButton>
@@ -141,7 +141,7 @@ onMounted(async () => {
 })
 const openEditModal = (course: CourseFilterData) => {
   selected.value = course;
-  isOpenModal_e.value=true;
+  isOpenModal_e.value = true;
 }
 const getData = async () => {
   loading.value = true;
