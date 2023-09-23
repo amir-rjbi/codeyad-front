@@ -35,6 +35,7 @@ export const useAccountStore = defineStore("account", () => {
       promise[0].metaData.appStatusCode == ApiStatusCodes.UnAuthorize
     ) {
       var cookie = useCookie("c-access-token");
+      console.log(cookie)
       var refreshCookie = useCookie("c-refresh-token");
       cookie.value = null;
       refreshCookie.value = null;

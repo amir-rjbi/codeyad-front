@@ -6,9 +6,9 @@
       </div>
       <BaseButton color="green" @click="isOpenModal_a = true">افزودن دوره</BaseButton>
     </div>
-    <div>Selected: {{ selected }}</div>
+    <div v-if="selected">دوره انتخاب شده: {{ selected.courseTitle }}</div>
     <div class="table-responsive mt-4 shadow-md">
-      <table>
+      <table >
         <thead>
           <tr>
             <th>#</th>
@@ -20,9 +20,9 @@
             <th>عملیات</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody >
           <template v-if="loading">
-            <tr c v-for="item in [1, 2, 3]">
+            <tr c v-for="item in 5">
               <td width="140">
                 <BaseSkeletonLoaidng type="box" height="8px" />
               </td>
@@ -46,32 +46,48 @@
               </td>
             </tr>
           </template>
-          <template v-else>
-            <tr>
-              <td>1</td>
-              <td>1</td>
-              <td>1</td>
-              <td>1</td>
-              <td>آموزش جامع ویو جی اس (3 Vue.js) و Nuxt Js - پروژه محور</td>
-              <td>محمد اشرافی</td>
+          <template v-else-if="courses && courses.length > 0">
+            <tr v-for="course in courses" :key="course.id" @click="setSelected(course)">
+              <td>{{course.id}}</td>
+              <td>
+                <base-button class="mx-auto" :render-button-tag="false" :to="`/account/courses/show/${course.id}`" color-white>
+                  {{course.courseTitle}}
+                </base-button>
+              </td>
+              <td v-if="course.price > 0">{{ toTomanPrice(course.price) }} تومان</td>
+              <td v-else>رایگان</td>
+              <td v-if="course.status === CourseStatus.active" class="text-green-500">فعال</td>
+              <td v-if="course.status === CourseStatus.rejected" class="text-red-500">رد شده</td>
+              <td v-if="course.status === CourseStatus.pending" class="text-indigo-500">در حال بررسی</td>
+              <td>{{toPersianDate(new Date(course.creationDate))}}</td>
+              <td>{{course.studentCount}}</td>
               <td class="flex justify-center">
-                <div class="flex relative items-center gap-2 cursor-pointer" v-click-outside="() => showMenu = false"
+                <div class="flex relative overflow-y-visible items-center gap-2 cursor-pointer" v-click-outside="() => showMenu = false"
                   @click="showMenu = !showMenu">
                   <IconsArrowLeft class="transition-all" :style="{ rotate: showMenu ? '90deg' : '-90deg' }" />
                   <Transition name="layout">
                     <div class="account-menu" v-if="showMenu">
-                      <NuxtLink to="/account">پروفایل</NuxtLink>
-                      <NuxtLink to="/account/edit">ویرایش اطلاعات</NuxtLink>
-                      <NuxtLink to="/account/tickets">تیکت ها</NuxtLink>
-                      <NuxtLink to="/account/change-password">تغییر کلمه عبور</NuxtLink>
+                      <BaseButton color-white @click="isOpenModal_e = true">ویرایش</BaseButton>
+                      <NuxtLink :to="`/account/courses/AddNote?courseId=${course.id}`">ثبت یادداشت</NuxtLink>
+                      <NuxtLink :to="`/account/courses/SpecialComments?courseId=${course.id}`">کامنت های ویژه</NuxtLink>
+                      <hr>
+                      <BaseButton :render-button-tag="false" :to="`/account/courses/show/${course.id}`">سرفصل ها</BaseButton>
                     </div>
                   </Transition>
                 </div>
               </td>
             </tr>
           </template>
+          <template v-else>
+            <tr>
+              <td colspan="7">اطلاعاتی موجود نیست</td>
+            </tr>
+          </template>
         </tbody>
       </table>
+    </div>
+    <div class="w-full flex items-center justify-center mt-4">
+      <base-pagination v-if="!loading" v-model="pageId" :filter-result="coursesResult"></base-pagination>
     </div>
     <BaseModal title="افزودن دوره" v-model="isOpenModal_a">
       <account-courses-add />
@@ -82,17 +98,38 @@
   </div>
 </template>
 <script setup lang="ts">
-import { Course } from '~/models/courses/Course';
+import {GetTeacherCourses} from "~/services/teacher.service";
+import {CourseFilterData,TeacherCourseFilterParams} from "~/models/courses/CourseFilterData";
+import {CourseStatus} from "~/models/courses/CourseFilterData";
+import {toTomanPrice} from "~/utils/numberUtils";
+import {toPersianDate} from "~/utils/dateUtil";
+import {BaseFilterResult} from "~/models/IApiResponse";
 
-const selected = ref("");
+const selected:Ref<CourseFilterData> = ref();
 const loading = ref(false);
 const isOpenModal_a = ref(false);
-const rout = useRouter();
+const router = useRouter();
 const isOpenModal_e = ref(false);
-const courses: Ref<Course[]> = ref([]);
+const courses: Ref<CourseFilterData[]> = ref([]);
+const coursesResult: Ref<BaseFilterResult> = ref();
+const pageId = ref(1);
+
+const filterParams:TeacherCourseFilterParams = reactive({
+  pageId:pageId,
+  take: 10,
+  filterBy:undefined,
+  categorySlug:undefined,
+  status:undefined,
+  userId:undefined,
+  search:undefined,
+  courseLevel:undefined,
+  orderBy:undefined,
+  progressStatus:undefined,
+  searchOn:undefined
+});
 
 const showMenu = ref(false);
-watch(selected, () => {
+/*watch(selected, () => {
   if (selected.value == "ویرایش") {
     selected.value = "";
     isOpenModal_e.value = true;
@@ -105,9 +142,28 @@ watch(selected, () => {
     selected.value = "";
     rout.push("/account/courses/SpecialComments");
   }
-});
+});*/
 
 definePageMeta({
   layout: "account",
 });
+
+onMounted(async ()=>{
+  await getData();
+})
+
+const getData = async ()=>{
+  loading.value = true;
+  const fetchResult = await GetTeacherCourses(filterParams);
+  if(fetchResult.isSuccess){
+    courses.value = fetchResult.data?.data ?? [];
+    coursesResult.value = fetchResult.data!;
+  }
+
+  loading.value = false;
+}
+
+const setSelected = (course:CourseFilterData)=>{
+  selected.value = course;
+}
 </script>

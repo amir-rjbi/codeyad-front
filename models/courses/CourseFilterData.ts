@@ -1,4 +1,5 @@
 import { SeoData } from "./../SeoData";
+import {SearchOnType} from "../IApiResponse";
 
 export interface CourseSearchData {
   id:number;
@@ -20,7 +21,7 @@ export interface CourseFilterData {
   imageName: string;
   teacherName: string;
   duration: string;
-  status: string;
+  status: CourseStatus;
   episodeCount: number;
   price: number;
   studentCount: number;
@@ -37,14 +38,42 @@ export enum CourseLevel {
   expert = "expert",
 }
 export interface CourseFilterParams {
-  search?: string | null;
+  search?: string | null | undefined;
   pageId: number;
   take: number;
-  categorySlug?: string | null;
-  filterBy?: CourseFilterBy | null;
+  categorySlug?: string | null | undefined;
+  filterBy?: CourseFilterBy | null | undefined;
+}
+export interface TeacherCourseFilterParams extends CourseFilterParams{
+  status:CourseStatus | null | undefined;
+  orderBy:OrderBy | null | undefined;
+  courseLevel: CourseLevel | null | undefined;
+  progressStatus : ProgressStatus | null | undefined;
+  userId: number | null | undefined;
+  searchOn:SearchOnType | null | undefined;
+
 }
 export enum CourseFilterBy {
   all = "all",
   free = "free",
   notFreeCourse = "notFreeCourse",
+}
+
+export enum CourseStatus {
+  active = "active",
+  pending = "pending",
+  rejected = "rejected",
+}
+
+export enum OrderBy {
+  all = "all",
+  freeCourse = "freeCourse",
+  notFreeCourse = "notFreeCourse",
+}
+
+
+export enum ProgressStatus {
+  inProgress = "inProgress",
+  completed = "completed",
+  comingSoon = "comingSoon",
 }
