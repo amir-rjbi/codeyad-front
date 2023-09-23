@@ -131,9 +131,9 @@ const emits = defineEmits(['courseCreated'])
 
 const data = reactive({
   title: "",
-  categoryId: null,
-  subCategoryId: null,
-  price: 0,
+  categoryId: "",
+  subCategoryId: "",
+  price: "",
   slug: "",
   description: "",
   shortDescription: "",

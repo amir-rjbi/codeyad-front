@@ -1,3 +1,4 @@
+import { Course } from './../models/courses/Course';
 import {FilterResult,IApiResponse} from "~/models/IApiResponse";
 import {TeacherCourseFilterParams,CourseFilterData} from "~/models/courses/CourseFilterData";
 import {OrderDetailsFilterResult} from "~/models/teachers/orderDetails";
@@ -15,7 +16,7 @@ export const GetTeacherCourses = (
 
 export const GetTeacherCourseById = (
     courseId:number
-): Promise<IApiResponse<CourseLanding>> => {
+): Promise<IApiResponse<Course>> => {
     return FetchApi(`/Teacher/Courses/${courseId}`);
 };
 
