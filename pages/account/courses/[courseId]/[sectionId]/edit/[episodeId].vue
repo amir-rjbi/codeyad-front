@@ -79,6 +79,12 @@ const route = useRoute();
 const router = useRouter();
 const courseId:number = Number(route.params?.courseId);
 const sectionId:number = Number(route.params?.sectionId);
+const episodeId:number = Number(route.params?.episodeId);
+
+onMounted(async ()=>{
+  const
+})
+
 
 const submitEpisode = async () => {
   loading.value = true;

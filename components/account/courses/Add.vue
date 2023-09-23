@@ -41,16 +41,15 @@
         id="question_text2"
       />
     </div>
-
     <div class="w-full p-2 sm:px-0">
-      <BaseHtmlEditor
+      <BaseTextArea
         label="  توضیحات کوتاه: "
         name="shortDescription"
         v-model="data.shortDescription"
-        id="question_text"
+        id="shortDescription"
+        placeholder="توضیح کوتاهی از دوره را وارد کنید"
       />
     </div>
-
     <div class="w-1/2 p-2 sm:w-full sm:px-0">
       <BaseSelectBox
         required
@@ -74,9 +73,6 @@
         <option v-if="subCategories && subCategories.length > 0" v-for="c in subCategories" :key="c.id" :value="c.id" >{{c.title}}</option>
       </BaseSelectBox>
     </div>
-    <div class="p-2 w-1/2 sm:px-0">
-      <BaseInputFile out-line name="imageFile" label="تصویر اصلی " v-model="data.imageFile"/>
-    </div>
     <div class="w-1/2 p-2 sm:w-full sm:px-0">
       <BaseSelectBox
         required
@@ -85,7 +81,9 @@
         out-line
         name="courseLevel"
       >
-        <option v-for="level in CourseLevel" :key="level" :value="level">{{ level }}</option>
+        <option :value="CourseLevel.beginner">مقدماتی</option>
+        <option :value="CourseLevel.intermediate">مقدماتی تا پیشرفته</option>
+        <option :value="CourseLevel.expert">پیشرفته</option>
       </BaseSelectBox>
     </div>
     <div class="w-full p-2 sm:w-full sm:px-0">
@@ -97,11 +95,24 @@
         v-model="data.requirements"
       />
     </div>
-    <div class="p-2 w-1/2 sm:px-0">
+    <div class="p-2 w-full sm:px-0">
+      <BaseInputFile out-line name="imageFile" label="تصویر اصلی " v-model="data.imageFile"/>
+    </div>
+    <div class="p-2 w-1/2 sm:w-full sm:px-0">
       <BaseInputFile out-line name="demoFile" label="مقدمه دوره " v-model="data.demoFile" />
     </div>
+    <div class="w-1/2 p-2 sm:w-full sm:px-0">
+      <BaseInput
+          placeholder="فرمت صحیح: 00:06:27"
+          out-line
+          name="demoDuration"
+          label="مدت زمان ویدئو:"
+          dir="ltr"
+          v-model="data.demoDuration"
+      />
+    </div>
     <div class="justify-end flex w-full mt-2">
-      <BaseButton color="green">ثبت اطلاعات</BaseButton>
+      <BaseButton type="submit" color="green">ثبت اطلاعات</BaseButton>
     </div>
   </Form>
 </template>
@@ -116,6 +127,8 @@ import {CreateCourse} from "~/services/teacher.service";
 const categories:Ref<CourseCategory[]> = ref([]);
 const subCategories:Ref<CourseCategory[]> = ref([]);
 
+const emits = defineEmits(['courseCreated'])
+
 const data = reactive({
   title: "",
   categoryId: null,
@@ -124,16 +137,16 @@ const data = reactive({
   slug: "",
   description: "",
   shortDescription: "",
-  demoFile: Object,
-  imageFile: Object,
+  demoFile: null,
+  imageFile: null,
   courseLevel:"",
   requirements:"",
-  DemoDuration:''
+  demoDuration:''
 });
 const schema = Yup.object().shape({
   title: Yup.string().required().label("عنوان دوره"),
   categoryId: Yup.number().required().label("دسته بندی اصلی"),
-  subCategoryId: Yup.number().required().label("دسته بندی کوتاه"),
+  subCategoryId: Yup.number().required().label("دسته بندی دوم"),
   price: Yup.number().required().label("قیمت"),
   description: Yup.string().required().label("توضیحات"),
   shortDescription: Yup.string().required().label("توضیحات کوتاه"),
@@ -162,16 +175,19 @@ const addCourse = async () => {
   courseData.append('slug',data.slug);
   courseData.append('description',data.description);
   courseData.append('shortDescription',data.shortDescription);
-  courseData.append('demoFile',new Blob(data.demoFile));
-  courseData.append('imageFile',new Blob(data.imageFile));
+  if(data.demoFile !== null)
+    courseData.append('demoFile',data.demoFile);
+  if(data.imageFile !== null)
+  courseData.append('imageFile',data.imageFile);
   courseData.append('courseLevel',data.courseLevel);
   courseData.append('requirements',data.requirements);
-  courseData.append('DemoDuration',JSON.stringify(data.DemoDuration));
+  courseData.append('demoDuration',data.demoDuration);
 
   const fetchResult = await CreateCourse(courseData);
   if(fetchResult.isSuccess){
     const toast = useToast();
     toast.showToast();
+    emits('courseCreated');
   }
 };
 </script>

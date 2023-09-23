@@ -79,11 +79,10 @@ export const GetSpecialComments = (
 
 export const SetSpecialComments = (
     courseId:number,
-    comments:number[]
+    comments:string
 )=>{
-    return FetchApi(`/Teacher/SetSpecialComments?courseId=${courseId}`,{
-        method:'POST',
-        body:comments
+    return FetchApi(`/Teacher/SetSpecialComments?courseId=${courseId}&commentIds=${comments}`,{
+        method:'POST'
     });
 }
 export const DeleteSpecialComment = (
@@ -94,16 +93,26 @@ export const DeleteSpecialComment = (
     });
 }
 
+export const GetNote = (
+    courseId:number,
+):Promise<IApiResponse<string>> => {
+    return FetchApi(`/Teacher/Note?courseId=${courseId}`,{
+        method:'GET',
+    });
+};
+
 export const SetNote = (
     courseId:number,
     note:string
 )=>{
-    return FetchApi(`/Teacher/SetNote`,{
+    const data = new FormData();
+    // @ts-ignore
+    data.append('CourseId',courseId);
+    data.append('Note',note);
+
+    return FetchApi(`/Teacher/Note`,{
         method:'POST',
-        body:{
-            courseId,
-            note
-        }
+        body:data
     });
 }
 

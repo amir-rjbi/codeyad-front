@@ -61,11 +61,11 @@
               <td v-if="course.status === CourseStatus.pending" class="text-indigo-500">در حال بررسی</td>
               <td>{{toPersianDate(new Date(course.creationDate))}}</td>
               <td>{{course.studentCount}}</td>
-              <td class="flex justify-center">
-                <div class="flex absolute overflow-y-visible items-center gap-2 cursor-pointer" @click="showOptions">
-                  <IconsArrowLeft class="pointer-events-none transition-all" :style="{ rotate: showMenu ? '90deg' : '-90deg' }"/>
+              <td class="flex lg:inherit sm:relative justify-center border-none">
+                <div class="w-16 h-12 flex absolute overflow-y-visible items-center gap-2 cursor-pointer" @click.self="showOptions">
+                  <IconsArrowLeft class="w-full justify-self-start pointer-events-none transition-all" :style="{ rotate: showMenu ? '90deg' : '-90deg' }"/>
                   <Transition name="layout">
-                    <div class="account-menu w-[438px] p-2" style="width: max-content;right: -5rem;" v-show="showMenu" >
+                    <div class="account-menu w-[438px] p-2" style="width: max-content;right: -3rem; display: none" >
                       <BaseButton color-white :render-button-tag="false" :to="`/account/courses/show/${course.id}`">سرفصل ها</BaseButton>
                       <hr class="my-2">
                       <BaseButton color-white @click="isOpenModal_e = true">ویرایش</BaseButton>
@@ -88,11 +88,11 @@
     <div class="w-full flex items-center justify-center mt-4">
       <base-pagination v-if="!loading" v-model="pageId" :filter-result="coursesResult"></base-pagination>
     </div>
-    <BaseModal title="افزودن دوره" v-model="isOpenModal_a">
-      <account-courses-add />
+    <BaseModal title="افزودن دوره" v-model="isOpenModal_a" >
+      <account-courses-add @courseCreated="isOpenModal_a = false,getData"/>
     </BaseModal>
     <BaseModal title="ویرایش دوره" v-model="isOpenModal_e">
-      <account-courses-edit />
+      <account-courses-edit :course-id="selected.id" @courseEdited="isOpenModal_e = false,getData" />
     </BaseModal>
   </div>
 </template>
@@ -165,7 +165,6 @@ const getData = async ()=>{
 const setSelected = (course:CourseFilterData)=>{
   selected.value = course;
 }
-
 
 const showOptions = (e)=>{
   const optionsMenu = e.target.querySelector('.account-menu');
