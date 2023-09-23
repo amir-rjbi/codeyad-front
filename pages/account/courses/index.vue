@@ -62,16 +62,15 @@
               <td>{{toPersianDate(new Date(course.creationDate))}}</td>
               <td>{{course.studentCount}}</td>
               <td class="flex justify-center">
-                <div class="flex relative overflow-y-visible items-center gap-2 cursor-pointer" v-click-outside="() => showMenu = false"
-                  @click="showMenu = !showMenu">
-                  <IconsArrowLeft class="transition-all" :style="{ rotate: showMenu ? '90deg' : '-90deg' }" />
+                <div class="flex absolute overflow-y-visible items-center gap-2 cursor-pointer" @click="showOptions">
+                  <IconsArrowLeft class="pointer-events-none transition-all" :style="{ rotate: showMenu ? '90deg' : '-90deg' }"/>
                   <Transition name="layout">
-                    <div class="account-menu" v-if="showMenu">
+                    <div class="account-menu w-[438px] p-2" style="width: max-content;right: -5rem;" v-show="showMenu" >
+                      <BaseButton color-white :render-button-tag="false" :to="`/account/courses/show/${course.id}`">سرفصل ها</BaseButton>
+                      <hr class="my-2">
                       <BaseButton color-white @click="isOpenModal_e = true">ویرایش</BaseButton>
                       <NuxtLink :to="`/account/courses/AddNote?courseId=${course.id}`">ثبت یادداشت</NuxtLink>
                       <NuxtLink :to="`/account/courses/SpecialComments?courseId=${course.id}`">کامنت های ویژه</NuxtLink>
-                      <hr>
-                      <BaseButton :render-button-tag="false" :to="`/account/courses/show/${course.id}`">سرفصل ها</BaseButton>
                     </div>
                   </Transition>
                 </div>
@@ -165,5 +164,14 @@ const getData = async ()=>{
 
 const setSelected = (course:CourseFilterData)=>{
   selected.value = course;
+}
+
+
+const showOptions = (e)=>{
+  const optionsMenu = e.target.querySelector('.account-menu');
+  if(optionsMenu.style.display == 'none')
+    optionsMenu.style.display='flex';
+  else
+    optionsMenu.style.display='none';
 }
 </script>
