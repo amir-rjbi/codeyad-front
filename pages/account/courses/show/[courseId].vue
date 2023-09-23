@@ -1,12 +1,12 @@
 <template>
-  <template v-if="!course">
+  <template v-if="loading">
     <div class="space-y-2">
       <BaseSkeletonLoaidng type="box" height="50px" />
       <BaseSkeletonLoaidng type="box" height="200px" />
       <BaseSkeletonLoaidng type="box" height="80px" v-for="i in 4" />
     </div>
   </template>
-  <div v-if="course">
+  <div v-if="!loading && course">
     <div class="flex justify-between">
       <span class="font-bold text-h5">{{course.courseTitle}}</span>
       <base-button color-white size="sm" :render-button-tag="false" to="/account/courses">بازگشت</base-button>
@@ -74,7 +74,7 @@
       </li>
     </ul>
     <BaseModal title="افزودن سرفصل جدید" v-model="isOpenModal_a">
-      <account-courses-add-section :course-id="course.id" />
+      <account-courses-add-section :course-id="course.id" @sectionCreated="onSectionCreated"/>
     </BaseModal>
   </div>
 </template>
@@ -87,6 +87,7 @@ definePageMeta({
   layout: "account",
 });
 
+const loading = ref(false);
 const isOpenModal_a = ref(false);
 
 const route = useRoute();
@@ -98,10 +99,17 @@ onMounted(async ()=>{
 })
 
 const getData = async ()=>{
+  loading.value = true;
   const fetchResult = await GetTeacherCourseById(courseId);
   if(fetchResult.isSuccess){
     course.value = fetchResult.data;
   }
+  loading.value = false;
+}
+
+const onSectionCreated = async ()=>{
+  isOpenModal_a.value = false;
+  await getData();
 }
 
 </script>

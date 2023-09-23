@@ -5,7 +5,7 @@
       <base-button color-white size="sm" :render-button-tag="false" :to="`/account/courses/show/${courseId}`">بازگشت</base-button>
     </div>
     <hr class="my-6">
-    <div class="p-8 rounded-lg bg-white border-2">
+    <div class="p-8 relative rounded-lg bg-white border-2">
       <Form :validation-schema="schema" @submit="submitEpisode" class="grid grid-cols-2 gap-4">
         <base-input
             label="عنوان بخش (فارسی)"
@@ -41,6 +41,9 @@
         <div></div>
         <base-button type="submit" class="mt-4 mr-auto">ثبت بخش جدید</base-button>
       </Form>
+      <div v-if="loading" class="bg-gray-500 absolute inset-0 rounded-lg opacity-50 animate-pulse grid place-items-center">
+        <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+      </div>
     </div>
   </div>
 </template>
@@ -67,16 +70,19 @@ const episodeData = reactive({
   description:'',
   isFree:false,
   time:'',
-  videoFile:Object,
-  attachFile:Object
+  videoFile:null,
+  attachFile:null
 })
 
+const loading = ref(false);
 const route = useRoute();
 const router = useRouter();
 const courseId:number = Number(route.params?.courseId);
 const sectionId:number = Number(route.params?.sectionId);
 
 const submitEpisode = async () => {
+  loading.value = true;
+
   const episode = new FormData();
   episode.append('courseId',courseId.toString());
   episode.append('sectionId',sectionId.toString());
@@ -85,8 +91,10 @@ const submitEpisode = async () => {
   episode.append('description',episodeData.description);
   episode.append('isFree',episodeData.isFree ? 'true' : 'false');
   episode.append('time',episodeData.time);
-  episode.append('videoFile',new Blob(episodeData.videoFile),episodeData.videoFile.fileName);
-  episode.append('attachFile',new Blob(episodeData.attachFile),episodeData.attachFile.fileName);
+  if(episodeData.videoFile != null)
+    episode.append('videoFile',episodeData.videoFile);
+  if(episodeData.attachFile != null)
+    episode.append('attachFile',episodeData.attachFile);
 
   const fetchResult = await AddEpisode(episode);
   if(fetchResult.isSuccess){
@@ -97,3 +105,63 @@ const submitEpisode = async () => {
 }
 
 </script>
+
+<style>
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  transform: scale(200%);
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #fff;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+
+</style>

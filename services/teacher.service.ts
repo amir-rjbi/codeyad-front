@@ -79,11 +79,10 @@ export const GetSpecialComments = (
 
 export const SetSpecialComments = (
     courseId:number,
-    comments:number[]
+    comments:string
 )=>{
-    return FetchApi(`/Teacher/SetSpecialComments?courseId=${courseId}`,{
-        method:'POST',
-        body:comments
+    return FetchApi(`/Teacher/SetSpecialComments?courseId=${courseId}&commentIds=${comments}`,{
+        method:'POST'
     });
 }
 export const DeleteSpecialComment = (

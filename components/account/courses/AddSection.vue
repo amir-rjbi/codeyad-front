@@ -22,6 +22,8 @@ const props = defineProps({
   },
 })
 
+const emits = defineEmits(['sectionCreated']);
+
 const data = reactive({
   title: "",
   courseId: 0
@@ -44,7 +46,8 @@ const createSection = async () => {
   const fetchResult = await AddSection(data.title,data.courseId);
   if (fetchResult.isSuccess) {
     const toast = useToast();
-    toast.showToast('بخش با موفقیت ایجاد شد', ToastType.success, 3000);
+    toast.showToast('فصل با موفقیت ایجاد شد');
+    emits('sectionCreated');
   }
 };
 </script>

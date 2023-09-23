@@ -89,8 +89,8 @@
     <div class="w-full flex items-center justify-center mt-4">
       <base-pagination v-if="!loading" v-model="pageId" :filter-result="coursesResult"></base-pagination>
     </div>
-    <BaseModal title="افزودن دوره" v-model="isOpenModal_a">
-      <account-courses-add />
+    <BaseModal title="افزودن دوره" v-model="isOpenModal_a" >
+      <account-courses-add @courseCreated="isOpenModal_a = false,getData"/>
     </BaseModal>
     <BaseModal title="ویرایش دوره" v-model="isOpenModal_e">
       <account-courses-edit />

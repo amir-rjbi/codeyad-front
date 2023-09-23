@@ -89,7 +89,7 @@
             </tr>
           </template>
           <template v-else-if="comments.length > 0">
-            <tr v-for="comment in comments" :key="comment.id">
+            <tr v-for="comment in comments" :key="comment.id" v-if="!specialComments.some(c=>c.id == comment.id)">
               <td>
                 <input type="checkbox" name="specialIds" :value="comment.id" />
               </td>
@@ -107,8 +107,12 @@
           </template>
           </tbody>
         </table>
-      </div>
 
+        <div class="flex justify-center my-4" v-if="!loading">
+          <base-pagination v-model="pageId" :filter-result="commentsResult" />
+        </div>
+
+      </div>
       </Form>
     </div>
 
@@ -122,6 +126,7 @@ import {CourseSpecialComment} from "~/models/courses/CourseLanding";
 import {TeacherCommentsFilterParams,TeacherComment} from "~/models/teachers/teacherComments";
 import {GetTeacherComments} from "~/services/teacher.service";
 import {SetSpecialComments} from "~/services/teacher.service";
+import {BaseFilterResult} from "~/models/IApiResponse";
 
 definePageMeta({
   layout: "account",
@@ -134,6 +139,7 @@ const pageId = ref(1);
 const courseId = Number(route.query?.courseId);
 const specialComments:Ref<CourseSpecialComment[]> = ref([]);
 const comments:Ref<TeacherComment[]> = ref([]);
+const commentsResult:Ref<BaseFilterResult> = ref();
 
 const commentsFilter:TeacherCommentsFilterParams = reactive({
   courseId:courseId,
@@ -141,6 +147,8 @@ const commentsFilter:TeacherCommentsFilterParams = reactive({
   take:10,
   pageId:pageId
 });
+
+watch(pageId,()=>getData())
 
 onMounted(async ()=>{
   await getData();
@@ -153,9 +161,10 @@ const getData = async ()=>{
     specialComments.value = fetchResult.data ?? [];
   }
 
-  const commentsResult = await GetTeacherComments(commentsFilter);
-  if(commentsResult.isSuccess){
-    comments.value = commentsResult.data?.data ?? [];
+  const commentsFetchResult = await GetTeacherComments(commentsFilter);
+  if(commentsFetchResult.isSuccess){
+    comments.value = commentsFetchResult.data?.data ?? [];
+    commentsResult.value = commentsFetchResult.data;
   }
 
   loading.value = false;
@@ -163,9 +172,13 @@ const getData = async ()=>{
 
 const setSpecialComments = async ()=>{
   const commentsList = commentsTable.value.querySelectorAll('input[type=checkbox]');
-  const selectedComments:number[] = [...commentsList].filter(c=>c.checked).map(c=>Number(c.value));
+  const selectedComments:number[] = [...commentsList].filter(c=>c.checked).map(c=>c.value.toString());
+  if(selectedComments.length == 0) return;
 
-  const fetchResult = await SetSpecialComments(courseId,selectedComments);
+  const commentIds = selectedComments.join('-');
+  console.log(commentIds)
+
+  const fetchResult = await SetSpecialComments(courseId,commentIds);
   if(fetchResult.isSuccess){
     const toast = useToast();
     toast.showToast();
