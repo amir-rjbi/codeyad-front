@@ -167,8 +167,6 @@ const categorySelected = (event:any)=>{
 }
 
 const addCourse = async () => {
-  console.log(data);
-
   const courseData = new FormData();
   courseData.append('courseTitle',data.title);
   courseData.append('categoryId',data.categoryId.toString());

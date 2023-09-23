@@ -61,17 +61,16 @@
               <td v-if="course.status === CourseStatus.pending" class="text-indigo-500">در حال بررسی</td>
               <td>{{toPersianDate(new Date(course.creationDate))}}</td>
               <td>{{course.studentCount}}</td>
-              <td class="flex justify-center">
-                <div class="flex relative overflow-y-visible items-center gap-2 cursor-pointer" v-click-outside="() => showMenu = false"
-                  @click="showMenu = !showMenu">
-                  <IconsArrowLeft class="transition-all" :style="{ rotate: showMenu ? '90deg' : '-90deg' }" />
+              <td class="flex lg:inherit sm:relative justify-center border-none">
+                <div class="w-16 h-12 flex absolute overflow-y-visible items-center gap-2 cursor-pointer" @click.self="showOptions">
+                  <IconsArrowLeft class="w-full justify-self-start pointer-events-none transition-all" :style="{ rotate: showMenu ? '90deg' : '-90deg' }"/>
                   <Transition name="layout">
-                    <div class="account-menu" v-if="showMenu">
+                    <div class="account-menu w-[438px] p-2" style="width: max-content;right: -3rem; display: none" >
+                      <BaseButton color-white :render-button-tag="false" :to="`/account/courses/show/${course.id}`">سرفصل ها</BaseButton>
+                      <hr class="my-2">
                       <BaseButton color-white @click="isOpenModal_e = true">ویرایش</BaseButton>
                       <NuxtLink :to="`/account/courses/AddNote?courseId=${course.id}`">ثبت یادداشت</NuxtLink>
                       <NuxtLink :to="`/account/courses/SpecialComments?courseId=${course.id}`">کامنت های ویژه</NuxtLink>
-                      <hr>
-                      <BaseButton :render-button-tag="false" :to="`/account/courses/show/${course.id}`">سرفصل ها</BaseButton>
                     </div>
                   </Transition>
                 </div>
@@ -93,7 +92,7 @@
       <account-courses-add @courseCreated="isOpenModal_a = false,getData"/>
     </BaseModal>
     <BaseModal title="ویرایش دوره" v-model="isOpenModal_e">
-      <account-courses-edit />
+      <account-courses-edit :course-id="selected.id" @courseEdited="isOpenModal_e = false,getData" />
     </BaseModal>
   </div>
 </template>
@@ -165,5 +164,14 @@ const getData = async ()=>{
 
 const setSelected = (course:CourseFilterData)=>{
   selected.value = course;
+}
+
+const showOptions = (e)=>{
+  const optionsMenu = e.target.querySelector('.account-menu');
+
+  if(optionsMenu.style.display == 'none')
+    optionsMenu.style.display='flex';
+  else
+    optionsMenu.style.display='none';
 }
 </script>

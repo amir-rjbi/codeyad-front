@@ -36,6 +36,11 @@
     <ul class="my-4 space-y-4">
       <li v-for="(section,i) in course.sections" :key="section.id">
         <base-collapse :title="section.title" bg-white title-class="text-h5">
+          <template #icon>
+            <base-button color-white size="sm" @click="openEditModal(section)">
+              <IconsEdit />
+            </base-button>
+          </template>
           <div>
             <base-button color="blue" :render-button-tag="false" :to="`/account/courses/${course.id}/${section.id}/addEpisode`"> افزودن قسمت جدید </base-button>
             <div class="table-responsive mt-4 shadow-md">
@@ -73,8 +78,11 @@
         </base-collapse>
       </li>
     </ul>
-    <BaseModal title="افزودن سرفصل جدید" v-model="isOpenModal_a">
+    <BaseModal title="افزودن فصل جدید" v-model="isOpenModal_a">
       <account-courses-add-section :course-id="course.id" @sectionCreated="onSectionCreated"/>
+    </BaseModal>
+    <BaseModal title="ویرایش سرفصل" v-model="isOpenModal_e">
+      <account-courses-edit-section :section="selectedSection" @sectionEdited="onSectionCreated"/>
     </BaseModal>
   </div>
 </template>
@@ -82,6 +90,7 @@
 <script setup lang="ts">
 import {GetTeacherCourseById} from "~/services/teacher.service";
 import {CourseLanding} from "~/models/courses/CourseLanding";
+import {Section} from "~/models/courses/Course";
 
 definePageMeta({
   layout: "account",
@@ -89,6 +98,8 @@ definePageMeta({
 
 const loading = ref(false);
 const isOpenModal_a = ref(false);
+const isOpenModal_e = ref(false);
+const selectedSection:Ref<Section> = ref(null);
 
 const route = useRoute();
 const courseId:number = Number(route.params?.courseId);
@@ -109,7 +120,13 @@ const getData = async ()=>{
 
 const onSectionCreated = async ()=>{
   isOpenModal_a.value = false;
+  isOpenModal_e.value = false;
   await getData();
+}
+
+const openEditModal = (section:Section)=>{
+  selectedSection.value = section;
+  isOpenModal_e.value = true;
 }
 
 </script>
