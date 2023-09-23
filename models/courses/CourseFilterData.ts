@@ -55,7 +55,7 @@ export interface TeacherCourseFilterParams extends CourseFilterParams{
 }
 export enum CourseFilterBy {
   all = "all",
-  free = "free",
+  free = "freeCourse",
   notFreeCourse = "notFreeCourse",
 }
 

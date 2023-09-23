@@ -12,7 +12,7 @@
 .notification {
   position: relative;
 
-  .dot{
+  .dot {
     position: absolute;
     top: -5px;
     right: -8px;
@@ -213,4 +213,28 @@ code {
   margin-top: 1rem;
   margin-bottom: 1rem;
   direction: ltr;
+}
+
+.message {
+  @apply w-1/2 p-4 mb-4 sm:w-10/12;
+}
+.me {
+  @apply flex space-x-2 space-x-reverse;
+}
+.you {
+  @apply flex flex-row-reverse space-x-2 mr-auto;
+}
+.me>p {
+  @apply message bg-blue text-white rounded-md rounded-br-none;
+}
+.you>p {
+  @apply message bg-white rounded-md rounded-bl-none mr-auto;
+}
+.me>img,
+.you>img {
+  @apply mt-1;
+}
+.me>p>span,
+.you>p>span {
+  @apply block text-left text-h8 opacity-70 -mb-2;
 }

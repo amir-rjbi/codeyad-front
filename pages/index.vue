@@ -23,7 +23,7 @@
                         کدیاد،
                         رایگان بوده و شما می‌توانید نیمی از مسیر را بدون هیچ هزینه‌ای پیش بروید.
                     </p>
-                    <BaseButton class="sm:w-full shadow-sm sm:mt-4 mt-14" :render-button-tag="false" to="/">بزن بریم
+                    <BaseButton class="sm:w-full shadow-sm sm:mt-4 mt-14" :render-button-tag="false" to="/courses">بزن بریم
                     </BaseButton>
                 </section>
             </div>
@@ -42,7 +42,8 @@ import { Comment, CommentType } from "~/models/comments/Comment";
 
 const utilStore = useUtilStore();
 const loading = ref(false);
-const { data } = await useAsyncData("singlePage", () => $fetch<IApiResponse<HomePageData>>(`${BASE_URL}/home`));
+const { data } = await useAsyncData("singlePage", () => $fetch<IApiResponse<HomePageData>>(`${BASE_URL}/home`,{
+}));
 const courses = ref(data.value?.data?.latestCourses);
 const comments: Ref<Comment[]> = ref([]);
 const getCourseByCategory = async (category: string) => {

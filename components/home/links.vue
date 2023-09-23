@@ -1,6 +1,6 @@
 <template>
     <section class="links justify-between lg:!gap-4 md:flex-wrap ">
-        <nuxt-link to="/courses" class="item free md:!max-w-full md:w-full">
+        <nuxt-link to="/courses?filter=freeCourse" class="item free md:!max-w-full md:w-full">
             <div class="logo">
                 <IconsBoolInMonitor />
             </div>
@@ -14,7 +14,7 @@
             <p class="text-blue font-bold">نقشه راه</p>
             <p class="text-black">چطور برنامه نویس بشی</p>
         </nuxt-link>
-        <nuxt-link to="/" class="item boot-camp md:!max-w-full md:w-full">
+        <nuxt-link to="/bootcamps" class="item boot-camp md:!max-w-full md:w-full">
             <div class="logo">
                 <IconsBootcamp />
             </div>
