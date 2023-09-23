@@ -1,6 +1,7 @@
 import { SeoData } from "./../SeoData";
 
 export interface CourseSearchData {
+  id:number;
   courseTitle: string;
   slug: string;
   imageName: string;

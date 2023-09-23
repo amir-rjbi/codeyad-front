@@ -9,7 +9,6 @@
       <table>
         <thead>
           <tr>
-            <th>#</th>
             <th>مبلغ</th>
             <th>تعداد دوره</th>
             <th>تاریخ پرداخت</th>
@@ -40,47 +39,51 @@
               </td>
             </tr>
           </template>
-          <template v-else>
+          <template v-for="item in data">
             <tr>
-              <td>{{ data.orderId }}</td>
-              <td>{{ data.price }}</td>
-              <td>{{ data.discount }}</td>
-              <td>500</td>
-              <td>{{ data.isFinally }}</td>
-              <td class="flex justify-center">
-                <BaseButton @click="isOpenModal = true">نمایش</BaseButton>
+              <td>{{ item.totalPrice.toLocaleString() }} تومان</td>
+              <td>{{ item.orderDetails.length }}</td>
+              <td>{{ toPersianDate(new Date(item.paymentDate)) }}</td>
+              <td>
+                <span class="text-green" v-if="item.isFinally">پرداخت شده</span>
+                <span class="text-red" v-else>در انتظار پرداخت</span>
+              </td>
+              <td class="flex justify-center gap-2 items-center">
+                <BaseButton size="sm" @click="showOrder(item)">نمایش</BaseButton>
+                <BaseButton size="sm" color="green" :render-button-tag="false" to="/cart" v-if="item.isFinally == false">
+                  پرداخت سفارش</BaseButton>
               </td>
             </tr>
           </template>
         </tbody>
       </table>
     </div>
-    <BaseModal title="نمایش فاکتور" v-model="isOpenModal">
-      <account-order-show />
+    <BaseModal title="دوره های خریداری شده در فاکتور" v-model="isOpenModal">
+      <account-order-show @close-modal="() => isOpenModal = false" :order="selectedOrder" v-if="selectedOrder" />
     </BaseModal>
   </div>
 </template>
 <script setup lang="ts">
-import { date } from "yup";
 import { GetUserOrder } from "../../services/order.service";
 definePageMeta({
   layout: "account",
 });
-const data = reactive({
-  orderId: 2,
-  price: 2,
-  discount: 2,
-
-  isFinally: true,
-});
-onMounted(async () => {
-  var res = await GetUserOrder();
-  console.log(res);
-  data.orderId = res.data!.userId;
-  data.discount = res.data!.discount;
-  data.isFinally = res.data!.isFinally;
-  data.price = res.data!.price;
-});
+const data: Ref<Order[]> = ref([]);
 const loading = ref(false);
 const isOpenModal = ref(false);
+const selectedOrder: Ref<Order | null> = ref(null);
+
+const showOrder = (item: Order) => {
+  isOpenModal.value = true;
+  selectedOrder.value = item;
+}
+onMounted(async () => {
+  loading.value = true;
+  var res = await GetUserOrder();
+  if (res.isSuccess) {
+    data.value = res.data ?? []
+  }
+  loading.value = false;
+
+});
 </script>

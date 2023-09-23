@@ -23,7 +23,7 @@
             <div class="footer flex justify-between items-center">
                 <p v-if="item.totalPrice > 0">{{ item.totalPrice.toLocaleString() }} تومان</p>
                 <p class="text-green font-bold" v-else>رایگان</p>
-                <BaseButton :render-button-tag="false" size="md" :to="`/course/${item.slug}`">
+                <BaseButton :render-button-tag="false" size="md" :to="userHasCourse ? `/course/panel-${item.id}` : courseLink">
                     <div class="flex items-center gap-[6px]">
                         شروع دوره
                         <IconsArrowLeft color="#fff" />
@@ -35,10 +35,16 @@
 </template>
 <script setup lang="ts">
 import { CourseSearchData, CourseLevel } from '~/models/courses/CourseFilterData';
+import { useAccountStore } from '~/stores/account.store';
 
-defineProps<{
+const accountStore = useAccountStore();
+const props = defineProps<{
     item: CourseSearchData
 }>();
+const courseLink = `/course/${props.item.slug}`;
+const userHasCourse = computed(() => {
+    return accountStore.currentUser?.courseIds.includes(props.item.id);
+})
 </script>
 <style scoped lang="scss">
 @media screen and (max-width:768px) {

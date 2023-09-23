@@ -3,7 +3,7 @@
         <BaseSeoData :meta="{
             indexPage: true,
             metaTitle: utilStore.siteSettings?.siteTitle,
-            metaDescription:utilStore.siteSettings?.metaDescription,
+            metaDescription: utilStore.siteSettings?.metaDescription,
         }" />
         <div class="container">
             <HomeLandingBanner :data="data?.data!" />
@@ -28,7 +28,7 @@
                 </section>
             </div>
         </div>
-        <!-- <HomeSpecialComments /> -->
+        <HomeSpecialComments :data="comments" v-if="comments.length > 0" />
         <HomeArticles :data="data?.data?.latestArticles ?? []" />
     </div>
 </template>
@@ -37,10 +37,14 @@ import { GetCourseByFilter } from "~/services/course.service";
 import { HomePageData } from "~/models/HomePageData";
 import { IApiResponse } from "~/models/IApiResponse";
 import { useUtilStore } from "~/stores/util.store";
+import { GetComments } from "~/services/comment.service";
+import { Comment, CommentType } from "~/models/comments/Comment";
+
 const utilStore = useUtilStore();
 const loading = ref(false);
 const { data } = await useAsyncData("singlePage", () => $fetch<IApiResponse<HomePageData>>(`${BASE_URL}/home`));
 const courses = ref(data.value?.data?.latestCourses);
+const comments: Ref<Comment[]> = ref([]);
 const getCourseByCategory = async (category: string) => {
     loading.value = true;
     var res = await GetCourseByFilter({
@@ -51,4 +55,10 @@ const getCourseByCategory = async (category: string) => {
     courses.value = res.data?.data ?? [];
     loading.value = false;
 }
+onMounted(async () => {
+    var res = await GetComments(2021, CommentType.course, 1, 8);
+    if (res.isSuccess) {
+        comments.value = res.data?.data ?? [];
+    }
+})
 </script>

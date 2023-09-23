@@ -1,5 +1,5 @@
 import { NotificationFilterResult } from "./../models/account/Notification";
-import { User, UserAlertsCount } from "./../models/account/User";
+import { User, UserAlertsCount, UserCourse } from "./../models/account/User";
 import { IApiResponse } from "~~/models/IApiResponse";
 
 export const GetCurrentUserData = (): Promise<IApiResponse<User>> => {
@@ -10,6 +10,11 @@ export const GetUserAlertsCount = (): Promise<
 > => {
   return FetchApi("/user/current/alertsCount");
 };
+
+export const GetUserCourses = (): Promise<IApiResponse<UserCourse[]>> => {
+  return FetchApi("/user/UserCourses");
+};
+
 export const EditProfile = (
   name: string,
   family: string,

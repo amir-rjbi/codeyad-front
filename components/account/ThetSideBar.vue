@@ -34,20 +34,22 @@
         <nuxt-link to="/account/orders#a_content"> فاکتور ها </nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/account/my-courses#a_content"> دوره های من </nuxt-link>
+        <nuxt-link to="/account/my-courses"> دوره های من </nuxt-link>
       </li>
       <li>
         <nuxt-link to="/account/my-bootcamps#a_content"> بوتکمپ های من </nuxt-link>
       </li>
-      <li>
-        <nuxt-link to="/account/cards#a_content"> کارت های بانکی </nuxt-link>
-      </li>
-      <li>
-        <nuxt-link to="/account/withdrawals#a_content"> برداشت از حساب </nuxt-link>
-      </li>
-      <li>
-        <nuxt-link to="/account/courses#a_content"> دوره های مدرس </nuxt-link>
-      </li>
+      <template v-if="accountStore.userHasTeacherRole">
+        <li>
+          <nuxt-link to="/account/cards#a_content"> کارت های بانکی </nuxt-link>
+        </li>
+        <li>
+          <nuxt-link to="/account/withdrawals#a_content"> برداشت از حساب </nuxt-link>
+        </li>
+        <li>
+          <nuxt-link to="/account/courses#a_content"> دوره های مدرس </nuxt-link>
+        </li>
+      </template>
     </ul>
   </aside>
 </template>

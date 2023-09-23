@@ -1,4 +1,4 @@
-import { useUtilStore } from './util.store';
+import { useUtilStore } from "./util.store";
 import { useAccountStore } from "./account.store";
 import { LogoutUser, RegisterCommand } from "./../services/auth.service";
 import { LoginResult } from "./../models/account/LoginResult";
@@ -44,6 +44,7 @@ export const useAuthStore = defineStore("auth", () => {
       var refreshCookie = useCookie("c-refresh-token");
       cookie.value = null;
       refreshCookie.value = null;
+      location.reload();
     }
     utilStore.globalLoading = false;
   };
@@ -72,6 +73,6 @@ export const useAuthStore = defineStore("auth", () => {
     openRegisterModal,
     setToken,
     logOut,
-    getAccessToken
+    getAccessToken,
   };
 });

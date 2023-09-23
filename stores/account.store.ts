@@ -16,10 +16,12 @@ export const useAccountStore = defineStore("account", () => {
   const haveNewAlert = computed(() => {
     if ((newAlertsCount.value?.newMessagesCount ?? 0) > 0) return true;
     if ((newAlertsCount.value?.newNotificationsCount ?? 0) > 0) return true;
-
-
     return false;
   });
+  const userHasTeacherRole = computed(() => {
+    return currentUser.value?.roles.includes("مدرس");
+  });
+
   const initData = async () => {
     initLoading.value = true;
     var promise = await Promise.all([
@@ -41,5 +43,12 @@ export const useAccountStore = defineStore("account", () => {
     }
     initLoading.value = false;
   };
-  return { initData, haveNewAlert, currentUser, newAlertsCount, initLoading };
+  return {
+    initData,
+    haveNewAlert,
+    userHasTeacherRole,
+    currentUser,
+    newAlertsCount,
+    initLoading,
+  };
 });

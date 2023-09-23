@@ -7,8 +7,8 @@ interface Order {
   isFinally: boolean;
   byWallet: boolean;
   totalPrice: number;
-  createDate: string;
-  paymentDate: string;
+  createDate: Date;
+  paymentDate: Date;
   orderDetails: OrderDetail[];
 }
 interface OrderDetail {
