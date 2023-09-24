@@ -90,4 +90,5 @@ export interface CourseCategory {
   slug: string;
   seoData: SeoData;
   imageName: string;
+  childs: CourseCategory[];
 }

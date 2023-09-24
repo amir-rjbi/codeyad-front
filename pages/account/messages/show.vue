@@ -17,13 +17,15 @@
         <li v-for="message in messages.messageContents" :class="[`${message.senderUser.id === userId ? 'me' : 'you'}`]">
           <base-img :src="GetUserAvatar(message.senderUser.imageName)" class="w-[30px] h-[30px]  rounded" width="60px"
             alt="avatar" />
-          <p>
-          <p v-html="message.text"></p>
+
+          <p class="shadow-lg">
+          <p>{{ message.text }}</p>
           <span>
             {{ TimeAgo(new Date(message.createDate)) }}
             -
             {{ toPersianDate(new Date(message.createDate)) }}
           </span>
+
           </p>
         </li>
       </ul>
@@ -108,35 +110,3 @@ const sendMessage = async () => {
 };
 
 </script>
-
-<style>
-.message {
-  @apply w-1/2 p-4 mb-2;
-}
-
-.me {
-  @apply flex space-x-2 space-x-reverse;
-}
-
-.you {
-  @apply flex flex-row-reverse space-x-2 mr-auto;
-}
-
-.me>p {
-  @apply message bg-blue-300 rounded-md rounded-br-none;
-}
-
-.you>p {
-  @apply message bg-gray-300 rounded-md rounded-bl-none mr-auto;
-}
-
-.me>img,
-.you>img {
-  @apply mt-1;
-}
-
-.me>p>span,
-.you>p>span {
-  @apply block text-left text-h8 opacity-70 -mb-2;
-}
-</style>

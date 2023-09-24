@@ -1,3 +1,4 @@
+import { Order } from "~/models/account/Order";
 import { IApiResponse } from "~~/models/IApiResponse";
 
 export const GetUserOrder = (): Promise<IApiResponse<Order[]>> => {

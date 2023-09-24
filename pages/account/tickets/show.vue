@@ -25,8 +25,8 @@
       <div ref="chatArea" class="rounded-lg p-5 mt-4 h-[55vh] overflow-y-auto " v-else-if="ticket != null">
         <ul>
           <li class="me">
-            <p>
-            <p v-html="ticket.ticketBody"></p>
+            <p class="shadow-lg">
+            <p v-text="ticket.ticketBody"></p>
             <span>
               {{ TimeAgo(new Date(ticket.createDate)) }}
               -
@@ -36,8 +36,8 @@
           </li>
           <li v-if="ticket.ticketMessages.length > 0" v-for="message in ticket.ticketMessages"
             :class="[`${message.userId === userId ? 'me' : 'you'}`]">
-            <p>
-            <p v-html="message.messageBody"></p>
+            <p class="shadow-md">
+            <p v-text="message.messageBody"></p>
             <span>
               {{ TimeAgo(new Date(message.createDate)) }}
               -
@@ -47,8 +47,9 @@
           </li>
         </ul>
       </div>
-      <BaseAlert v-if="ticket?.status == TicketStatus.close" :alert-type="'info'" class="mb-2">امکان ارسال پیام در تیکت با وضعیت بسته شده وجود ندارد</BaseAlert>
-      <div v-else :class="['bg-white p-3 w-full', { 'card-loading': loading }]" >
+      <BaseAlert v-if="ticket?.status == TicketStatus.close" :alert-type="'info'" class="mb-2">امکان ارسال پیام در تیکت با
+        وضعیت بسته شده وجود ندارد</BaseAlert>
+      <div v-else :class="['bg-white p-3 w-full', { 'card-loading': loading }]">
         <Form @submit.prevent="sendMessage" class="flex items-center gap-2">
           <base-input class="flex-1" out-line required v-model="userMessage" name="userMessage"
             placeholder="پیام خود را وارد کنید" multiline />
@@ -133,34 +134,4 @@ const sendMessage = async () => {
 
 </script>
 
-<style>
-.message {
-  @apply w-1/2 p-4 mb-2;
-}
 
-.me {
-  @apply flex space-x-2 space-x-reverse;
-}
-
-.you {
-  @apply flex flex-row-reverse space-x-2 mr-auto;
-}
-
-.me>p {
-  @apply message bg-blue-300 rounded-md rounded-br-none;
-}
-
-.you>p {
-  @apply message bg-gray-300 rounded-md rounded-bl-none mr-auto;
-}
-
-.me>img,
-.you>img {
-  @apply mt-1;
-}
-
-.me>p>span,
-.you>p>span {
-  @apply block text-left text-h8 opacity-70 -mb-2;
-}
-</style>

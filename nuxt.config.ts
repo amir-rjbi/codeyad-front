@@ -2,6 +2,19 @@
 export default defineNuxtConfig({
   devtools: { enabled: false },
   ssr: true,
+  nitro: {
+    publicAssets: [
+      {
+        baseURL: "/",
+        dir: "public/",
+        maxAge: 60 * 60 * 24 * 7, // 7 days
+      },
+    ],
+    compressPublicAssets: {
+      gzip: true,
+      brotli: false,
+    },
+  },
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -29,8 +42,6 @@ export default defineNuxtConfig({
         lang: "fa",
       },
     },
-
-   
   },
   image: {
     quality: 90,

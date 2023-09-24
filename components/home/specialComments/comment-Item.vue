@@ -4,10 +4,10 @@
         <div class="header justify-between w-full items-center">
             <div class="flex items-end gap-[6px]">
                 <base-img :src="GetUserAvatar(item.userImageName)" v-if="item.userImageName" width="50px" height="50px"
-                    :alt="item.userFullName" />
+                    :alt="item.userFullName??item.fullName" />
                 <base-img :src="GetUserAvatar(item.userAvatar)" v-else width="50px" height="50px"
-                    :alt="item.userFullName" />
-                <p class="">{{ item.userFullName }}</p>
+                    :alt="item.userFullName??item.fullName" />
+                <p class="">{{ item.userFullName??item.fullName }}</p>
 
             </div>
             <IconsQuote color="var(--primary-color)" />
