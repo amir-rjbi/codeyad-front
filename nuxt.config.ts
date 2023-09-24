@@ -61,8 +61,12 @@ export default defineNuxtConfig({
       //static: "https://codeyad-front.vercel.app",
     },
   },
-  schemaOrg:{
-    reactive:true,
-
-  }
+  schemaOrg: {
+    reactive: true,
+  },
+  site: {
+    defaultLocale: "fa",
+    currentLocale: "fa",
+    indexable: true,
+  },
 });

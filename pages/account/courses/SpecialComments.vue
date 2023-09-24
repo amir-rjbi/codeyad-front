@@ -17,7 +17,7 @@
           </tr>
         </thead>
         <tbody>
-          <template v-if="loading">
+          <template v-if="specialLoading">
             <tr c v-for="item in 5">
               <td width="140">
                 <BaseSkeletonLoaidng type="box" height="8px" />
@@ -35,7 +35,7 @@
               <td width="10%">{{ comment.userFullName }}</td>
               <td class="text-right">{{ comment.text }}</td>
               <td width="5%">
-                <base-button outline color-white class="mx-auto" @click="deleteSpecialComment(comment.id)">
+                <base-button outline color-white class="mx-auto" @click="openDeleteModal(comment.id)">
                   <IconsTrash width="16" height="16" color="red" />
                 </base-button>
               </td>
@@ -54,10 +54,10 @@
 
     <div class="p-6 rounded-lg bg-white">
 
-      <Form @submit="getData" class="space-y-2">
+      <Form @submit="getCommentsData" class="space-y-2">
         <base-input label="جستجو در کامنت ها" name="search" v-model="commentsFilter.search"
           placeholder="جستجو در کامنت های دانشجویان..." />
-        <base-button type="submit" outline class="mr-auto">جستجو</base-button>
+        <base-button outline class="mr-auto">جستجو</base-button>
       </Form>
 
       <hr class="my-4">
@@ -111,7 +111,7 @@
         </div>
       </Form>
     </div>
-
+    <BaseConfirmPopup :confirm-function="deleteSpecialComment" />
   </div>
 </template>
 
@@ -132,13 +132,20 @@ definePageMeta({
 const specialTable = ref();
 const commentsTable = ref();
 const loading = ref(false);
+const specialLoading = ref(false);
 const route = useRoute();
 const pageId = ref(1);
 const courseId = Number(route.query?.courseId);
 const specialComments: Ref<CourseSpecialComment[]> = ref([]);
 const comments: Ref<Comment[]> = ref([]);
 const commentsResult: Ref<BaseFilterResult | null> = ref(null);
+const isOpenDeleteModal = ref(false);
+const selectedCommentForDelete = ref(0);
 
+const openDeleteModal = (id: number) => {
+  selectedCommentForDelete.value = id;
+  isOpenDeleteModal.value = false;
+}
 const commentsFilter: TeacherCommentsFilterParams = reactive({
   courseId: courseId,
   search: '',
@@ -146,18 +153,26 @@ const commentsFilter: TeacherCommentsFilterParams = reactive({
   pageId: pageId
 });
 
-watch(pageId, () => getData())
+watch(pageId, () => getCommentsData())
 
 onMounted(async () => {
-  await getData();
+  await getSpecialCommentsData();
+  await getCommentsData();
 })
 
 const isSpecial = (name: string, text: string): boolean => {
   return (specialComments.value.map(c => c.userFullName).includes(name) && specialComments.value.map(c => c.text).includes(text))
     || specialComments.value.map(c => c.text).includes(text);
 }
-
-const getData = async () => {
+const getSpecialCommentsData = async () => {
+  specialLoading.value = true;
+  const fetchResult = await GetSpecialComments(courseId);
+  if (fetchResult.isSuccess) {
+    specialComments.value = fetchResult.data ?? [];
+  }
+  specialLoading.value = false;
+}
+const getCommentsData = async () => {
   loading.value = true;
   const fetchResult = await GetSpecialComments(courseId);
   if (fetchResult.isSuccess) {
@@ -185,18 +200,18 @@ const setSpecialComments = async () => {
   if (fetchResult.isSuccess) {
     const toast = useToast();
     toast.showToast();
-    await getData();
+    await getSpecialCommentsData();
   }
   loading.value = false;
 }
 
-const deleteSpecialComment = async (commentId: number) => {
+const deleteSpecialComment = async () => {
   loading.value = true;
-  const fetchResult = await DeleteSpecialComment(commentId);
+  const fetchResult = await DeleteSpecialComment(selectedCommentForDelete.value);
   if (fetchResult.isSuccess) {
     const toast = useToast();
     toast.showToast();
-    await getData();
+    await getSpecialCommentsData();
   }
   loading.value = false;
 }

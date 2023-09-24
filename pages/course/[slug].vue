@@ -1,6 +1,14 @@
 <template>
     <div class="pb-[84px]">
         <BaseSeoData :meta="courseData.courseDto.seoData" />
+        <SchemaOrgQuestion v-for="item in courseData.courseDto.faqs">
+            <template #name>
+                {{ item.title }}
+            </template>
+            <template #acceptedAnswer>
+                {{ item.description }}
+            </template>
+        </SchemaOrgQuestion>
         <div class="course-banner py-[68px] bg-blue sm:py-[48px]">
             <BaseModal size="lg" v-model="isOpenVideoModal" mobile-header :title="selectedVideoTitle"
                 header-class="dir-rtl">
@@ -285,7 +293,7 @@ useSchemaOrg([
         {
             name: courseData.value.courseDto.courseTitle, item: `/course/${courseData.value.courseDto.slug}`
         }]
-    })
+    }),
 ])
 </script>
 <style scoped lang="scss">
