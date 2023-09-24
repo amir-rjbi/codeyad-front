@@ -1,10 +1,7 @@
 <template>
   <div>
-    <BaseButton v-if="notifications?.entityCount ?? 0 > 0" @click="isOpenModal = true" class="" color="red">
+    <BaseButton outline v-if="notifications?.entityCount ?? 0 > 0" @click="isOpenModal = true" class="" color="red">
       حذف همه
-      <template #icon>
-        <IconsTrash class="" />
-      </template>
     </BaseButton>
     <BaseAlert :alert-type="'info'" v-if="loading == false && (notifications?.entityCount ?? 0) == 0">
       موردی برای نمایش وجود ندارد

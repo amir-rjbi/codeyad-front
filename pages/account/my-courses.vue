@@ -1,5 +1,8 @@
 <template>
   <div class="container pb-12">
+    <Head>
+      <Title>دوره های من</Title>
+    </Head>
     <div class="nav-tabs flex justify-center  sm:justify-between sm:!gap-8">
       <button name="all" :class="{ active: selected == 'all' }" @click="selected = 'all'">همه</button>
       <button name="inProgress" :class="{ active: selected == 'inProgress' }" @click="selected = 'inProgress'">درحال
@@ -14,8 +17,8 @@
       <template v-else>
         <div v-for="item in getCoursesByTab" class="bg-white gap-4 flex-wrap rounded-lg p-6 flex justify-between items-center">
           <div class="flex gap-7 items-center sm:flex-wrap flex-grow">
-            <base-img :src="GetCourseImage(item.course.imageName)" class="rounded-sm" alt="course"
-              sizes="sm:100vw lg:163px" />
+            <base-img :src="GetCourseImage(item.course.imageName)" class="rounded-sm w-[163px] sm:w-full" alt="course"
+              sizes="sm:100vw lg:300px" />
             <div class="flex flex-col gap-6  w-full">
               <p class="text-h5 sm:text-h8 ">{{ item.course.courseTitle }}</p>
               <BaseProgressBar :completed="item.watchPercentage" />

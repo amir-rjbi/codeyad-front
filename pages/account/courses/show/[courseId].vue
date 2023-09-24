@@ -83,7 +83,7 @@
       <account-courses-add-section :course-id="course.id" @sectionCreated="onSectionCreated" />
     </BaseModal>
     <BaseModal title="ویرایش سرفصل" v-model="isOpenModal_e">
-      <account-courses-edit-section :section="selectedSection!" @sectionEdited="onSectionCreated" />
+      <account-courses-edit-section :section="selectedSection!" @sectionEdited="sectionEdited" />
     </BaseModal>
   </div>
 </template>
@@ -129,6 +129,10 @@ const openEditModal = (section: Section) => {
   selectedSection.value = section;
   isOpenModal_e.value = true;
 }
-
+const sectionEdited = (newTitle: string) => {
+  isOpenModal_e.value = false;
+  course.value!.sections.find(f => f.id == selectedSection.value?.id)!.title = newTitle;
+  selectedSection.value = null;
+}
 </script>
 

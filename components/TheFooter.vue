@@ -1,8 +1,8 @@
 <template>
-    <footer class="bg-blue w-full overflow-hidden sm:!pt-9" role="contentinfos">
+    <footer class="bg-blue w-full overflow-hidden sm:!pt-9" >
         <div class="top-footer flex justify-between container flex-wrap sm:justify-center">
             <NuxtLink to="/">
-                <img class="logo" src="/logo-white.png" />
+                <img class="logo" src="/logo-white.png" alt="white-logo"/>
             </NuxtLink>
             <div class="flex items-center gap-3 flex-wrap justify-center sm:mt-16 sm:relative sm:w-full sm:!gap-3">
                 <p class="text-white text-2xl font-bold font-IranSans sm:!text-[20px]">عضویت در خبرنامه</p>

@@ -42,8 +42,7 @@ import { Comment, CommentType } from "~/models/comments/Comment";
 
 const utilStore = useUtilStore();
 const loading = ref(false);
-const { data } = await useAsyncData("singlePage", () => $fetch<IApiResponse<HomePageData>>(`${BASE_URL}/home`,{
-}));
+const { data } = await useAsyncData("singlePage", () => useFetchWithCache<HomePageData>('/home'));
 const courses = ref(data.value?.data?.latestCourses);
 const comments: Ref<Comment[]> = ref([]);
 const getCourseByCategory = async (category: string) => {

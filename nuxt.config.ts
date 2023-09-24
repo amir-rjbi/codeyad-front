@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   nitro: {
     publicAssets: [
       {
@@ -26,6 +26,7 @@ export default defineNuxtConfig({
     "nuxt-swiper",
     "floating-vue/nuxt",
     "nuxt-schema-org",
+    "@vueuse/nuxt",
   ],
   build: {
     transpile: ["vue-toastification"],
@@ -48,7 +49,7 @@ export default defineNuxtConfig({
     },
   },
   image: {
-    quality: 90,
+    quality: 100,
     domains: [
       "https://api.codeyad.com",
       "http://localhost:3000",

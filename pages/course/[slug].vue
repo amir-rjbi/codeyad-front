@@ -276,13 +276,14 @@ useSchemaOrg([
     defineVideo({
         name: courseData.value.courseDto.courseTitle,
         description: courseData.value.courseDto.shortDescription,
-        thumbnailUrl: GetCourseImage(courseData.value.courseDto.imageName).replace('codeyad', DL_DOMAIN_URL),
         uploadDate: courseData.value.courseDto.lastModify,
-        isFamilyFriendly: true,
-        inLanguage: 'fa',
         contentUrl: GetCourseDemo(courseData.value.courseDto.demoFileName),
         duration: MinutesToDuration(demoDuration),
-        embedUrl: GetCourseDemo(courseData.value.courseDto.demoFileName)
+        embedUrl: GetCourseDemo(courseData.value.courseDto.demoFileName),
+        thumbnailUrl: [
+            GetCourseImage(courseData.value.courseDto.imageName).replace('codeyad', DL_DOMAIN_URL),
+        ],
+
     }),
     defineBreadcrumb({
         itemListElement: [{

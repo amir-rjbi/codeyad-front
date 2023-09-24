@@ -6,7 +6,7 @@
         <div class="mb-12 p-3">
             <ul class="gap-8 flex flex-col mt-2">
                 <li>
-                    <NuxtLink @click="CloseSideBar" to="/">دوره ها</NuxtLink>
+                    <NuxtLink @click="CloseSideBar" to="/courses">دوره ها</NuxtLink>
                 </li>
                 <li>
                     <NuxtLink @click="CloseSideBar" to="/mag">بلاگ</NuxtLink>
