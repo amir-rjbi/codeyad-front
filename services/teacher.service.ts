@@ -107,11 +107,14 @@ export const SetNote = (courseId: number, note: string) => {
   });
 };
 
-export const GetOrderDetailsOfStudents = (
-  courseId: number,
-  pageId: number
-): Promise<IApiResponse<OrderDetailsFilterResult>> => {
-  return FetchApi("/Teacher/OrderDetails");
+
+export const GetOrderDetailsOfCourse = (
+    courseId:number,
+    pageId:number,
+    take:number
+):Promise<IApiResponse<OrderDetailsFilterResult>> => {
+    return FetchApi(`/Teacher/OrderDetails?courseId=${courseId}&pageId=${pageId}&take=${take}`);
+
 };
 
 export const GetTeacherComments = (
