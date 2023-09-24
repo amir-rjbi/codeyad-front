@@ -63,6 +63,8 @@ export const AddEpisode = (addEpisodeCommand: FormData) => {
   return FetchApi("/Teacher/AddEpisode", {
     method: "POST",
     body: addEpisodeCommand,
+    timeout: 7200000,
+    
   });
 };
 
@@ -90,9 +92,15 @@ export const DeleteSpecialComment = (commentId: number) => {
 };
 
 export const GetNote = (courseId: number): Promise<IApiResponse<string>> => {
-  return FetchApi(`/Teacher/Note?courseId=${courseId}`, {
-    method: "GET",
-  });
+  return FetchApi(
+    `/Teacher/Note?courseId=${courseId}`,
+    {
+      method: "GET",
+    },
+    {
+      ignoreErrors: true,
+    }
+  );
 };
 
 export const SetNote = (courseId: number, note: string) => {
@@ -107,14 +115,14 @@ export const SetNote = (courseId: number, note: string) => {
   });
 };
 
-
 export const GetOrderDetailsOfCourse = (
-    courseId:number,
-    pageId:number,
-    take:number
-):Promise<IApiResponse<OrderDetailsFilterResult>> => {
-    return FetchApi(`/Teacher/OrderDetails?courseId=${courseId}&pageId=${pageId}&take=${take}`);
-
+  courseId: number,
+  pageId: number,
+  take: number
+): Promise<IApiResponse<OrderDetailsFilterResult>> => {
+  return FetchApi(
+    `/Teacher/OrderDetails?courseId=${courseId}&pageId=${pageId}&take=${take}`
+  );
 };
 
 export const GetTeacherComments = (

@@ -10,7 +10,7 @@
                 { 'has-icon': $slots.icon },
                 { 'outline': outLine }
             ]" :placeholder="placeholder" :value="inputValue" :autofocus="autofocus" @input="modelValueChanged"
-                :name="name" autocomplete="off" :inputmode="number ? 'numeric' : 'text'" />
+                :name="name" :autocomplete="autocomplete" :inputmode="number ? 'numeric' : 'text'" />
             <div class="input__icon " v-if="$slots.icon && !errorMessage">
                 <slot name="icon" />
             </div>
@@ -30,6 +30,10 @@ const props = defineProps({
     autofocus: {
         default: null,
         type: Boolean,
+    },
+    autocomplete: {
+        default: "off",
+        type: String
     },
     placeholder: {
         default: "",
@@ -103,7 +107,7 @@ watch(
     }
 );
 const modelValueChanged = ($event: any) => {
-    if(props.type=='input'){
+    if (props.type == 'input') {
         return;
     }
     if (props.type == 'checkbox') {
@@ -153,5 +157,4 @@ const hasSlot = () => {
     display: flex;
     align-items: center;
 }
-
 </style>

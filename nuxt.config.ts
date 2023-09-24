@@ -4,8 +4,8 @@ export default defineNuxtConfig({
   nitro: {
     publicAssets: [
       {
-        baseURL: "/",
-        dir: "public/",
+        baseURL: "/images",
+        dir: "public/images",
         maxAge: 60 * 60 * 24 * 7, // 7 days
       },
     ],
@@ -13,6 +13,9 @@ export default defineNuxtConfig({
       gzip: true,
       brotli: false,
     },
+  },
+  experimental:{
+    writeEarlyHints:false
   },
   postcss: {
     plugins: {
@@ -61,9 +64,6 @@ export default defineNuxtConfig({
       static: "http://127.0.0.1:3000",
       //static: "https://codeyad-front.vercel.app",
     },
-  },
-  schemaOrg: {
-    reactive: true,
   },
   site: {
     defaultLocale: "fa",

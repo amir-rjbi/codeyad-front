@@ -62,7 +62,6 @@ export async function FetchApi<T>(
         });
       } else if (e.response?.status == 400) {
         var errMessage = "اطلاعات نامعتبر است";
-        console.log(e.response?._data);
         showError({
           isSuccess: false,
           data: undefined,
