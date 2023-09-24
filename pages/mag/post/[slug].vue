@@ -87,6 +87,28 @@ onMounted(() => {
         hljs.highlightAll();
     }, 500);
 })
+useSchemaOrg([
+    defineArticle({
+        image: GetArticleImage(articleData.value.article.imageName),
+        datePublished: articleData.value.article.dateRelease,
+        author: {
+            name: articleData.value.ownerUser.fullName,
+            image: GetUserAvatar(articleData.value.ownerUser.imageName),
+            url: `/writers/${articleData.value.ownerUser.userId}`,
+        }
+    }),
+    defineBreadcrumb({
+        itemListElement: [{
+            name: "صفحه اصلی", item: '/'
+        }, {
+            name: articleData.value.article.mainCategory.categoryTitle, item: `/mag/category?cTitle=${articleData.value.article.mainCategory.slug}`
+        },
+        {
+            name: articleData.value.article.title, item: `/mag/post/${articleData.value.article.slug}`
+        }]
+    }),
+
+])
 </script>
 <style scoped lang="scss">
 .article-banner {

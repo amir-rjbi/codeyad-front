@@ -269,3 +269,20 @@ export const GetTime = (date: Date): string => {
 
   return `${hours}:${min}`;
 };
+export function MinutesToDuration(s: string) {
+  var minutes = Number(s.split(":")[1].trim());
+  var days = Math.floor(minutes / 1440);
+  minutes = minutes - days * 1440;
+  var hours = Math.floor(minutes / 60);
+  minutes = minutes - hours * 60;
+  var dur = "PT";
+  if (days > 0) {
+    dur += days + "D";
+  }
+  if (hours > 0) {
+    dur += hours + "H";
+  }
+  dur += minutes + "M";
+
+  return dur;
+}

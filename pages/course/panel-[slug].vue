@@ -24,7 +24,6 @@
                         <p class="text-h8">درصد پیشرفت</p>
                         <p>
                             <label class="text-blue"> {{ seenedEpisodeCount }}</label>
-
                             /
                             <span>{{ videoPlayerData.episodeCount }}</span>
                             جلسه
@@ -119,6 +118,7 @@ import { PlayerEpisode } from '~/models/courses/VideoPlayer';
 import { GetCourseForPlayer, GetVideoAttachmentFile, SeenVideo } from '~/services/videoPlayer.service';
 import { useAuthStore } from '~/stores/auth.store';
 import { useUtilStore } from '~/stores/util.store';
+
 
 const authStore = useAuthStore();
 const selectedTab = ref('desc');
@@ -235,6 +235,7 @@ aside {
 
             &.active {
                 font-weight: 900;
+
                 &::after {
                     width: 100%;
                     position: absolute;
@@ -282,6 +283,7 @@ aside {
         right: -10px;
         position: relative;
         transform: scale(1.1);
+
         p {
             font-weight: bolder;
 

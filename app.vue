@@ -40,9 +40,26 @@ onMounted(async () => {
 watch(() => authStore.isLogin, (val) => {
   if (val == false) {
     accountStore.currentUser = null;
-    accountStore.notifications = [];
   } else if (accountStore.currentUser == null) {
     accountStore.initData();
   }
 })
+useSchemaOrg([
+  // TODO Select Identity: https://unhead.unjs.io/schema-org/guides/identity
+  defineWebSite({
+    name: utilStore.siteSettings?.persianSitName,
+    description: utilStore.siteSettings?.metaDescription,
+    url: "https://codeyad.com",
+    inLanguage:'fa'
+  }),
+  defineOrganization({
+    name: utilStore.siteSettings?.persianSitName,
+    url: "https://codeyad.com",
+    logo:"/logo.png",
+    sameAs: [
+      utilStore.siteSettings?.telegram,utilStore.siteSettings?.twitter,utilStore.siteSettings?.instagram,utilStore.siteSettings?.aparat,
+    ]
+  }),
+  defineWebPage()
+])
 </script>

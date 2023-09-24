@@ -11,7 +11,8 @@
             </div>
         </div>
         <hr />
-        <div class="bottom-footer container items-center justify-between flex flex-wrap sm:justify-center sm:gap-7">
+
+        <div class="bottom-footer gap-3 container items-center justify-between flex flex-wrap sm:justify-center sm:gap-7">
             <div class="social flex gap-7">
                 <a :href="utilStore.siteSettings?.instagram" target="_blank" v-if="utilStore.siteSettings?.instagram">
                     <IconsSocialInstagram color="white" width="24" height="24" />
@@ -26,7 +27,7 @@
                     <IconsSocialYouTube color="white" width="24" height="24" />
                 </a>
             </div>
-            <!-- <p class="text-white copy-right">{{ utilStore.siteSettings!.footerText }}</p> -->
+            <p class="text-white copy-right">{{ utilStore.siteSettings?.footerText.trim() }}</p>
         </div>
     </footer>
 </template>
@@ -34,7 +35,6 @@
 import { useUtilStore } from '~/stores/util.store';
 
 const utilStore = useUtilStore();
-
 </script>
 <style scoped lang="scss">
 @media screen and (max-width:768px) {
@@ -52,8 +52,9 @@ const utilStore = useUtilStore();
     }
 
     p.copy-right {
-        font-size: 20px !important;
+        font-size: 15px !important;
         letter-spacing: 0.8px !important;
+        text-align: center;
     }
 
 
