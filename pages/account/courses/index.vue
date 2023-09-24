@@ -71,6 +71,7 @@
                       <BaseButton color-white @click="isOpenModal_e = true">ویرایش</BaseButton>
                       <NuxtLink :to="`/account/courses/AddNote?courseId=${course.id}`">ثبت یادداشت</NuxtLink>
                       <NuxtLink :to="`/account/courses/SpecialComments?courseId=${course.id}`">کامنت های ویژه</NuxtLink>
+                      <NuxtLink v-if="course.price > 0" :to="`/account/courses/sellReport/${course.id}`">آمار فروش</NuxtLink>
                     </div>
                   </Transition>
                 </div>

@@ -27,5 +27,5 @@ export const IsNumberData = (data: any): boolean => {
 };
 
 export const toTomanPrice = (rawNumber:number):string =>{
-  return rawNumber.toLocaleString();
+  return rawNumber.toLocaleString('fa-IR');
 }

@@ -82,8 +82,12 @@ const sectionId:number = Number(route.params?.sectionId);
 const episodeId:number = Number(route.params?.episodeId);
 
 onMounted(async ()=>{
-  const
+  await getData();
 })
+
+const getData = async ()=>{
+  // TODO Implement
+}
 
 
 const submitEpisode = async () => {

@@ -116,11 +116,12 @@ export const SetNote = (
     });
 }
 
-export const GetOrderDetailsOfStudents = (
+export const GetOrderDetailsOfCourse = (
     courseId:number,
-    pageId:number
+    pageId:number,
+    take:number
 ):Promise<IApiResponse<OrderDetailsFilterResult>> => {
-    return FetchApi('/Teacher/OrderDetails');
+    return FetchApi(`/Teacher/OrderDetails?courseId=${courseId}&pageId=${pageId}&take=${take}`);
 };
 
 export const GetTeacherComments = (
