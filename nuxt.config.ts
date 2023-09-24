@@ -1,7 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: false },
-  ssr: true,
+  devtools: { enabled: true },
   nitro: {
     publicAssets: [
       {
@@ -21,7 +20,13 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: ["@nuxt/image", "@pinia/nuxt", "nuxt-swiper", "floating-vue/nuxt"],
+  modules: [
+    "@nuxt/image",
+    "@pinia/nuxt",
+    "nuxt-swiper",
+    "floating-vue/nuxt",
+    "nuxt-schema-org",
+  ],
   build: {
     transpile: ["vue-toastification"],
   },
@@ -31,7 +36,6 @@ export default defineNuxtConfig({
     "@/assets/css/custom.scss",
     "@/assets/css/carousel.scss",
   ],
-
   app: {
     head: {
       script: [
@@ -57,4 +61,8 @@ export default defineNuxtConfig({
       //static: "https://codeyad-front.vercel.app",
     },
   },
+  schemaOrg:{
+    reactive:true,
+
+  }
 });

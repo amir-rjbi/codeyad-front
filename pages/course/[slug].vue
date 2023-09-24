@@ -40,7 +40,7 @@
                                     v-if="courseData.courseDto.price == 0">رایگان</label><label v-else>{{
                                         courseData.courseDto.totalPrice.toLocaleString() }} تومان </label></p>
 
-                            <BaseButton  v-if="userHasCourse" :render-button-tag="false"
+                            <BaseButton v-if="userHasCourse" :render-button-tag="false"
                                 :to="`/course/panel-${courseData.courseDto.id}`" class="sm:w-full" color-white>
                                 ادامه یادگیری
                                 <template #icon>
@@ -148,6 +148,7 @@ const router = useRouter();
 const toast = useToast();
 const accountStore = useAccountStore();
 
+
 const { data, pending } = await useAsyncData("CourseLanding", () => GetCourseLanding(route.params.slug.toString() ?? ''));
 if (!data.value?.data) {
     if (process.server) {
@@ -158,7 +159,6 @@ if (!data.value?.data) {
     }
 }
 const courseData: Ref<CourseLanding> = ref(data.value!.data!);
-
 const registerLoading = ref(false);
 const selectedVideoTitle = ref('')
 const isOpenVideoModal = ref(false);
@@ -244,6 +244,49 @@ const setAgainTabs = () => {
         loadAgainTabs.value = false
     }, 0.5);
 }
+const demoDuration = courseData.value.courseDto.demoDuration;
+useSchemaOrg([
+    defineCourse({
+        name: courseData.value.courseDto.courseTitle,
+        description: courseData.value.courseDto.shortDescription.substring(0, 56) + "...",
+        instructor: {
+            name: courseData.value.courseDto.teacherFullName,
+            image: GetUserAvatar(courseData.value.courseDto.teacherAvatar).replace('codeyad', DL_DOMAIN_URL),
+            url: `/masters/profile-${courseData.value.courseDto.userId}`,
+        },
+        price: courseData.value.courseDto.price > 0 ? courseData.value.courseDto.price : "رایگان",
+        numberOfModules: courseData.value.courseDto.sections.length + " فصل",
+        numberOfCredits: courseData.value.courseDto.duration.split(":")[0].trim() + " ساعت",
+        numberOfSessions: courseData.value.courseDto.episodeCount + " جلسه",
+        learningResourceType: "ویدیویی",
+        supportType: "ایمیل ، ارسال تیکت و تلفن",
+        offers: {
+            '@type': "Offer",
+            url: CurrentDomainUrl + "/course/" + courseData.value.courseDto.slug
+        }
+    }),
+    defineVideo({
+        name: courseData.value.courseDto.courseTitle,
+        description: courseData.value.courseDto.shortDescription,
+        thumbnailUrl: GetCourseImage(courseData.value.courseDto.imageName).replace('codeyad', DL_DOMAIN_URL),
+        uploadDate: courseData.value.courseDto.lastModify,
+        isFamilyFriendly: true,
+        inLanguage: 'fa',
+        contentUrl: GetCourseDemo(courseData.value.courseDto.demoFileName),
+        duration: MinutesToDuration(demoDuration),
+        embedUrl: GetCourseDemo(courseData.value.courseDto.demoFileName)
+    }),
+    defineBreadcrumb({
+        itemListElement: [{
+            name: "صفحه اصلی", item: '/'
+        }, {
+            name: courseData.value!.courseDto.subCategory.title, item: `/courses?category=${courseData.value.courseDto.subCategory.slug}`
+        },
+        {
+            name: courseData.value.courseDto.courseTitle, item: `/course/${courseData.value.courseDto.slug}`
+        }]
+    })
+])
 </script>
 <style scoped lang="scss">
 @media screen and (max-width:768px) {

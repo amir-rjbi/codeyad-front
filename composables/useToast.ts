@@ -31,7 +31,6 @@ export const useToast = () => {
     const toast = Toaster();
     switch (type) {
       case ToastType.success: {
-        console.log(message);
         toast.success(message, { timeout: duration, icon: Check });
         break;
       }

@@ -24,7 +24,7 @@ export interface Course {
   courseStatus: string;
   progressStatus: string;
   lastModify: string;
-  demoDuration: TiemSpan;
+  demoDuration: string;
   episodeCount: number;
   studentCount: number;
   duration: string;
