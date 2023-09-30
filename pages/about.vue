@@ -11,5 +11,5 @@
     </div>
 </template>
 <script setup lang="ts">
-const { data, pending } = useAsyncData("about", () => FetchApi<{ body: string }>("/siteSettings/about-us"));
+const { data, pending } = useAsyncData("about", () => useFetchWithCache<{ body: string }>("/siteSettings/about-us"));
 </script>

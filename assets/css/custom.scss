@@ -86,11 +86,11 @@
 
 
 .page-enter-active {
-  transition: all 0.3s ease-out;
+  transition: all 0.2s ease-out;
 }
 
 .page-leave-active {
-  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+  transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
 .page-enter-from,
@@ -99,11 +99,11 @@
 }
 
 .slide-enter-active {
-  transition: all 0.3s ease-out;
+  transition: all 0.2s ease-out;
 }
 
 .slide-leave-active {
-  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+  transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
 .slide-enter-from,
@@ -114,11 +114,11 @@
 
 
 .layout-enter-active {
-  transition: all 0.3s ease-out;
+  transition: all 0.2s ease-out;
 }
 
 .layout-leave-active {
-  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+  transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
 .layout-enter-from,
@@ -181,6 +181,18 @@
   margin-top: 11px;
   line-height: 22.131px;
 
+  ol,
+  ul {
+    padding-inline-start: 40px;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+
+    li {
+      list-style: none;
+      margin: 1rem 0;
+    }
+  }
+
   p {
     font-weight: normal;
     margin-bottom: .5rem;
@@ -218,22 +230,28 @@ code {
 .message {
   @apply w-1/2 p-4 mb-4 sm:w-10/12;
 }
+
 .me {
   @apply flex space-x-2 space-x-reverse;
 }
+
 .you {
   @apply flex flex-row-reverse space-x-2 mr-auto;
 }
+
 .me>p {
   @apply message bg-blue text-white rounded-md rounded-br-none;
 }
+
 .you>p {
   @apply message bg-white rounded-md rounded-bl-none mr-auto;
 }
+
 .me>img,
 .you>img {
   @apply mt-1;
 }
+
 .me>p>span,
 .you>p>span {
   @apply block text-left text-h8 opacity-70 -mb-2;

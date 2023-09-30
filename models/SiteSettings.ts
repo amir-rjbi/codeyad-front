@@ -20,4 +20,8 @@ export interface SiteSettings {
   magDescription: string;
   baseSiteUrl: string;
   customMessage: string;
+  specialCategories: {
+    title: string;
+    slug: string;
+  }[];
 }

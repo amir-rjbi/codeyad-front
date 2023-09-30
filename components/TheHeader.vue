@@ -26,8 +26,8 @@
                 <nav class="categories sm:hidden ">
                     <ul class="gap-6">
                         <li>
-                            <NuxtLink to="/courses">دوره ها</NuxtLink>
-
+                            <NuxtLink v-if="authStore.isLogin" to="/courses/for-me">دوره ها</NuxtLink>
+                            <NuxtLink v-else to="/courses">دوره ها</NuxtLink>
                         </li>
                         <li>
                             <NuxtLink to="/mag">بلاگ</NuxtLink>
@@ -68,7 +68,7 @@
                                 </span>
                             </div>
                         </nuxt-link>
-                        <div class="flex relative items-center gap-2 cursor-pointer"
+                        <div class="flex relative items-center gap-2 cursor-pointer "
                             v-click-outside="() => showMenu = false" @click="showMenu = !showMenu">
                             <IconsArrowLeft class="transition-all" :style="{ rotate: showMenu ? '90deg' : '-90deg' }" />
                             <p class="font-semibold text-h9 " v-if="accountStore.currentUser.fullName">{{
@@ -78,7 +78,7 @@
                             <base-img :src="GetUserAvatar(accountStore.currentUser.imageName)"
                                 class="w-[30px] h-[30px]  rounded" width="60px" alt="mohammad" />
                             <Transition name="layout">
-                                <div class="account-menu" v-if="showMenu">
+                                <div class="account-menu " v-if="showMenu">
                                     <NuxtLink to="/account">پروفایل</NuxtLink>
                                     <NuxtLink to="/account/edit">ویرایش اطلاعات</NuxtLink>
                                     <NuxtLink to="/account/tickets">تیکت ها</NuxtLink>
@@ -95,16 +95,16 @@
 
                 <IconsSearch @click="isOpenSearchBar = true" color="var(--color-black)" class="hidden sm:block" />
             </section>
-            <section class="bottom-header  header-categories" v-if="showCategories">
+            <section class="bottom-header  header-categories"
+                v-if="showCategories && utilStore.siteSettings?.specialCategories">
                 <BaseCarousel class="w-[93%]" :modules="[SwiperNavigation]" :navigation="{
                     enabled: true,
                     disabledClass: '!hidden'
-                }" :items="['c#', 'Nuxt', 'Next', 'c++', 'python', 'Ruby', 'react', 'unity', 'asp', 'vue']"
-                    :breakpoints="breakpoints" :space-between="8"
-                    slide-class=" bg-white py-[15px] items-center justify-center text-center category-item dark:bg-slate-800 rounded mb-4 mt-2 ">
+                }" :items="utilStore.siteSettings?.specialCategories" :breakpoints="breakpoints" :space-between="8"
+                    slide-class="px-2 bg-white py-[15px] items-center justify-center text-center category-item dark:bg-slate-800 rounded mb-4 mt-2 ">
                     <template #item="{ index, item }">
-                        <nuxt-link :to="`/courses/${item}`" class="  flex-grow !min-w-fit">
-                            {{ item }}
+                        <nuxt-link :to="`/courses/${item.slug}`" class="  flex-grow !min-w-fit">
+                            {{ item.title }}
                         </nuxt-link>
                     </template>
                 </BaseCarousel>
@@ -133,19 +133,19 @@ const isOpenSearchBar = ref(false);
 const itemToShow = ref(8);
 const breakpoints = ref({
     1200: {
-        slidesPerView: 10,
+        slidesPerView: 9,
     },
     1090: {
-        slidesPerView: 8,
+        slidesPerView: 7,
     },
     768: {
-        slidesPerView: 6,
-    },
-    576: {
         slidesPerView: 5,
     },
-    480: {
+    576: {
         slidesPerView: 4,
+    },
+    480: {
+        slidesPerView: 3,
     },
     0: {
         slidesPerView: 3,
@@ -170,11 +170,11 @@ onMounted(() => {
 })
 const search = () => {
     if (searchData.value.length < 3) {
-        toast.showToast('متن جستوجوی کامل تری وارد کنید',ToastType.warning)
+        toast.showToast('متن جستوجوی کامل تری وارد کنید', ToastType.warning)
         return;
     }
     router.push('/search/' + searchData.value);
-    searchData.value='';
+    searchData.value = '';
 }
 </script>
 <style  lang="scss">
@@ -212,7 +212,7 @@ const search = () => {
     width: 150%;
     top: 2.5rem;
     right: 0;
-    z-index: 100;
+    z-index: 999;
     background: var(--color-white);
     @apply rounded shadow;
     display: flex;

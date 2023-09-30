@@ -23,8 +23,7 @@
                             {{ courseData.courseDto.subCategory.title }}
                         </nuxt-link>
                         <h1 class=" text-h3 sm:text-h7">{{ courseData.courseDto.courseTitle }}</h1>
-                        <p class="text-h8 ">
-                            {{ courseData.courseDto.shortDescription }}
+                        <p class="text-h8 " v-text="courseData.courseDto.shortDescription">
                         </p>
                         <div class="flex justify-between gap-2 py-2 flex-wrap sm:gap-4">
                             <div class="flex gap-2 items-center sm:w-full">
@@ -57,7 +56,7 @@
                             </BaseButton>
                             <BaseButton :loading="registerLoading" v-else class="sm:w-full" @click="registerCourse"
                                 color-white>
-                                ثبت نام و شروع یادگیری
+                                شروع یادگیری
                                 <template #icon>
                                     <IconsArrowLeft color="var(--primary-color)" />
                                 </template>
@@ -82,8 +81,9 @@
                     <a href="#content" class="active">محتوای دوره</a>
                     <a href="#sections">سرفصل های دوره</a>
                     <a href="#specification">ویژگی های دوره</a>
-                    <a href="#comments" v-if="courseData.specialComment.length > 0">نظرات دانشجویان</a>
-                    <a href="#questions" v-if="courseData.courseDto.faqs.length > 0">سوالات متداول</a>
+                    <!-- <a href="#comments" v-if="courseData.specialComment.length > 0">نظرات دانشجویان</a> -->
+                    <a href="#comments">نظرات دانشجویان</a>
+                    <a href="#qsection">سوالات متداول</a>
                 </div>
             </template>
         </BaseSpyScroll>
@@ -107,26 +107,26 @@
             <div id="specification" class="section container pt-14">
                 <h3 class="text-h5 font-bold dark:text-white text-center mb-[50px]">ویژگی های دوره</h3>
                 <div class="flex justify-between sm:flex-wrap sm:gap-9">
-                    <div v-for="item in [1, 2, 3]"
+                    <div v-for="item in courseData.specifications"
                         class="spec-card w-[28%]
                             md:!w-[32%]
                             text-center flex p-[23px] sm:p-[30px] flex-col items-center justify-center gap-5 bg-secondary rounded-[20px]">
                         <div class="flex flex-col gap-3 items-center justify-center ">
                             <IconsCalenderTime color="var(--primary-color)" />
-                            <p>معرفی منابع</p>
+                            <p>{{ item.title }}</p>
                         </div>
-                        <p>بر اساس منابع مطرح طراحی می شود و این منابع را در اختیار مهارت آموزان خود نیز قرار می دهد</p>
+                        <p>{{ item.description }}</p>
                     </div>
 
                 </div>
             </div>
 
-            <div id="comments" class="section pt-2" v-if="courseData.specialComment.length > 0">
-                <HomeSpecialComments title="نظرات دانشجویان" :data="courseData.specialComment" />
+            <div id="comments" class="section pt-2">
+                <HomeSpecialComments title="نظرات دانشجویان" :data="courseData.specialComment ?? []" />
             </div>
-            <div class="section container pt-14" id="questions" v-if="courseData.courseDto.faqs.length > 0">
+            <div class="section container pt-14" id="qsection" v-if="courseData.courseDto.faqs.length > 0">
                 <h3 class="text-center text-black text-h3 sm:text-h4 font-bold mb-10">سوالات متداول</h3>
-                <div class="flex flex-col gap-4">
+                <div class="flex flex-col gap-4 py-12">
                     <BaseCollapse bg-white v-for="item in courseData.courseDto.faqs" title-class="text-h5 sm:!text-h6"
                         :title="item.title">
                         <template #icon>
@@ -157,7 +157,7 @@ const toast = useToast();
 const accountStore = useAccountStore();
 
 
-const { data, pending } = await useAsyncData("CourseLanding", () => GetCourseLanding(route.params.slug.toString() ?? ''));
+const { data, pending } = await useAsyncData("course-landing", () => GetCourseLanding(route.params.slug.toString() ?? ''));
 if (!data.value?.data) {
     if (process.server) {
         throw createError({ statusCode: 404, message: 'not found' })
@@ -243,14 +243,14 @@ definePageMeta({
 
 const loadAgainTabs = ref(false);
 watch(isShowMore, () => {
-    setAgainTabs()
+    loadAgainTabs.value = true;
+    setTimeout(() => {
+        loadAgainTabs.value = false
+    }, 1);
 })
 const setAgainTabs = () => {
     loadAgainTabs.value = true;
-
-    setTimeout(() => {
-        loadAgainTabs.value = false
-    }, 0.5);
+    loadAgainTabs.value = false
 }
 const demoDuration = courseData.value.courseDto.demoDuration;
 useSchemaOrg([

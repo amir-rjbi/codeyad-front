@@ -1,0 +1,39 @@
+{
+    "title": "string",
+    "slug": "string",
+    "teacherName": "string",
+    "imageName": "string",
+    "shortDescription": "string",
+    "content": "string",
+    "price": 0,
+    "demo": "string",
+    "startDate": "2023-09-27T13:27:20.125Z",
+    "endDate": "2023-09-27T13:27:20.125Z",
+    "eventHoldDayAndTime": "string",
+    "holdType": "string",
+    "holdPlace": "string",
+    "status": "شروع_ثبت_نام",
+    "faqs": [
+        {
+            "bootCampId": 0,
+            "title": "string",
+            "description": "string"
+        }
+    ],
+    "sections": [
+        {
+            "bootCampId": 0,
+            "title": "string",
+            "description": "string",
+            "teachers": [
+                {
+                    "bootCampId": 0,
+                    "sectionId": 0,
+                    "avatarName": "string",
+                    "fullName": "string",
+                    "expertise": "string"
+                }
+            ]
+        }
+    ]
+}

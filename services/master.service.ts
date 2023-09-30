@@ -4,12 +4,7 @@ import { IApiResponse, FilterResult } from "./../models/IApiResponse";
 export const GetMasters = (): Promise<
   IApiResponse<FilterResult<MasterFilterData>>
 > => {
-  return FetchApi("/Masters", {
-    query: {
-      pageId: 1,
-      take: 100,
-    },
-  });
+  return useFetchWithCache("/Masters?pageId=1&take=100");
 };
 
 export const GetMasterByUserName = (

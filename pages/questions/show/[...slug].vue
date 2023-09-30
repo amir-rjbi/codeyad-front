@@ -1,10 +1,13 @@
 <template>
     <div class="container py-4">
 
-        <Head>
-            <Link href="" rel="stylesheet" />
-
-        </Head>
+        <BaseSeoData :meta="{
+            indexPage: true,
+            metaTitle: question.subject,
+            metaDescription: removeHtmlTagsFromString(question.text).substring(0, 255),
+            metaKeyWords: question.subject
+        }">
+        </BaseSeoData>
         <BaseBreadCrumb :items="[
             {
                 title: 'خانه',
@@ -20,7 +23,8 @@
                 title: question.subject,
                 isActive: true
             }
-        ]" />
+        ]
+            " />
         <div class="flex justify-between my-8 md:flex-wrap relative md:gap-6">
             <div class="w-[30%] md:!w-full sticky top-2 h-fit md:!relative">
                 <BlogPopularArticles />
@@ -73,8 +77,8 @@
                         <h5 class="mb-2">پاسخ ها</h5>
                         <div class="flex flex-col pr-8 sm:pr-5">
                             <div :class="[`question-item mb-4 rounded border-2  bg-white
-                      p-2 `, { 'selected': item.isBestAnswer }]"
-                                v-for="item in orderBy(question.questionMessages, 'creationDate', 'asc')">
+                      p-2 `, { 'selected': item.isBestAnswer }]
+                                " v-for=" item  in  orderBy(question.questionMessages, 'creationDate', 'asc') ">
                                 <div class="flex gap-4 items-start">
                                     <base-img :src="GetUserAvatar(item.user.imageName)" class="rounded" alt="user"
                                         width="62px" height="62px" />
@@ -83,7 +87,8 @@
                                         <div v-html="item.message"></div>
                                         <div :class="['flex mt-2 w-full', { 'justify-between': item.attachedFile },
                                             { 'justify-end': !item.attachedFile }
-                                        ]">
+                                        ]
+                                            ">
                                             <a v-if="item.attachedFile" target="_blank"
                                                 :href="`${DL_DOMAIN_URL}/questions/attachments/${question.attachedFile}`"
                                                 class="text-blue font-semibold flex gap-2 items-center">
@@ -145,8 +150,9 @@
     </div>
 </template>
 <script setup lang="ts">
-import { GetQuestionById, SendQuestionAnswer, DeleteQuestion, DeleteQuestionMessage, AcceptQuestionMessage } from '~/services/questions.service';
+//@ts-ignore
 import orderBy from "lodash/orderBy"
+import { GetQuestionById, SendQuestionAnswer, DeleteQuestion, DeleteQuestionMessage, AcceptQuestionMessage } from '~/services/questions.service';
 import { useAccountStore } from '~/stores/account.store';
 import { DL_DOMAIN_URL } from '~/utils/api.config';
 import { useAuthStore } from '~/stores/auth.store';
@@ -193,12 +199,7 @@ useHead({
     ]
 
 })
-onMounted(() => {
-    setTimeout(() => {
-        //@ts-ignore
-        hljs.highlightAll();
-    }, 500);
-})
+
 const deleteQuestion = async () => {
     var res = await DeleteQuestion(Number(questionId));
     if (res.isSuccess) {
@@ -234,6 +235,18 @@ const deleteMessagePopup = (id: number) => {
     selectedMessage.value = id;
     openDeletePopup.value = true;
 }
+onMounted(() => {
+    setTimeout(() => {
+        //@ts-ignore
+        hljs.highlightAll();
+    }, 500);
+})
+watch(pending, () => {
+    setTimeout(() => {
+        //@ts-ignore
+        hljs.highlightAll();
+    }, 500);
+})
 const sendAnswer = async (fData: any, event: any) => {
     sendAnswerLoading.value = true;
     var formData = new FormData();
@@ -245,6 +258,7 @@ const sendAnswer = async (fData: any, event: any) => {
     var res = await SendQuestionAnswer(formData);
     if (res.isSuccess) {
         toast.showToast("پاسخ شما با موفقیت ثبت شد");
+        answerText.value = ""
         await refresh();
     }
     sendAnswerLoading.value = false;

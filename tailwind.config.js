@@ -19,7 +19,7 @@ module.exports = {
   ],
   safelist: [
     {
-      pattern: /bg-(red|green|blue|orange|default)-(250|950|300)/,
+      pattern: /!bg-(red|green|blue|orange|default)-(250|950|300)/,
       variants: ["hover"],
     },
     {
@@ -44,7 +44,7 @@ module.exports = {
         surface: "#FAFAFA",
         blue: {
           DEFAULT: "var(--primary-color)",
-          250: "#EEF4FB",
+          250: "#d6e4f4",
           950: "#1C4E88",
         },
         default: {

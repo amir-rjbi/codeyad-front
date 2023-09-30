@@ -1,6 +1,11 @@
 <template>
     <section class="latest-articles container py-[100px] sm:py-[50px]" v-if="data.length > 0">
-        <p class="text-22 font-bold sm:">آخرین مقالات</p>
+        <div class="flex justify-between">
+            <p class="text-22 font-bold sm:">آخرین مقالات</p>
+            
+            <BaseButton outline size="sm" class="mt-5" :render-button-tag="false" to="/mag/categories">همه رو ببین</BaseButton>
+
+        </div>
         <div class="mt-[30px] flex gap-8 flex-wrap lg:gap-4 sm:!flex-col-reverse">
             <div class="w-[48%] flex gap-4  flex-col lg:w-[52%] md:!w-[100%]">
                 <BlogArticleCard row :item="data[0]" />

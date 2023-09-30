@@ -271,11 +271,6 @@ body.modal-open {
 }
 
 
-
-.modal__header.modal__header-hide {
-    display: none;
-}
-
 .modal__close-btn {
     width: 3.5rem;
     height: 3.5rem;

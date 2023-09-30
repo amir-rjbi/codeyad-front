@@ -20,6 +20,7 @@ export const GetCourseLanding = (
 export const GetCourseByFilter = (
   filterParams: CourseFilterParams
 ): Promise<IApiResponse<FilterResult<CourseSearchData>>> => {
+  RemoveEmptyProps(filterParams);
   return FetchApi("/course/getByFilter", {
     query: filterParams,
   });

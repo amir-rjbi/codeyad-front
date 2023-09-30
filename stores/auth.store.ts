@@ -45,8 +45,9 @@ export const useAuthStore = defineStore("auth", () => {
       cookie.value = null;
       refreshCookie.value = null;
       location.reload();
+    } else {
+      utilStore.globalLoading = false;
     }
-    utilStore.globalLoading = false;
   };
   const changeStep = (
     step: "login" | "register" | "forgotPassword" | "activate"

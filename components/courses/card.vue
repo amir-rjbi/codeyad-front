@@ -48,6 +48,9 @@ const userHasCourse = computed(() => {
 </script>
 <style scoped lang="scss">
 @media screen and (max-width:768px) {
+    div.w-full.course-card{
+        width: 100% !important;
+    }
     .course-card {
         width: 49% !important;
     }

@@ -96,13 +96,6 @@ watch(pageId, async (val) => await getData())
 
 onMounted(async () => {
   await getData();
-  var op = router.currentRoute.value.query.op;
-  if (op) {
-    if (op.toString() == 'success') {
-      router.push('/account/wallet')
-      toast.showToast('کیف پول با موفقیت شارژ شد');
-    }
-  }
 })
 
 const getData = async () => {

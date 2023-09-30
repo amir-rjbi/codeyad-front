@@ -34,10 +34,10 @@
         <nuxt-link to="/account/orders#a_content"> فاکتور ها </nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/account/my-courses"> دوره های من </nuxt-link>
+        <nuxt-link to="/account/bootcamps#a_content">بوتکمپ های من</nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/account/my-bootcamps#a_content"> بوتکمپ های من </nuxt-link>
+        <nuxt-link to="/account/my-courses"> دوره های من </nuxt-link>
       </li>
       <template v-if="accountStore.userHasTeacherRole">
         <li>

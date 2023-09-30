@@ -8,10 +8,10 @@
             <p class="description">{{ item.body }}</p>
             <div class="tags flex-wrap">
                 <nuxt-link :to="`/mag/categort?cTitle=${item.mainCategory.slug}`">
-                    <label :class="generateColor()">{{ item.mainCategory.categoryTitle }}</label>
+                    <label :class="color">{{ item.mainCategory.categoryTitle }}</label>
                 </nuxt-link>
                 <nuxt-link :to="`/mag/categort?cTitle=${item.subCategory.slug}`" v-if="item.subCategory">
-                    <label :class="generateColor()">{{ item.subCategory.categoryTitle }}</label>
+                    <label :class="color">{{ item.subCategory.categoryTitle }}</label>
                 </nuxt-link>
             </div>
         </div>
@@ -26,15 +26,22 @@ withDefaults(defineProps<{
 }>(), {
     row: false
 })
-const generateColor = () => {
-    var colors = ['red', 'blue', 'green', 'purple', 'yellow', 'orange']
-    var random = getRandomInt(0, 6);
-    return colors[random];
-}
+const color = ref('red');
+
+onMounted(() => {
+    generateColor();
+});
+
 function getRandomInt(min: number, max: number) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
+}
+
+const generateColor = () => {
+    var colors = ['red', 'blue', 'green', 'purple', 'yellow', 'orange']
+    var random = getRandomInt(0, 6);
+    color.value = colors[random];
 }
 </script>
 <style scoped lang="scss">

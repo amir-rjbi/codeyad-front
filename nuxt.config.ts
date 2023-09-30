@@ -14,8 +14,8 @@ export default defineNuxtConfig({
       brotli: false,
     },
   },
-  experimental:{
-    writeEarlyHints:false
+  experimental: {
+    writeEarlyHints: false,
   },
   postcss: {
     plugins: {
@@ -41,6 +41,14 @@ export default defineNuxtConfig({
     "@/assets/css/carousel.scss",
   ],
   app: {
+    pageTransition: {
+      name: "page",
+      mode: "out-in",
+    },
+    layoutTransition: {
+      name: "layout",
+      mode: "out-in",
+    },
     head: {
       script: [
         { src: "/ckeditor5/build/ckeditor.js" },
@@ -57,10 +65,11 @@ export default defineNuxtConfig({
       "https://api.codeyad.com",
       "http://localhost:3000",
       "https://codeyad.com",
+      "https://dl.codeyad.com",
       "http://127.0.0.1:3000",
     ],
     alias: {
-      codeyad: "https://codeyad.com",
+      codeyad: "https://dl.codeyad.com",
       static: "http://127.0.0.1:3000",
       //static: "https://codeyad-front.vercel.app",
     },

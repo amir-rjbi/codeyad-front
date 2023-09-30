@@ -1,5 +1,6 @@
 <template>
   <div class="container pb-12">
+
     <Head>
       <Title>دوره های من</Title>
     </Head>
@@ -15,7 +16,9 @@
         <BaseSkeletonLoaidng class="rounded-lg" width="100%" height="100px" v-for="item in [1, 2, 3]" :key="item" />
       </template>
       <template v-else>
-        <div v-for="item in getCoursesByTab" class="bg-white gap-4 flex-wrap rounded-lg p-6 flex justify-between items-center">
+        <BaseAlert v-if="getCoursesByTab.length == 0">دوره ای برای نمایش وجود ندارد</BaseAlert>
+        <div v-for="item in getCoursesByTab"
+          class="bg-white gap-4 flex-wrap rounded-lg p-6 flex justify-between items-center">
           <div class="flex gap-7 items-center sm:flex-wrap flex-grow">
             <base-img :src="GetCourseImage(item.course.imageName)" class="rounded-sm w-[163px] sm:w-full" alt="course"
               sizes="sm:100vw lg:300px" />
@@ -60,7 +63,7 @@ const getCoursesByTab = computed(() => {
   if (selected.value == 'all')
     return courses.value;
   if (selected.value == 'inProgress')
-    return courses.value.filter(f => f.watchPercentage < 100);
+    return courses.value.filter(f => f.watchPercentage > 0);
   else
     return courses.value.filter(f => f.watchPercentage == 100);
 

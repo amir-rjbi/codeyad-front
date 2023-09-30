@@ -12,7 +12,7 @@ export const GetUserAlertsCount = (): Promise<
 };
 
 export const GetUserCourses = (): Promise<IApiResponse<UserCourse[]>> => {
-  return FetchApi("/user/UserCourses");
+  return useFetchWithCache("/user/UserCourses");
 };
 
 export const EditProfile = (
@@ -63,6 +63,14 @@ export const EditUser = (data: FormData) => {
   return FetchApi("/user", {
     method: "PUT",
     body: data,
+  });
+};
+export const SetFavoriteCategories = (categories: string) => {
+  return FetchApi("/user/favorite-categories", {
+    method: "PUT",
+    query: {
+      categories,
+    },
   });
 };
 export const IsAccessRegisterTeacherPage = () => {

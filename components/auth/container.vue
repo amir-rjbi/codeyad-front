@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="pt-6 pb-10 sm:pt-0 sm:pb-6">
         <Transition name="layout" mode="out-in">
             <auth-login v-if="authStore.currentStep == 'login'" />
             <auth-register v-else-if="authStore.currentStep == 'register'" />

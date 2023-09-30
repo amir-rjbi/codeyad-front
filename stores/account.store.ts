@@ -1,5 +1,4 @@
-import { useUtilStore } from "./util.store";
-import { NotificationDto } from "./../models/account/Notification";
+import { TicketFilterResult } from "./../models/tickets/TicketDto";
 import {
   GetCurrentUserData,
   GetUserAlertsCount,
@@ -12,6 +11,7 @@ export const useAccountStore = defineStore("account", () => {
   const currentUser: Ref<User | null> = ref(null);
   const newAlertsCount: Ref<UserAlertsCount | null> = ref(null);
   const initLoading = ref(true);
+  const ticketFilterResult: Ref<TicketFilterResult | null> = ref(null);
 
   const haveNewAlert = computed(() => {
     if ((newAlertsCount.value?.newMessagesCount ?? 0) > 0) return true;
@@ -35,7 +35,7 @@ export const useAccountStore = defineStore("account", () => {
       promise[0].metaData.appStatusCode == ApiStatusCodes.UnAuthorize
     ) {
       var cookie = useCookie("c-access-token");
-      console.log(cookie)
+      console.log(cookie);
       var refreshCookie = useCookie("c-refresh-token");
       cookie.value = null;
       refreshCookie.value = null;
@@ -51,5 +51,6 @@ export const useAccountStore = defineStore("account", () => {
     currentUser,
     newAlertsCount,
     initLoading,
+    ticketFilterResult
   };
 });

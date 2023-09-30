@@ -77,9 +77,10 @@
   </div>
 </template>
 <script setup lang="ts">
-import { TicketFilterData, TicketStatus } from "~/models/tickets/TicketDto";
+import { TicketFilterData, TicketFilterResult, TicketStatus } from "~/models/tickets/TicketDto";
 import { GetUserTickets } from "~/services/ticket.service";
 import { BaseFilterResult } from "~/models/IApiResponse";
+import { useAccountStore } from "~/stores/account.store";
 
 const router = useRouter();
 definePageMeta({
@@ -89,12 +90,19 @@ const loading = ref(false);
 const isOpenModal = ref(false);
 const pageId = ref(1);
 const tickets: Ref<TicketFilterData[]> = ref([]);
-const ticketsResult: Ref<BaseFilterResult | null> = ref(null);
+const ticketsResult: Ref<TicketFilterResult | null> = ref(null);
+const accountStore = useAccountStore();
 
 watch(pageId, async () => await getData());
 
 onMounted(async () => {
-  await getData();
+  if (accountStore.ticketFilterResult != null) {
+    ticketsResult.value = accountStore.ticketFilterResult;
+    tickets.value = accountStore.ticketFilterResult.tickets ?? [];
+  } else {
+    await getData();
+    accountStore.ticketFilterResult = ticketsResult.value;
+  }
 })
 
 const getData = async () => {

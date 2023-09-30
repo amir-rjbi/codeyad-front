@@ -19,11 +19,11 @@
         </template>
         <template v-else>
             <aside :class="['bg-secondary sm:!w-full', { 'card-loading': videoLoading }]">
-                <div class="my-4">
+                <div class="mt-4 mb-6">
                     <div class="flex justify-between">
                         <p class="text-h8">درصد پیشرفت</p>
                         <p>
-                            <label class="text-blue"> {{ seenedEpisodeCount }}</label>
+                            <label class="text-blue font-bold"> {{ seenedEpisodeCount }}</label>
                             /
                             <span>{{ videoPlayerData.episodeCount }}</span>
                             جلسه
@@ -130,7 +130,6 @@ const { data, pending } = await useAsyncData("course-panel", () => GetCourseForP
 const videoUrl = ref(GetCourseDemo(data.value?.data?.demo ?? ''));
 if (!data.value?.data) {
     toast.showToast("درحال حاظر دسترسی به دوره ندارید", ToastType.warning);
-    console.log(route.params.slug);
     throw createError({ statusCode: 403, statusMessage: 'دسترسی غیرمجاز' })
 }
 const videoPlayerData = ref(data.value.data);
@@ -138,9 +137,14 @@ const videoLoading = ref(false);
 const showVideo = async (episde: PlayerEpisode) => {
     selectedEpisode.value = episde;
     videoLoading.value = true;
-    var res = await $fetch<string>(`${BASE_URL}/VideoPlayer/ShowVideo?courseId=${data.value?.data?.id}&episodeToken=${episde.token}&token=${authStore.getAccessToken()}`);
-    if (res) {
-        videoUrl.value = res ?? '';
+    try {
+        var res = await $fetch<string>(`${BASE_URL}/VideoPlayer/ShowVideo?courseId=${data.value?.data?.id}&episodeToken=${episde.token}&token=${authStore.getAccessToken()}`);
+        if (res) {
+            videoUrl.value = res ?? '';
+        }
+    }catch{
+        toast.showToast("مشکلی در عملیات رخ داده",ToastType.error)
+        selectedEpisode.value=null;
     }
     videoLoading.value = false;
 

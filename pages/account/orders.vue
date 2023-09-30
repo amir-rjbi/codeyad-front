@@ -64,6 +64,7 @@
   </div>
 </template>
 <script setup lang="ts">
+import { Order } from "~/models/account/Order";
 import { GetUserOrder } from "../../services/order.service";
 definePageMeta({
   layout: "account",

@@ -21,7 +21,7 @@
                         fill="#286BB8" />
                 </svg>
             </h2>
-            <BaseButton class="sm:w-full sm:!mt-[34px]" :render-button-tag="false" to="/courses">بزن بریم</BaseButton>
+            <BaseButton class="sm:w-full w-[142px] mt-[34px]" :render-button-tag="false" to="/courses">بزن بریم</BaseButton>
 
         </div>
         <div class="image  sm:!hidden">

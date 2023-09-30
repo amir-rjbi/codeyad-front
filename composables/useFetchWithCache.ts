@@ -1,4 +1,4 @@
-import { StorageSerializers } from '@vueuse/core';
+import { StorageSerializers } from "@vueuse/core";
 import { IApiResponse } from "./../models/IApiResponse";
 
 export async function useFetchWithCache<T>(
@@ -12,9 +12,8 @@ export async function useFetchWithCache<T>(
     const data = await FetchApi<T>(url);
     // Update the cache
     cached.value = data as T;
-
   } else {
     console.log(`Getting value from cache for ${url}`);
   }
-  return cached.value;
+  return cached.value as IApiResponse<T>;
 }

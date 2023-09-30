@@ -1,36 +1,65 @@
 <template>
     <div class="container">
-        <div class="nav-tabs flex justify-center  sm:justify-between sm:!gap-8">
-            <button name="all" :class="{ active: selected == 'all' }" @click="selected = 'all'">جاری</button>
-            <button name="inProgress" :class="{ active: selected == 'inProgress' }" @click="selected = 'inProgress'">درحال
+        <div :class="['nav-tabs flex justify-center  sm:justify-between sm:!gap-8', { 'card-loading': pending }]">
+            <button name="all" :class="{ active: selected == BootcampStatus.شروع_ثبت_نام }"
+                @click="selected = BootcampStatus.شروع_ثبت_نام">جاری</button>
+            <button name="inProgress" :class="{ active: selected == BootcampStatus.درحال_برگزاری }"
+                @click="selected = BootcampStatus.درحال_برگزاری">درحال
                 برگزاری</button>
-            <button name="completed" :class="{ active: selected == 'completed' }" @click="selected = 'completed'">تکمیل
+            <button name="completed" :class="{ active: selected == BootcampStatus.به_اتمام_رسیده }"
+                @click="selected = BootcampStatus.به_اتمام_رسیده">تکمیل
                 شده</button>
         </div>
-        <div class="tab-content">
-            <div class="bootcamp-item rounded-[24px] w-full mb-16 sm:mb-8" v-for="item in [1, 2, 3, 4]" :key="item">
-                <base-img src="static/bootcamp.png" alt="salam" class="" />
-                <div class="content">
-                    <div class="title">
-                        <p class="text-white text-[30px] font-black sm:!text-[22px]"> بوت کمپ طراحی گرافیک</p>
-                        <p class="text-orange text-h5 sm:font-bold">مدرس باربارا کریمی</p>
-                    </div>
-                    <div class="flex items-end gap-1 flex-col">
-                        <p class="text-white">از تاریخ ۱۴۰۲/۰۴/۰۴</p>
-                        <p class="text-white">تا تاریخ ۱۴۰۲/۰۵/۲۲</p>
-                        <base-button :render-button-tag="false" to="/bootcamps/123" color="orange" class="mt-3">شروع
+        <div class="tab-content pb-10">
+            <template v-if="pending">
+                <BaseSkeletonLoaidng height="230px" v-for="item in [1, 2, 3]" class="mb-3 rounded" />
+            </template>
+
+            <Transition name="layout" mode="out-in">
+                <BaseAlert v-if="filterData?.length == 0 && pending==false" alert-type="warning">
+                    بوتکمپ ای برای نمایش وجود ندارد
+                </BaseAlert>
+                <div v-else>
+                    <div class="bootcamp-item rounded-[24px] w-full mb-16 sm:mb-8" v-for="item in filterData"
+                        :key="item.id">
+                        <base-img :src="GetBootcampImage(item.imageName)" :alt="item.title" />
+                        <div class="content">
+                            <div class="title">
+                                <p class="text-white text-[30px] font-black sm:!text-[22px]">{{ item.title }}</p>
+                                <p class="text-orange text-h5 sm:font-bold">مدرس {{ item.teacherName }}</p>
+                            </div>
+                            <div class="flex items-end gap-1 flex-col">
+                                <p class="text-white">از تاریخ {{ toPersianDate(item.startDate) }}</p>
+                                <p class="text-white">تا تاریخ {{ toPersianDate(item.endDate) }}۲</p>
+                                <base-button :render-button-tag="false" :to="`/bootcamps/${item.slug}`" color="orange"
+                                    class="mt-3">شروع
+                                    بوتکمپ</base-button>
+                            </div>
+                        </div>
+                        <base-button :render-button-tag="false" :to="`/bootcamps/${item.slug}`" color="orange"
+                            class="hidden mt-4 w-full">شروع
                             بوتکمپ</base-button>
                     </div>
                 </div>
-                <base-button :render-button-tag="false" to="/bootcamps/123" color="orange" class="hidden mt-4 w-full">شروع
-                            بوتکمپ</base-button>
-            </div>
+            </Transition>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-const selected = ref('all');
+import { BootCampFilterResult, BootcampStatus } from '~/models/bootcamps/BootCampFilterData';
+import { GetBootcamps } from '~/services/bootcamp.service';
+
+const selected = ref(BootcampStatus.شروع_ثبت_نام);
+const loading = ref(false);
+const pageId = ref(1);
+const take = ref(20);
+const { data, pending, refresh } = useAsyncData('bootcamps', () => GetBootcamps(pageId.value, take.value));
+
+const filterData = computed(() => {
+    return data.value?.data?.bootCamps.filter(f => f.status == selected.value)
+})
+
 </script>
 
 <style scoped lang="scss">
@@ -39,10 +68,13 @@ const selected = ref('all');
         img {
             display: none;
         }
+
         height: fit-content !important;
-        a.hidden{
+
+        a.hidden {
             display: flex !important;
         }
+
         div.content {
             left: 0 !important;
             transform: none !important;
@@ -53,9 +85,11 @@ const selected = ref('all');
             padding: 1.5rem;
             justify-content: center;
             align-items: center;
-            a{
+
+            a {
                 display: none !important;
             }
+
             .title {
                 p {
                     text-align: center;
@@ -162,6 +196,4 @@ const selected = ref('all');
         top: 30%;
     }
 }
-
-
 </style>

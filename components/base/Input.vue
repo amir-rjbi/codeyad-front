@@ -3,7 +3,7 @@
         <label :class="['input-label']" v-if="label">{{ label }}<span class="text-red-600" v-if="required">
                 *</span></label>
         <div :class="['input-group',]">
-            <input :type="type" :disabled="disabled" :class="[
+            <input @blur="handleBlur($event, true)" :type="type" :disabled="disabled" :class="[
                 'form-control ',
                 { 'bg-transparent': transparent },
                 { 'invalid-data': !!errorMessage },
@@ -16,7 +16,7 @@
             </div>
 
             <slot v-if="hasSlot()" />
-            <p class="input-invalid-text" v-if="errorMessage">{{ errorMessage }}</p>
+            <p class="input-invalid-text" v-if="errorMessage && meta.touched">{{ errorMessage }}</p>
         </div>
     </div>
 </template>

@@ -81,6 +81,7 @@
             justify-content: center;
             position: absolute;
             top: -3rem;
+            filter: drop-shadow(0.7694693207740784px 3.0778772830963135px 9.23363208770752px rgba(36, 50, 88, 0.40));
         }
     }
 }

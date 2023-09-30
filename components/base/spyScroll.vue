@@ -21,8 +21,6 @@ onMounted(() => {
             section.forEach(function (e) {
                 Object.assign(sections, { [e.id]: [e.offsetTop] })
             });
-        console.log(sections);
-
         window.addEventListener('scroll', spy)
     }, 500);
 });

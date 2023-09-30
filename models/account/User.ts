@@ -7,7 +7,9 @@ export interface User {
   imageName: string;
   roles: string[];
   courseIds: number[];
+  bootCamps: number[];
   fullName: string;
+  favoriteCategories: string[] | null;
   name: string;
   family: string;
   aboutMe: string;

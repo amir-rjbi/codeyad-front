@@ -43,6 +43,7 @@
 </template>
   
 <script setup lang="ts">
+//@ts-ignore
 import kebabCase from "lodash/kebabCase"
 import { Form } from "vee-validate";
 import * as Yup from "yup";
@@ -82,13 +83,17 @@ definePageMeta({
 });
 onMounted(async () => {
     if (accountStore.currentUser?.isCompleteProfile == false) {
-        router.push('/account');
-        toast.showToast('لطفا حساب کاربری خود را تکمیل کنید ')
+        toast.showToast('لطفا حساب کاربری خود را تکمیل کنید ', ToastType.warning)
+        setTimeout(() => {
+            router.push('/account');
+        }, 100);
         return;
     }
     if (accountStore.currentUser?.isVerifyPhoneNumber == false) {
-        router.push('/account');
-        toast.showToast('لطفا شماره تلفن خود را تایید کنید ')
+        toast.showToast('لطفا شماره تلفن خود را تایید کنید ', ToastType.warning)
+        setTimeout(() => {
+            router.push('/account');
+        }, 100);
         return;
     }
     loading.value = true;

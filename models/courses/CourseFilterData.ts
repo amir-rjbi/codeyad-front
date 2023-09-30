@@ -1,8 +1,8 @@
 import { SeoData } from "./../SeoData";
-import {SearchOnType} from "../IApiResponse";
+import { SearchOnType } from "../IApiResponse";
 
 export interface CourseSearchData {
-  id:number;
+  id: number;
   courseTitle: string;
   slug: string;
   imageName: string;
@@ -43,36 +43,36 @@ export interface CourseFilterParams {
   take: number;
   categorySlug?: string | null | undefined;
   filterBy?: CourseFilterBy | null | undefined;
+  orderBy?: CourseOrderBy | null | undefined;
+  favoriteCategories?: boolean | null | undefined;
+  progressStatus?: CourseProgressStatus | null | undefined;
 }
-export interface TeacherCourseFilterParams extends CourseFilterParams{
-  status:CourseStatus | null | undefined;
-  orderBy:OrderBy | null | undefined;
+export interface TeacherCourseFilterParams extends CourseFilterParams {
+  status: CourseStatus | null | undefined;
+  filterBy: CourseFilterBy | null | undefined;
+  orderBy: CourseOrderBy | null | undefined;
   courseLevel: CourseLevel | null | undefined;
-  progressStatus : ProgressStatus | null | undefined;
+  progressStatus: CourseProgressStatus | null | undefined;
   userId: number | null | undefined;
-  searchOn:SearchOnType | null | undefined;
-
+  searchOn: SearchOnType | null | undefined;
 }
 export enum CourseFilterBy {
   all = "all",
   free = "freeCourse",
   notFreeCourse = "notFreeCourse",
 }
-
+export enum CourseOrderBy {
+  visit = "visit",
+  popular = "popular",
+  latest = "latest",
+}
 export enum CourseStatus {
   active = "active",
   pending = "pending",
   rejected = "rejected",
 }
 
-export enum OrderBy {
-  all = "all",
-  freeCourse = "freeCourse",
-  notFreeCourse = "notFreeCourse",
-}
-
-
-export enum ProgressStatus {
+export enum CourseProgressStatus {
   inProgress = "inProgress",
   completed = "completed",
   comingSoon = "comingSoon",

@@ -1,9 +1,9 @@
 <template>
     <div class="container py-4" ref="rootElement">
-
-        <Head>
-            <Title>پرسش و پاسخ</Title>
-        </Head>
+        <BaseSeoData :meta="{
+            indexPage: true,
+            metaTitle: 'پرسش و پاسخ'
+        }" />
         <BaseBreadCrumb :items="[
             {
                 title: 'خانه',
@@ -60,7 +60,8 @@
                                 <nuxt-link :to="`/questions?category=${item.category.slug}`"
                                     class="label text-h8 !text-white bg-slate-400 py-1 px-2 rounded-sm">{{
                                         item.category.categoryTitle }}</nuxt-link>
-                                <label class="text-h8  text-gray-800">{{ toPersianDate(new Date(item.creationDate), true)
+                                <label class="text-h8  text-gray-800">{{ toPersianDate(new Date(item.creationDate),
+                                    true)
                                 }}</label>
                             </div>
                         </div>
@@ -192,9 +193,9 @@ onMounted(async () => {
         color: black !important;
     }
 }
-.question-item
-{
-    .description{
+
+.question-item {
+    .description {
         display: -webkit-box;
         overflow: hidden;
         -webkit-box-orient: vertical;

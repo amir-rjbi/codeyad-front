@@ -12,9 +12,9 @@
                     <p class="text-h5 sm:!text-h6 mb-4">{{ $route.meta.title }}</p>
                     <slot />
                 </template>
-                <div v-else>
-                    لطفا منتظر بمانید
-                </div>
+                <base-alert v-else>
+                    درحال دریافت اطلاعات ، لطفا منتظر بمانید...
+                </base-alert>
             </div>
         </div>
         <TheFooter class=" mt-[90px]" />
@@ -24,5 +24,18 @@
 import { useAccountStore } from '~/stores/account.store';
 
 const accountStore = useAccountStore();
+
+const router = useRouter();
+const toast = useToast();
+
+onMounted(async () => {
+    var op = router.currentRoute.value.query.op;
+    if (op) {
+        if (op.toString() == 'success') {
+            toast.showToast("پرداخت با موفقیت انجام شد");
+            router.push(router.currentRoute.value.path);
+        }
+    }
+});
 </script>
 

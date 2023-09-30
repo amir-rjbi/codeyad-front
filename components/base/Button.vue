@@ -4,7 +4,7 @@
         { 'btn-white': colorWhite },
         { '!rounded-full': rounded },
         { 'btn-transparent': transparent },
-        outline ? `text-${color}  !border-${color} hover:bg-${color}-250 dark:hover:bg-transparent dark:hover:opacity-80` : `text-white bg-${color} hover:bg-${color}-950`,
+        outline ? `text-${color}  !border-${color} hover:!bg-${color}-250 dark:hover:bg-transparent dark:hover:opacity-80` : `!text-white bg-${color} hover:bg-${color}-950`,
         size ? `btn-${size}` : null,
         { 'loading': loading }
     ]" :disabled="loading || disabled">
@@ -26,7 +26,7 @@
         { 'btn-white': colorWhite },
         { 'btn-transparent': transparent },
         { 'rounded-full': rounded },
-        outline ? `text-${color}  !border-${color} hover:bg-${color}-250 dark:hover:bg-transparent dark:hover:opacity-80` : `!text-white bg-${color} hover:bg-${color}-950`,
+        outline ? `text-${color}  !border-${color} hover:!bg-${color}-250 dark:hover:bg-transparent dark:hover:opacity-80` : `!text-white bg-${color} hover:bg-${color}-950`,
         size ? `btn-${size}` : null,
         { 'loading': loading }
     ]" :disabled="loading || disabled">
