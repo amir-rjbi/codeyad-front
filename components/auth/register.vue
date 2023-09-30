@@ -11,12 +11,14 @@
         <base-line-text class="text-xl my-8">
             یا
         </base-line-text>
-        <base-button class="w-full mt-9 font-bold" transparent>
-            <template #icon>
-                <IconsGoogle width="40" height="40" />
-            </template>
-            ثبت نام از طریق گوگل
-        </base-button>
+        <GoogleLogin :callback="googleCallback" popup-type="TOKEN" class="w-full h-fit ">
+            <base-button :loading="loading" class="w-full  font-bold" transparent>
+                <template #icon>
+                    <IconsGoogle width="40" height="40" />
+                </template>
+                ثبت نام با گوگل
+            </base-button>
+        </GoogleLogin>
 
         <div class="flex gap-4 items-center justify-center mt-6">
             <p class="m-0">قبلا ثبت نام کرده اید؟</p>
@@ -29,8 +31,9 @@
 import { Form } from 'vee-validate';
 import { useAuthStore } from '~~/stores/auth.store';
 import * as Yup from 'yup';
-import { RegisterCommand, RegisterUser } from '~/services/auth.service';
+import { LoginWithGoogle, RegisterCommand, RegisterUser } from '~/services/auth.service';
 import Loading from '../icons/loading.vue';
+import { CallbackTypes } from 'vue3-google-login';
 
 const schema = Yup.object().shape({
     email: Yup.string().required().email().label('ایمیل'),
@@ -55,4 +58,14 @@ const register = async (fData: any, ev: any) => {
     loading.value = false;
 
 }
+const googleCallback: CallbackTypes.TokenResponseCallback = async (response) => {
+    loading.value = true;
+    var res = await LoginWithGoogle(response.access_token);
+    if (res.isSuccess) {
+        authStore.setToken(res.data!);
+        authStore.isOpenModal = false;
+        toast.showToast("ثبت نام با موفقیت انجام شد")
+    }
+    loading.value = false;
+};
 </script>

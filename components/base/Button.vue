@@ -112,7 +112,7 @@ const props = defineProps({
 
 .btn-transparent {
     background: transparent !important;
-    color: var(--color-black);
+    color: var(--color-black) !important;
     border: 2.313px solid var(--color-gray-300);
 
     &:hover {
