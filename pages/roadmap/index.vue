@@ -97,7 +97,7 @@
                                 <div class="w-[50%] sm:w-full p-2"
                                     v-for="item in data?.data?.roadMapCards.filter(f => f.roadMapType == RoadMapType.programminglanguage)">
                                     <div class="bg-white rounded">
-                                        <base-img class="rounded-t" :src="GetRoadMapImage(item.imageName)"
+                                        <base-img class="rounded-t w-full h-[180px] object-fill"  width="500px" :src="GetRoadMapImage(item.imageName)"
                                             :alt="item.title" />
                                         <div class="p-2">
                                             <nuxt-link class="text-h8 font-semibold text-blue"

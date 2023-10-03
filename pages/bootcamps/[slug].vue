@@ -145,17 +145,20 @@ import { TransactionFor } from '~/models/transaction/TransactionFor';
 import { GetBootcampBySlug } from '~/services/bootcamp.service';
 import { CreateTransaction } from '~/services/transaction.service';
 import { useAccountStore } from '~/stores/account.store';
+import { useAuthStore } from '~/stores/auth.store';
 import { useUtilStore } from '~/stores/util.store';
 
 definePageMeta({
     layout: "empty"
 });
+const utilStore = useUtilStore();
 const accountStore = useAccountStore();
+const authStore = useAuthStore();
+
 var video: Ref<HTMLVideoElement | null> = ref(null);
 const playVideo = ref(false);
 const router = useRouter();
 const toast = useToast();
-const utilStore = useUtilStore();
 const { data } = await useAsyncData("single-bootcamp", () => GetBootcampBySlug(router.currentRoute.value.params.slug.toString()));
 if (!data.value?.data) {
     toast.showToast("بوتکمپ مورد نظر یافت نشد", ToastType.warning);
@@ -176,6 +179,10 @@ const isRegistered = computed(() => {
     return (accountStore.currentUser?.bootCamps ?? []).includes(data.value?.data?.id ?? 0);
 })
 const register = async () => {
+    if(authStore.isLogin==false){
+        authStore.openLoginModal(register);
+        return;
+    }
     utilStore.globalLoading = true;
     var res = await CreateTransaction(TransactionFor.bootCamp, 0, data.value?.data?.id, "",
         `${CurrentDomainUrl}/account/bootcamps?op=success`);

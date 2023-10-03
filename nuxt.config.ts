@@ -70,7 +70,7 @@ export default defineNuxtConfig({
     ],
     alias: {
       codeyad: "https://dl.codeyad.com",
-      static: "http://127.0.0.1:3000",
+      static: "http://localhost:3000",
       //static: "https://codeyad-front.vercel.app",
     },
   },
