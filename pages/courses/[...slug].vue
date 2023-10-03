@@ -1,5 +1,6 @@
 <template>
     <div class="py-5 ">
+
         <Head>
             <Title>جستجو میان همه دوره های سایت</Title>
         </Head>
@@ -31,6 +32,8 @@ const pageId = ref(1);
 const search = ref(route.query.q?.toString());
 const categorySlug = ref(route.params.slug[0]);
 const filterBy = ref(route.query.filter?.toString());
+const favoriteCategory = ref(route.query.favorite?.toString());
+
 const utilStore = useUtilStore();
 const loading = ref(false);
 const tabData: Ref<TabData[]> = ref([{
@@ -43,7 +46,9 @@ const { data, pending, refresh } = await useAsyncData('courses', () => GetCourse
     take: 12,
     search: search.value,
     categorySlug: categorySlug.value,
-    filterBy: (filterBy.value as CourseFilterBy)
+    filterBy: (filterBy.value as CourseFilterBy),
+    //@ts-ignore
+    favoriteCategories: (favoriteCategory.value) ?? null
 }));
 const courses: Ref<CourseSearchData[]> = ref(data.value?.data?.data ?? []);
 

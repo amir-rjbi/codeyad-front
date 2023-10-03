@@ -5,7 +5,7 @@
             metaTitle: `پروفایل ${data?.data?.teacher.fullName}`
         }" />
 
-        <AccountMastersMasterProfile :teacher-data="data!.data!" />
+        <MastersMasterProfile :teacher-data="data!.data!" />
     </div>
 </template>
 <script setup lang="ts">
