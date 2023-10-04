@@ -137,7 +137,7 @@ export const GetTeacherComments = (
 // --- Course Specification Services --- //
 export const GetSpecificationsOfCourse = (
     courseId:number
-):Promise<IApiResponse<FilterResult<CourseSpecificationDto>>> => {
+):Promise<IApiResponse<CourseSpecificationDto[]>> => {
   return FetchApi(`/Teacher/CourseSpecification/${courseId}`);
 }
 export const GetSpecifications = (
