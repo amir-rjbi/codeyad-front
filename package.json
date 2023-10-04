@@ -23,7 +23,7 @@
     "tailwindcss": "^3.3.3"
   },
   "dependencies": {
-    "@nuxt/image": "^1.0.0-rc.1",
+    "@nuxt/image": "^1.0.0-rc.3",
     "@persian-tools/persian-tools": "^3.5.0",
     "@pinia/nuxt": "^0.4.11",
     "click-outside-vue3": "^4.0.1",
