@@ -83,7 +83,7 @@ export const SetSpecialComments = (courseId: number, comments: string) => {
 };
 export const DeleteSpecialComment = (commentId: number) => {
   return FetchApi(
-    `/Teacher/DeleteSpecialComments?specialCommnetId=${commentId}`,
+    `/Teacher/DeleteSpecialComments/${commentId}`,
     {
       method: "DELETE",
     }
