@@ -8,6 +8,7 @@ import { OrderDetailsFilterResult } from "~/models/teachers/orderDetails";
 import { TeacherCommentsFilterParams } from "~/models/teachers/teacherComments";
 import { CourseSpecialComment } from "~/models/courses/CourseLanding";
 import { Comment } from "~/models/comments/Comment";
+import {CourseSpecificationDto} from "~/models/teachers/courseSpecification";
 
 export const GetTeacherCourses = (
   params: TeacherCourseFilterParams
@@ -84,7 +85,7 @@ export const SetSpecialComments = (courseId: number, comments: string) => {
 };
 export const DeleteSpecialComment = (commentId: number) => {
   return FetchApi(
-    `/Teacher/DeleteSpecialComments?specialCommnetId=${commentId}`,
+    `/Teacher/DeleteSpecialComments/${commentId}`,
     {
       method: "DELETE",
     }
@@ -132,3 +133,56 @@ export const GetTeacherComments = (
     params,
   });
 };
+
+// --- Course Specification Services --- //
+export const GetSpecificationsOfCourse = (
+    courseId:number
+):Promise<IApiResponse<FilterResult<CourseSpecificationDto>>> => {
+  return FetchApi(`/Teacher/CourseSpecification/${courseId}`);
+}
+export const GetSpecifications = (
+    specificationId:number
+):Promise<IApiResponse<CourseSpecificationDto>> => {
+  return FetchApi(`/Teacher/CourseSpecification/GetById/${specificationId}`);
+}
+export const AddCourseSpecification = (
+    courseId:number,
+    title:string,
+    desc:string
+) => {
+
+  const addData = new FormData();
+  addData.append('courseId',courseId.toString());
+  addData.append('title',title);
+  addData.append('description',desc);
+
+  return FetchApi(`/Teacher/CourseSpecification`,{
+    method:'POST',
+    body:addData
+  });
+}
+export const EditCourseSpecification = (
+    specificationId:number,
+    courseId:number,
+    title:string,
+    desc:string
+) => {
+
+  const editData = new FormData();
+  editData.append('id',specificationId.toString());
+  editData.append('courseId',courseId.toString());
+  editData.append('title',title);
+  editData.append('description',desc);
+
+  return FetchApi(`/Teacher/CourseSpecification`,{
+    method:'PUT',
+    body:editData
+  });
+}
+export const RemoveCourseSpecification = (
+    specificationId:number
+) => {
+  return FetchApi(`/Teacher/CourseSpecification/${specificationId}`,{
+    method:'DELETE'
+  });
+}
